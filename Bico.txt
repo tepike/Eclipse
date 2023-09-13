@@ -1,0 +1,6 @@
+Ved Elek,Oroszország,30,250
+Dzsuzepp Elek,Olaszország,25,315
+Herg Elek,Portugália,24,159
+Kerep Elek,Macedónia,36,210
+Sprint Elek,Magyarország,29,223
+Per Elek,Magyarország,28,236

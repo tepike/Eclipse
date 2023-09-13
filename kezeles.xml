@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Bevasarlas>
+    <Aldi Azonosito="523">
+        <Ruhazat>
+            <Termek>Adidas</Termek>
+            <Termek>Nike</Termek>
+        </Ruhazat>
+        <Elelmiszer>
+            <Termek>Meleg</Termek>
+            <Termek>Hideg</Termek>
+        </Elelmiszer>
+        <Egyeb>
+            <Termek>Tisztitoszer</Termek>
+            <Termek>Higienia</Termek>
+        </Egyeb>
+    </Aldi>
+    <Lidl Azonosito="Bigyo">
+        <Ruhazat>
+            <Termek>Fila</Termek>
+            <Termek>O'neil</Termek>
+        </Ruhazat>
+    </Lidl>
+</Bevasarlas>

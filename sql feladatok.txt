@@ -1,0 +1,26 @@
+3:
+SELECT DISTINCT nemzetiseg FROM szerzo 
+WHERE nemzetiseg <> "magyar" 
+
+
+4:
+SELECT nev, 2023-szulev AS Életkor from szerzo
+WHERE halev is NULL
+
+
+5:
+SELECT szerzo.nev, min (konyv.helyezes) AS legjobb from szerzo 
+INNER JOIN konyv ON konyv.szerzoid=szerzo.id
+WHERE nemzetiseg="magyar"
+GROUP BY szerzo.nev
+ORDER BY 2
+
+
+
+
+6:
+SELECT szerzo.nev, count(konyv.szerzoid) AS Könyvek from konyv
+INNER JOIN szerzo on szerzo.id=konyv.szerzoId
+WHERE szerzo.nemzetiseg="magyar"
+GROUP BY 1
+ORDER By 2 DESC

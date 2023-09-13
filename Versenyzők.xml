@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Versenyzok>
+    <Versenyzo>
+        <Nev>Ved Elek</Nev>
+        <Szarmazasihely>Oroszország</Szarmazasihely>
+        <Eletkor>30</Eletkor>
+        <Pontszam>250</Pontszam>
+    </Versenyzo>
+    <Versenyzo>
+        <Nev>Dzsuzepp Elek</Nev>
+        <Szarmazasihely>Olaszország</Szarmazasihely>
+        <Eletkor>25</Eletkor>
+        <Pontszam>315</Pontszam>
+    </Versenyzo>
+    <Versenyzo>
+        <Nev>Herg Elek</Nev>
+        <Szarmazasihely>Portugália</Szarmazasihely>
+        <Eletkor>24</Eletkor>
+        <Pontszam>159</Pontszam>
+    </Versenyzo>
+    <Versenyzo>
+        <Nev>Kerep Elek</Nev>
+        <Szarmazasihely>Macedónia</Szarmazasihely>
+        <Eletkor>36</Eletkor>
+        <Pontszam>210</Pontszam>
+    </Versenyzo>
+    <Versenyzo>
+        <Nev>Sprint Elek</Nev>
+        <Szarmazasihely>Magyarország</Szarmazasihely>
+        <Eletkor>29</Eletkor>
+        <Pontszam>223</Pontszam>
+    </Versenyzo>
+    <Versenyzo>
+        <Nev>Per Elek</Nev>
+        <Szarmazasihely>Magyarország</Szarmazasihely>
+        <Eletkor>28</Eletkor>
+        <Pontszam>236</Pontszam>
+    </Versenyzo>
+</Versenyzok>

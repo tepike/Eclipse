@@ -1,0 +1,27 @@
+
+<autok>
+	
+	<auto Uzemanyag="Benzin">
+		
+		<Tipus>Skoda</Tipus>
+		<Szin> Fekete </Szin>
+		<Uzemanyag> Benzin </Uzemanyag>
+		<Fogyasztas> 6.5 </Fogyasztas>
+		<Ulesek_szama> 5 </Ulesek_szama>
+		<Evjarat>2005</Evjarat>
+		<forgalomban>
+			<Honap>10 </Honap>
+			<Ev> 2005</Ev>
+		</forgalomban>
+	</auto>
+
+	<auto Uzemanyag="Benzin" Evjarat="2000">
+		<Tipus>Audi</Tipus>
+		<Szin> Feher </Szin>
+		<Uzemanyag> Benzin </Uzemanyag>
+		<Fogyasztas> 7.5 </Fogyasztas>
+		<Ulesek_szama> 5 </Ulesek_szama>
+		<Evjarat>2013</Evjarat>
+	</auto>
+
+</autok>
