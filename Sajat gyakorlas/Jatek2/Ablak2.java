@@ -40,6 +40,7 @@ public class Ablak2 extends JFrame {
         settingsPanel.setVisible(false);
         getContentPane().add(settingsPanel);
 
+        
         JButton btnNewGame = new JButton("Új játék");
         btnNewGame.setBounds(318, 202, 150, 57);
         menuPanel.add(btnNewGame);
@@ -88,6 +89,7 @@ public class Ablak2 extends JFrame {
             }
         });
 
+      
         add(chatBox);
         setVisible(true);
     }
