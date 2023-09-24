@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -33,9 +34,18 @@ public class Megjelenites extends JFrame {
         chatBox.setEditable(false);
         add(chatBox);
 
+        //Ablak adatok megadása mivel extends JFrame megvolt csak így.
         setSize(400, 500);
         setLayout(null);
         setVisible(true);
+        setResizable(false);
+        
+        //Ablak megnyitásának elhelyezése int-ben.
+        
+        setLocation(500,100);
+        
+
+        
 
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent mindegy) {
