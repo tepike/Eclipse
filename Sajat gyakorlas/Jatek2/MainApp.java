@@ -1,3 +1,4 @@
+//1
 package Jatek2;
 import javax.imageio.ImageIO;
 import javax.swing.*;
