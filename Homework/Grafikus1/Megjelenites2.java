@@ -31,7 +31,7 @@ public class Megjelenites2 extends JFrame {
         
         backBtn.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-        		Szovegdoboz.setText("Lofaszka");
+        		Szovegdoboz.setText("Minta szöveg");
         	};
         });
 

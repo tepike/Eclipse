@@ -20,19 +20,23 @@ public class Megjelenites extends JFrame {
 
     Megjelenites(NodeList versenyzolista) {
         this.versenyzolista = versenyzolista;
+        
+        JButton nextBtn = new JButton("Next");
+        nextBtn.setBounds(250, 300, 100, 40);
+        add(nextBtn);
 
         JButton backBtn = new JButton("Back");
         backBtn.setBounds(10, 300, 100, 40);
         add(backBtn);
 
-        JButton nextBtn = new JButton("Next");
-        nextBtn.setBounds(250, 300, 100, 40);
-        add(nextBtn);
+
 
         chatBox = new JTextArea();
         chatBox.setBounds(30, 50, 300, 200);
         chatBox.setEditable(false);
         add(chatBox);
+        displayCurrentData();
+        
 
         //Ablak adatok megadása mivel extends JFrame megvolt csak így.
         setSize(400, 500);
@@ -41,8 +45,8 @@ public class Megjelenites extends JFrame {
         setResizable(false);
         
         //Ablak megnyitásának elhelyezése int-ben.
-        
-        setLocation(500,100);
+        setLocationRelativeTo(null);
+        //setLocation(500,100);
         
 
         
@@ -85,6 +89,7 @@ public class Megjelenites extends JFrame {
             }
         }
     }
+    
 
     public static void main(String[] args) {
         try {
