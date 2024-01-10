@@ -1,18 +1,16 @@
 package BoxFox;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Font;
-import java.awt.Window;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.PublicKey;
-import java.util.Set;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -155,6 +153,7 @@ public class Ablak {
 	//panel.setBackground(Color.cyan);
 	
 	BejelentkezesGomb.addActionListener(new ActionListener() {	
+		@SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent e) {
 			if((FelhasznaloSzovegdoboz.getText().length()>0)&&(PasswordSzovegdoboz.getText().length()>0)) {
 				System.out.print("\n\tSikeres belepes"+"\nFelhasznalo = "+FelhasznaloSzovegdoboz.getText()+"\tJelszo = "+PasswordSzovegdoboz.getText());
