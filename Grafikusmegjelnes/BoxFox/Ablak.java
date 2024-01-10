@@ -210,6 +210,15 @@ public class Ablak {
 	KihagyasGomb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.out.print("\nKihagyasGomb gomb megnyomva");
+			PasswordSzoveg.setVisible(false);
+			FelhasznaloSzoveg.setVisible(false);
+			PasswordSzovegdoboz.setVisible(false);
+			FelhasznaloSzovegdoboz.setVisible(false);
+			KihagyasGomb.setVisible(false);
+			RegisztracioGomb.setVisible(false);
+			BejelentkezesGomb.setVisible(false);
+			
+			keret.setSize(1200,800);
 			
 			
 		}
