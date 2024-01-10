@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 
 import Jatek.Ablak;
 
-public class main {
-	main(){
+public class Ablak {
+	Ablak(){
 	JFrame keret = new JFrame();
 	JPanel panel= new JPanel();
 	JButton BejelentkezesGomb = new JButton("Bejelentkezés");
@@ -32,6 +32,7 @@ public class main {
 	
 	
 	
+
 	
 	keret.setSize(360,250);
 	keret.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,6 +83,7 @@ public class main {
 		public void actionPerformed(ActionEvent e) {
 			System.out.print("\nKihagyasGomb gomb megnyomva");
 			
+			
 		}
 	});
 	
@@ -106,11 +108,13 @@ public class main {
 	
 	panel.setVisible(true);
 	keret.setVisible(true);
+
+	
 	}
 
 
 	public static void main(String[] args) {
-		new main();
+		new Ablak();
 
 	}
 
