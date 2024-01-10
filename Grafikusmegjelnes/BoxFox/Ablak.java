@@ -21,14 +21,22 @@ import javax.swing.JTextField;
 public class Ablak {
 	Ablak(){
 	JFrame keret = new JFrame();
-	JPanel panel= new JPanel();
+	JLabel panel= new JLabel();
+
+	JLabel FelhasznaloSzoveg = new JLabel("Felhasznalo");
+	JLabel PasswordSzoveg = new JLabel("Password");
+	
+	JTextField FelhasznaloSzovegdoboz = new JTextField(20);
+	JPasswordField PasswordSzovegdoboz = new JPasswordField();
+	
 	JButton BejelentkezesGomb = new JButton("Bejelentkezés");
 	JButton RegisztracioGomb = new JButton("Regisztráció");
 	JButton KihagyasGomb = new JButton("Kihagyás");
-	JLabel FelhasznaloSzoveg = new JLabel("Felhasznalo");
-	JLabel PasswordSzoveg = new JLabel("Password");
-	JTextField FelhasznaloSzovegdoboz = new JTextField(20);
-	JPasswordField PasswordSzovegdoboz = new JPasswordField();
+	JButton VisszaBelepes = new JButton("Vissza");
+	JButton RegisztracioVeglegesitesGomb = new JButton("Regisztráció");
+	
+	VisszaBelepes.setVisible(false);
+	RegisztracioVeglegesitesGomb.setVisible(false);
 	
 	
 	
@@ -39,18 +47,25 @@ public class Ablak {
 	keret.add(panel);
 	keret.setTitle("BoxFox");
 	keret.setLocation(1000, 500); //Képernyő középre kell rakni
+	
+	
 			
-	panel.setLayout(null);		
-
+	panel.setVerticalAlignment(JLabel.CENTER);
+	panel.setHorizontalAlignment(JLabel.CENTER);
+	 
 	FelhasznaloSzovegdoboz.setBounds(110, 35, 160, 20);
 	FelhasznaloSzoveg.setBounds(35, 20, 100, 50);
-		
 	PasswordSzoveg.setBounds(35, 55, 100, 50);
 	PasswordSzovegdoboz.setBounds(110, 70, 160, 20);	
+	
 	
 	BejelentkezesGomb.setBounds(120, 100, 130, 30);
 	RegisztracioGomb.setBounds(40, 150, 130, 30);
 	KihagyasGomb.setBounds(180, 150, 130, 30);	
+	VisszaBelepes.setBounds(400,650,130,30);
+	RegisztracioVeglegesitesGomb.setBounds(250, 650, 130, 30);
+	
+	
 	
 	//panel.setBackground(Color.cyan);
 	
@@ -74,6 +89,20 @@ public class Ablak {
 	RegisztracioGomb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.out.print("\nRegisztracio gomb megnyomva");
+			PasswordSzoveg.setVisible(false);
+			FelhasznaloSzoveg.setVisible(false);
+			PasswordSzovegdoboz.setVisible(false);
+			FelhasznaloSzovegdoboz.setVisible(false);
+			KihagyasGomb.setVisible(false);
+			RegisztracioGomb.setVisible(false);
+			BejelentkezesGomb.setVisible(false);
+			
+			keret.setSize(800,800);
+			VisszaBelepes.setVisible(true);
+			RegisztracioVeglegesitesGomb.setVisible(true);
+			
+			
+			
 			
 		}
 	});
@@ -82,6 +111,23 @@ public class Ablak {
 	KihagyasGomb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.out.print("\nKihagyasGomb gomb megnyomva");
+			
+			
+		}
+	});
+	
+	VisszaBelepes.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.print("\nVisszaBelep gomb megnyomva");
+			PasswordSzoveg.setVisible(true);
+			FelhasznaloSzoveg.setVisible(true);
+			PasswordSzovegdoboz.setVisible(true);
+			FelhasznaloSzovegdoboz.setVisible(true);
+			KihagyasGomb.setVisible(true);
+			RegisztracioGomb.setVisible(true);
+			BejelentkezesGomb.setVisible(true);
+			keret.setSize(360,250);
+			
 			
 			
 		}
@@ -101,6 +147,9 @@ public class Ablak {
 	panel.add(BejelentkezesGomb);
 	panel.add(RegisztracioGomb);
 	panel.add(KihagyasGomb);
+	panel.add(VisszaBelepes);
+	panel.add(RegisztracioVeglegesitesGomb);
+
 	
 
 	System.out.print("Ablak megnyitva");
@@ -108,6 +157,7 @@ public class Ablak {
 	
 	panel.setVisible(true);
 	keret.setVisible(true);
+	keret.setResizable(false);
 
 	
 	}
@@ -117,5 +167,6 @@ public class Ablak {
 		new Ablak();
 
 	}
+
 
 }
