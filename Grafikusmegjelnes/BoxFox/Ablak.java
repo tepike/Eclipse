@@ -16,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-import Jatek.Ablak;
+
 
 public class Ablak {
 	Ablak(){

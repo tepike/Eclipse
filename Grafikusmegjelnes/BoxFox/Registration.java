@@ -4,7 +4,7 @@ import java.awt.Panel;
 
 import javax.swing.JPanel;
 
-public class Registration extends main{
+public class Registration extends Ablak{
 
 
 }
