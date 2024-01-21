@@ -82,7 +82,7 @@ public class Adatbazis {
     public static void main(String[] args) throws Exception {
         // TODO Auto-generated method stub
     	Adatbazis adat=new Adatbazis();
-        adat.addtanulo("Hilda2223", 10);
+        adat.addtanulo("Hilda", 10);
         adat.lekerdez();
        
 
