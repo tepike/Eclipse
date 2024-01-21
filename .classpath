@@ -4,7 +4,13 @@
 	<classpathentry kind="src" path="Homework"/>
 	<classpathentry kind="src" path="Sajat gyakorlas"/>
 	<classpathentry kind="src" path="Grafikusmegjelnes"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="src" path="Vizsga"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="F:/Chrome/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

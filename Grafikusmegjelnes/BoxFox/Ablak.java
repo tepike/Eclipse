@@ -1,8 +1,8 @@
 package BoxFox;
 
-
+import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,13 +14,26 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
-
-
 public class Ablak {
 	Ablak(){
+
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	double AblakSzeles= (screenSize.getWidth()/2);
+	double AblakMagas= (screenSize.getHeight())/2;
+	int AblakMagasInt= (int)Math.round(AblakMagas);
+	int AblakSzelesInt= (int)Math.round(AblakSzeles);
+						
+	String Felhasznalo1Username ="Admin";
+	String Felhasznalo1Password ="Admin1";
+	
 	JFrame keret = new JFrame();
 	JLabel panel= new JLabel();
+	
+	keret.setSize(360,250);
+	keret.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	keret.add(panel);
+	keret.setTitle("BoxFox");
+	keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2)); //Képernyő középre kell rakni
 	
 	//Belépési oldal
 	JLabel FelhasznaloSzoveg = new JLabel("Felhasználónév");
@@ -102,73 +115,70 @@ public class Ablak {
 	EmailRegSzovegdoboz.setFont(new Font(null,Font.CENTER_BASELINE,16));
 	FelhasznaloRegSzovegdoboz.setFont(new Font(null,Font.CENTER_BASELINE,16));
 	PasswordRegSzovegdoboz1.setFont(new Font(null,Font.CENTER_BASELINE,16));
-	PasswordRegSzovegdoboz2.setFont(new Font(null,Font.CENTER_BASELINE,16));
-	
-
-
-	
-
-	
-
-
-	
-	
+	PasswordRegSzovegdoboz2.setFont(new Font(null,Font.CENTER_BASELINE,16));			
 	
 	JButton VisszaBelepes = new JButton("Vissza");
+	JButton Kijelentkezes = new JButton("Kijelentkezes");
 	JButton RegisztracioVeglegesitesGomb = new JButton("Regisztráció");
+	
+	RegisztracioVeglegesitesGomb.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.print("\nRegisztracio veglegesites megnyomva.");
+			
+		}
+	});
 	
 	
 	VisszaBelepes.setVisible(false);
-	RegisztracioVeglegesitesGomb.setVisible(false);
-	
-	
-	
-
-	
-	keret.setSize(360,250);
-	keret.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	keret.add(panel);
-	keret.setTitle("BoxFox");
-	keret.setLocation(1000, 500); //Képernyő középre kell rakni
-	
-	
-			
-	panel.setVerticalAlignment(JLabel.CENTER);
-	panel.setHorizontalAlignment(JLabel.CENTER);
+	Kijelentkezes.setVisible(false);
+	RegisztracioVeglegesitesGomb.setVisible(false);			
 	 
 	FelhasznaloSzovegdoboz.setBounds(110, 35, 160, 20);
 	FelhasznaloSzoveg.setBounds(15, 20, 100, 50);
-	PasswordSzoveg.setBounds(15, 55, 100, 50);
-	PasswordSzovegdoboz.setBounds(110, 70, 160, 20);	
-	
+	PasswordSzoveg.setBounds(60, 55, 100, 50);
+	PasswordSzovegdoboz.setBounds(110, 70, 160, 20);		
 	
 	BejelentkezesGomb.setBounds(120, 100, 130, 30);
 	RegisztracioGomb.setBounds(40, 150, 130, 30);
 	KihagyasGomb.setBounds(180, 150, 130, 30);	
 	VisszaBelepes.setBounds(400,650,130,30);
-	RegisztracioVeglegesitesGomb.setBounds(250, 650, 130, 30);
-	
-	
-	
-	//panel.setBackground(Color.cyan);
+	Kijelentkezes.setBounds(400,650,130,30);
+	RegisztracioVeglegesitesGomb.setBounds(250, 650, 130, 30);	
 	
 	BejelentkezesGomb.addActionListener(new ActionListener() {	
 		@SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent e) {
-			if((FelhasznaloSzovegdoboz.getText().length()>0)&&(PasswordSzovegdoboz.getText().length()>0)) {
-				System.out.print("\n\tSikeres belepes"+"\nFelhasznalo = "+FelhasznaloSzovegdoboz.getText()+"\tJelszo = "+PasswordSzovegdoboz.getText());
-			}else if((FelhasznaloSzovegdoboz.getText().length()>0)){
-				System.out.print("\nHianyos jelszo");
-			}else if(PasswordSzovegdoboz.getText().length()>0){
+			if((FelhasznaloSzovegdoboz.getText().length()==0)&(PasswordSzovegdoboz.getText().length()==0)) {
+				System.out.print("\nKerlek add meg az adataid");
+			}else if((FelhasznaloSzovegdoboz.getText().length()==0)){
 				System.out.print("\nHianyos felhasznalo");
+			}else if(PasswordSzovegdoboz.getText().length()==0){
+				System.out.print("\nHianyos jelszo");
+			}else if(FelhasznaloSzovegdoboz.getText().equals(Felhasznalo1Username)&PasswordSzovegdoboz.getText().equals(Felhasznalo1Password)){
+				System.out.print("\nSikeresen beleptel "+FelhasznaloSzovegdoboz.getText()) ;
+				PasswordSzoveg.setVisible(false);
+				FelhasznaloSzoveg.setVisible(false);
+				PasswordSzovegdoboz.setVisible(false);
+				FelhasznaloSzovegdoboz.setVisible(false);
+				KihagyasGomb.setVisible(false);
+				RegisztracioGomb.setVisible(false);
+				BejelentkezesGomb.setVisible(false);
+				FelhasznaloSzovegdoboz.setText("");
+				PasswordSzovegdoboz.setText("");
+				VisszaBelepes.setVisible(false);
+				Kijelentkezes.setVisible(true);
+				keret.setSize(1200,800);			
+				keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2));
+				Kijelentkezes.setLocation(1000,700);
+				
+				
 			}else {
-				System.out.print("\nNincs megadott felhasznalo es jelszo paros");
+				System.out.print("\nHelytelen felhasznalonev vagy jelszo");
 			}
 			
 			
 		}
 	});
-	
 	
 	RegisztracioGomb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -182,6 +192,7 @@ public class Ablak {
 			BejelentkezesGomb.setVisible(false);
 			
 			keret.setSize(800,800);
+			keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2));
 			VisszaBelepes.setVisible(true);
 			RegisztracioVeglegesitesGomb.setVisible(true);
 			
@@ -206,7 +217,6 @@ public class Ablak {
 		}
 	});
 	
-	
 	KihagyasGomb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.out.print("\nKihagyasGomb gomb megnyomva");
@@ -217,8 +227,10 @@ public class Ablak {
 			KihagyasGomb.setVisible(false);
 			RegisztracioGomb.setVisible(false);
 			BejelentkezesGomb.setVisible(false);
-			
+			VisszaBelepes.setVisible(true);
+			VisszaBelepes.setLocation(1000,700);
 			keret.setSize(1200,800);
+			keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2));
 			
 			
 		}
@@ -235,6 +247,7 @@ public class Ablak {
 			RegisztracioGomb.setVisible(true);
 			BejelentkezesGomb.setVisible(true);
 			//Regisztráció kilépés
+			RegisztracioVeglegesitesGomb.setVisible(false);
 			Vezeteknev.setVisible(false);
 			Keresztnev.setVisible(false);
 			Email.setVisible(false);
@@ -250,19 +263,50 @@ public class Ablak {
 			PasswordRegSzovegdoboz2.setVisible(false);
 			
 			keret.setSize(360,250);
+			keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2));
+			VisszaBelepes.setLocation(400,650);
 			
 			
 			
 		}
+		
+		
 	});
 	
-	
-	
-	
-	
-	
-	
-	
+	Kijelentkezes.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.out.print("\nVisszaBelep gomb megnyomva");
+			PasswordSzoveg.setVisible(true);
+			FelhasznaloSzoveg.setVisible(true);
+			PasswordSzovegdoboz.setVisible(true);
+			FelhasznaloSzovegdoboz.setVisible(true);
+			KihagyasGomb.setVisible(true);
+			RegisztracioGomb.setVisible(true);
+			BejelentkezesGomb.setVisible(true);
+			//Regisztráció kilépés
+			RegisztracioVeglegesitesGomb.setVisible(false);
+			Vezeteknev.setVisible(false);
+			Keresztnev.setVisible(false);
+			Email.setVisible(false);
+			RegFelhasznalonev.setVisible(false);
+			RegPassword1.setVisible(false);
+			RegPassword2.setVisible(false);
+			
+			VezeteknevRegSzovegdoboz.setVisible(false);
+			KeresztnevRegSzovegdoboz.setVisible(false);
+			EmailRegSzovegdoboz.setVisible(false);
+			FelhasznaloRegSzovegdoboz.setVisible(false);
+			PasswordRegSzovegdoboz1.setVisible(false);
+			PasswordRegSzovegdoboz2.setVisible(false);
+			Kijelentkezes.setVisible(false);
+			
+			keret.setSize(360,250);
+			keret.setLocation(AblakSzelesInt-(keret.getWidth()/2), AblakMagasInt-(keret.getHeight()/2));
+			
+			
+			
+		}});
+		
 	panel.add(PasswordSzovegdoboz);
 	panel.add(FelhasznaloSzovegdoboz);
 	panel.add(FelhasznaloSzoveg);
@@ -272,16 +316,13 @@ public class Ablak {
 	panel.add(KihagyasGomb);
 	panel.add(VisszaBelepes);
 	panel.add(RegisztracioVeglegesitesGomb);
-
-	
-
-	System.out.print("Ablak megnyitva");
-	
+	panel.add(Kijelentkezes);
 	
 	panel.setVisible(true);
 	keret.setVisible(true);
 	keret.setResizable(false);
-
+	
+	System.out.print("Ablak megnyitva");
 	
 	}
 

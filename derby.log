@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Jan 15 20:41:13 CET 2024:
+ Derby The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217) változat betöltése: a816c00e-018d-0ea4-6c76-00001f307b88 példány
+a(z) F:\Eclipse_Github\Workspace\Eclipse\proba adatbázis-könyvtáron: jdk.internal.loader.ClassLoaders$AppClassLoader@179d3b25 
+
+java.vendor=Oracle Corporation
+java.runtime.version=20+36-2344
+user.dir=F:\Eclipse_Github\Workspace\Eclipse
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Az adatbázis-osztálybetöltő elindult - derby.database.classpath=''
