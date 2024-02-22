@@ -1,0 +1,32 @@
+<programok>
+	<kiallitas>
+		<cim>Renoir Kiállítás</cim>
+		<datum>2024.02.26.</datum>
+		<ar>9900 Ft</ar>
+		<korosztaly>12+</korosztaly>
+	</kiallitas>
+	<kiallitas>
+		<cim>Cabaret</cim>
+		<datum>2024.03.16.</datum>
+		<ar>19900 Ft</ar>
+		<korosztaly>16+</korosztaly>
+	</kiallitas>
+	<kiallitas>
+		<cim>Játszóház</cim>
+		<datum>2024.04.06.</datum>
+		<ar>2900 Ft</ar>
+		<korosztaly>3+</korosztaly>
+	</kiallitas>
+	<kiallitas>
+		<cim>AWS koncert</cim>
+		<datum>2024.05.01.</datum>
+		<ar>5900 Ft</ar>
+		<korosztaly>14+</korosztaly>
+	</kiallitas>
+	<kiallitas>
+		<cim>Bödőcs Tibor önálló estje</cim>
+		<datum>2024.05.20.</datum>
+		<ar>8900 Ft</ar>
+		<korosztaly>16+</korosztaly>
+	</kiallitas>
+</programok>
