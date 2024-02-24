@@ -62,11 +62,8 @@ public class MainApp {
 
 
         // Hozz létre egy JLabel-t a háttérképnek
-        JLabel backgroundLabel = new JLabel(new ImageIcon("medieval-inn3.gif"));
-        backgroundLabel.setBounds(0, 0, 1920, 1080);
-
-        // Add hozzá a háttérképet a JLayeredPane-hoz a háttér rétegként
-        layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
+        
+ 
 
 
 
@@ -77,6 +74,11 @@ public class MainApp {
         frame.add(layeredPane, BorderLayout.CENTER);
 
         frame.setVisible(lathato_menu);
+        JLabel backgroundLabel = new JLabel(new ImageIcon("medieval-inn3.gif"));
+        backgroundLabel.setBounds(0, 0, 1920, 1080);
+
+        // Add hozzá a háttérképet a JLayeredPane-hoz a háttér rétegként
+        layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
     }
 	public static boolean getLathato_menu() {
 		return lathato_menu;
