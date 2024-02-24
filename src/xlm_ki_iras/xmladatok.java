@@ -29,10 +29,10 @@ public class xmladatok {
 
 			
 			
-			Element Gyoker=c.createElement("Bevasarlas");
+			Element Gyoker=c.createElement("Tanulok");
 			c.appendChild(Gyoker);
 			
-			Element bolt1=c.createElement("Aldi");
+			Element bolt1=c.createElement("Tanulo");
 			Gyoker.appendChild(bolt1);
 			Attr kiegeszito=c.createAttribute("Azonosito");
 			kiegeszito.setValue("523");
@@ -41,60 +41,20 @@ public class xmladatok {
 
 			
 
-			Element kategoria1=c.createElement("Ruhazat");
+			Element kategoria1=c.createElement("Diak");
 			
 			bolt1.appendChild(kategoria1);
-			Element Termek1=c.createElement("Termek");
+			Element Termek1=c.createElement("Osztaly");
 			Termek1.appendChild(c.createTextNode("Adidas"));
 			kategoria1.appendChild(Termek1);
-			Element Termek2=c.createElement("Termek");
+			Element Termek2=c.createElement("Tagozat");
 			Termek2.appendChild(c.createTextNode("Nike"));
 			kategoria1.appendChild(Termek2);
+			
+			Element Termek3=c.createElement("Termek");
+			Termek3.appendChild(c.createTextNode("Nike"));
+			kategoria1.appendChild(Termek3);
 
-			
-			
-			
-			Element kategoria2=c.createElement("Elelmiszer");
-			
-			bolt1.appendChild(kategoria2);
-			Element Termek_Elelmiszer1=c.createElement("Termek");
-			Termek_Elelmiszer1.appendChild(c.createTextNode("Meleg"));
-			kategoria2.appendChild(Termek_Elelmiszer1);
-			Element Termek_Elelmiszer2=c.createElement("Termek");
-			Termek_Elelmiszer2.appendChild(c.createTextNode("Hideg"));
-			kategoria2.appendChild(Termek_Elelmiszer2);
-
-			
-			
-			
-			Element kategoria3=c.createElement("Egyeb");
-			
-			bolt1.appendChild(kategoria3);
-			Element Termek_Egyeb1=c.createElement("Termek");
-			Termek_Egyeb1.appendChild(c.createTextNode("Tisztitoszer"));
-			kategoria3.appendChild(Termek_Egyeb1);
-			Element Termek_Egyeb2=c.createElement("Termek");
-			Termek_Egyeb2.appendChild(c.createTextNode("Higienia"));
-			kategoria3.appendChild(Termek_Egyeb2);
-
-			
-			
-			Element bolt2=c.createElement("Lidl");
-			Gyoker.appendChild(bolt2);
-			Attr kiegeszito2=c.createAttribute("Azonosito");
-			kiegeszito2.setValue("956");
-			bolt2.setAttributeNode(kiegeszito2);
-			
-			
-			Element kategoria_lidl1=c.createElement("Ruhazat");
-			
-			bolt2.appendChild(kategoria_lidl1);
-			Element Termek_Lidl1=c.createElement("Termek");
-			Termek_Lidl1.appendChild(c.createTextNode("Fila"));
-			kategoria_lidl1.appendChild(Termek_Lidl1);
-			Element Termek_Lidl2=c.createElement("Termek");
-			Termek_Lidl2.appendChild(c.createTextNode("O'neil"));
-			kategoria_lidl1.appendChild(Termek_Lidl2);
 			
 
 			
@@ -107,31 +67,7 @@ public class xmladatok {
 			StreamResult r=new StreamResult(new File("kezeles.xml"));
 			t.transform(s, r);
 			System.out.println("Kész");
-	       
-	       
-	       // Node cars = c.getFirstChild();
-	        Node Lidl = c.getElementsByTagName("Lidl").item(0);
-	        
-
-	        NamedNodeMap attr = Lidl.getAttributes();
-	        Node nodeAttr = attr.getNamedItem("Azonosito");
-	        nodeAttr.setTextContent("Bigyo");
-
-
-	        NodeList list = Lidl.getChildNodes();
-	        
-	        for (int temp = 0; temp < list.getLength(); temp++) {
-	           Node node = list.item(temp);
-	            
-	              Element eElement = (Element) node;
-	              if ("Termek".equals(eElement.getNodeName())) {
-	                 if("Fila".equals(eElement.getTextContent())) {
-	                    eElement.setTextContent("Puma");
-	                 }
-	                 if("O'neil".equals(eElement.getTextContent()))
-	                    eElement.setTextContent("Keni");
-	              }
-	           }
+	      
 	        
 	        
 	        
