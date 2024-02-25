@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Homework"/>
 	<classpathentry kind="src" path="Sajat gyakorlas"/>
-	<classpathentry kind="src" path="Grafikusmegjelnes"/>
 	<classpathentry kind="src" path="Vizsga"/>
+	<classpathentry kind="src" path="Grafikusmegjelnes"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
 		<attributes>
 			<attribute name="module" value="true"/>
