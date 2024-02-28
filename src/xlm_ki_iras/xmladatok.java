@@ -27,19 +27,13 @@ public class xmladatok {
 			DocumentBuilder b=a.newDocumentBuilder();
 			Document c=b.newDocument();
 
-			
+			// A tanulóknak rögzítik a nevét, osztályát, testsúlyát, életkorát, sportágát. 
 			
 			Element Gyoker=c.createElement("Tanulok");
 			c.appendChild(Gyoker);
 			
 			Element bolt1=c.createElement("Tanulo");
-			Gyoker.appendChild(bolt1);
-			Attr kiegeszito=c.createAttribute("Azonosito");
-			kiegeszito.setValue("523");
-			bolt1.setAttributeNode(kiegeszito);
-			
-
-			
+			Gyoker.appendChild(bolt1);	
 
 			Element kategoria1=c.createElement("Diak");
 			
@@ -66,7 +60,7 @@ public class xmladatok {
 			DOMSource s=new DOMSource(c);
 			StreamResult r=new StreamResult(new File("kezeles.xml"));
 			t.transform(s, r);
-			System.out.println("Kész");
+			System.out.println("Kész van");
 	      
 	        
 	        

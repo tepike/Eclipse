@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Tanulok>
-    <Tanulo Azonosito="523">
-        <Diak>
-            <Osztaly>Adidas</Osztaly>
-            <Tagozat>Nike</Tagozat>
+<Bevasarlas>
+    <Aldi Azonosito="523">
+        <Ruhazat>
+            <Termek>Adidas</Termek>
             <Termek>Nike</Termek>
-        </Diak>
-    </Tanulo>
-</Tanulok>
+        </Ruhazat>
+        <Elelmiszer>
+            <Termek>Meleg</Termek>
+            <Termek>Hideg</Termek>
+        </Elelmiszer>
+        <Egyeb>
+            <Termek>Tisztitoszer</Termek>
+            <Termek>Higienia</Termek>
+        </Egyeb>
+    </Aldi>
+    <Lidl Azonosito="956">
+        <Ruhazat>
+            <Termek>Fila</Termek>
+            <Termek>O'neil</Termek>
+        </Ruhazat>
+    </Lidl>
+</Bevasarlas>
