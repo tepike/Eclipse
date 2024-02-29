@@ -77,7 +77,7 @@ public class Ablak implements NativeKeyListener{
 	private JTextField Ora;
 	private JTextField Perc;
 	private JTextField Masodperc;
-	private JTextField Milisec;
+	private static JTextField Milisec;
 	private static JTextField Kattintas_X_Poz_Textfield;
 	private static JTextField Kattintas_Y_Poz_Textfield;
 	boolean Ism_Sor=false;
@@ -94,6 +94,7 @@ public class Ablak implements NativeKeyListener{
 	static JRadioButton IsmetlesVegtelen_Radio_Gomb = new JRadioButton("Ismétlés megállításig");
 	static JLabel Kattintas_Ismetles_Fejlec_1 = new JLabel("Kattintási ismétlés");
 	static JRadioButton Ismetles_Radio_Gomb = new JRadioButton("Ismétlés hányszor:");
+	static JCheckBox VedelemCheckBox = new JCheckBox("Vedelem Be\\Ki");
 	
 	static double Eger_Poz_X;
 	static double Eger_Poz_Y;
@@ -118,6 +119,8 @@ public class Ablak implements NativeKeyListener{
 	static int Helyi_Y=0;
 	static int F6Integer =0;
 	static boolean KattintasMegjelolve=false;
+	static int Milsec=1000;
+	static boolean vedelem=true;
 	
 	
 
@@ -199,6 +202,12 @@ public static void EgerStart() {
 }
 
 public static void AutoClickStart() {
+	if(vedelem&&Integer.parseInt(Milisec.getText())<20) {
+		JOptionPane.showMessageDialog(null, "Veszélyes érték megadva! 20 alatt crashel a játék");
+		Milsec=20;
+		Milisec.setText("20");
+		
+	}
 	
 	
 	if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
@@ -235,7 +244,7 @@ public static void AutoClickStart() {
 			}		
 		};
 		System.out.println("Egyenlore lassitott, hogy majd kerjen erteket maganak a gyakorisagra");
-		timer3.scheduleAtFixedRate(task, 1000, 1000);
+		timer3.scheduleAtFixedRate(task, Milsec, Milsec);
 	}
 	
 //Auto klikker kattintás a megadott mennyiségig a megadott pontra.
@@ -258,7 +267,7 @@ public static void AutoClickStart() {
 			robot.mouseMove(Helyi_X, Helyi_Y);
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
-            robot.delay(1000); // 1 másodperc várakozás a kattintások között
+            robot.delay(Milsec); // 1 másodperc várakozás a kattintások között
 			//System.out.println("Eger kattintva: "+Helyi_X);
 	}
         AutoClickStop();
@@ -317,6 +326,8 @@ public static void AutoClickStop() {
 	
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+		
+		
 		//Billenytűzet figyelő
         try {
             GlobalScreen.registerNativeHook();
@@ -439,8 +450,6 @@ public static void AutoClickStop() {
 		Kattintas_Ido_lec.setLayout(null);
 		
 		Ora = new JTextField();
-		Ora.setEnabled(false);
-		Ora.setEditable(false);
 		Ora.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Ora.setHorizontalAlignment(SwingConstants.RIGHT);
 		Ora.setBounds(61, 35, 80, 29);
@@ -448,8 +457,6 @@ public static void AutoClickStop() {
 		Ora.setColumns(10);
 		
 		Perc = new JTextField();
-		Perc.setEnabled(false);
-		Perc.setEditable(false);
 		Perc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Perc.setHorizontalAlignment(SwingConstants.RIGHT);
 		Perc.setColumns(10);
@@ -457,8 +464,6 @@ public static void AutoClickStop() {
 		Kattintas_Ido_lec.add(Perc);
 		
 		Masodperc = new JTextField();
-		Masodperc.setEnabled(false);
-		Masodperc.setEditable(false);
 		Masodperc.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Masodperc.setHorizontalAlignment(SwingConstants.RIGHT);
 		Masodperc.setColumns(10);
@@ -466,13 +471,15 @@ public static void AutoClickStop() {
 		Kattintas_Ido_lec.add(Masodperc);
 		
 		Milisec = new JTextField();
-		Milisec.setEnabled(false);
-		Milisec.setEditable(false);
+		Milisec.setText("1000");
 		Milisec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Milisec.setHorizontalAlignment(SwingConstants.RIGHT);
 		Milisec.setColumns(10);
 		Milisec.setBounds(406, 35, 80, 29);
 		Kattintas_Ido_lec.add(Milisec);
+		if(Milisec.getText().length()>0) {
+			Milsec=Integer.parseInt(Milisec.getText());
+		}
 		
 		JLabel Ora_Label = new JLabel("Óra");
 		Ora_Label.setBounds(151, 42, 31, 14);
@@ -496,6 +503,22 @@ public static void AutoClickStop() {
 		Ido_Fejlec.setFont(new Font("Tahoma", Font.BOLD, 16));
 		Ido_Fejlec.setBounds(189, 0, 174, 24);
 		Kattintas_Ido_lec.add(Ido_Fejlec);
+		
+		
+		VedelemCheckBox.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				if(VedelemCheckBox.isSelected()) {
+					vedelem=true;
+					System.out.println("Vedelem bekapcsolva");
+				}else {
+					vedelem=false;
+					System.out.println("Vedelem kikapcsolva");
+				}
+			}
+		});
+		VedelemCheckBox.setBounds(406, 3, 135, 23);
+		VedelemCheckBox.setSelected(true);
+		Kattintas_Ido_lec.add(VedelemCheckBox);
 		
 		JPanel Kattintas_lec = new JPanel();
 		Kattintas_lec.setLayout(null);
@@ -755,6 +778,11 @@ public static void AutoClickStop() {
 		
 		Start_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if(vedelem&&Integer.parseInt(Milisec.getText())<20) {
+					JOptionPane.showMessageDialog(null, "Veszélyes érték megadva! 20 alatt crashel a játék");
+					Milsec=20;
+					Milisec.setText("20");
+				}
 				if(IsmetlesVegtelen_Radio_Gomb.isSelected()==false&Ismetles_Radio_Gomb.isSelected()==false) {
 					KattintasMegjelolve=false;
 			}
@@ -792,7 +820,7 @@ public static void AutoClickStop() {
 						robot.mouseMove(Helyi_X, Helyi_Y);
 		                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
 		                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
-		                robot.delay(1000); // 1 másodperc várakozás a kattintások között
+		                robot.delay(Milsec); // 1 másodperc várakozás a kattintások között
 						//System.out.println("Eger kattintva: "+Helyi_X);
 				}if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()==0) {
 					System.out.println("Nincs megadva koordinata");
