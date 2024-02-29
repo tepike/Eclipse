@@ -781,7 +781,7 @@ public static void AutoClickStop() {
 					//System.out.println(Helyi_X);
 					System.out.println("Start gomb megnyomva");
 					internet();
-					for(int i=0;i<SpinnerErtek+1;i++) {
+					for(int i=0;i<SpinnerErtek;i++) {
 						Robot robot = null;
 						try {
 							robot = new Robot();
@@ -792,7 +792,7 @@ public static void AutoClickStop() {
 						robot.mouseMove(Helyi_X, Helyi_Y);
 		                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
 		                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
-		                robot.delay(10); // 1 másodperc várakozás a kattintások között
+		                robot.delay(1000); // 1 másodperc várakozás a kattintások között
 						//System.out.println("Eger kattintva: "+Helyi_X);
 				}if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()==0) {
 					System.out.println("Nincs megadva koordinata");
@@ -800,6 +800,16 @@ public static void AutoClickStop() {
 				}
 //Végtelenített klikkelés
 				if(IsmetlesVegtelen_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
+					Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+					Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+					Robot robot = null;
+					try {
+						robot = new Robot();
+					} catch (AWTException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					robot.mouseMove(Helyi_X, Helyi_Y);
 					internet();
 					AutoClickStart();
 					
