@@ -6,25 +6,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.FlowLayout;
+
 import java.awt.Toolkit;
-import java.awt.Window;
+
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.MouseInfo;
-import java.awt.RenderingHints.Key;
+
 import java.awt.Robot;
 
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.JTextComponent.KeyBinding;
+
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
@@ -34,7 +34,7 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
-import javax.swing.DropMode;
+
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -48,23 +48,16 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Enumeration;
+
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Random;
+
 import javax.swing.JCheckBox;
-import java.util.Timer;
+
 import java.util.TimerTask;
 
 
@@ -185,10 +178,12 @@ public static void EgerStart() {
 				 Eger_Poz_Y = MouseInfo.getPointerInfo().getLocation().getY();
 				 int EgerX=(int)Eger_Poz_X;
 				 String EgerX_String=String.valueOf(EgerX);
+				 Helyi_X=EgerX;
 				 Kattintas_X_Poz_Textfield.setText(EgerX_String);
 				
 				 
 				 int EgerY=(int)Eger_Poz_Y;
+				 Helyi_Y=EgerY;
 				 String EgerY_String=String.valueOf(EgerY);
 				 Kattintas_Y_Poz_Textfield.setText(EgerY_String);
 				 
@@ -226,6 +221,9 @@ public static void AutoClickStart() {
 	
 	
 	if (AutoclickRunning==false&&Kattintas_X_Poz_Textfield.getText().length()>0&&IsmetlesVegtelen_Radio_Gomb.isSelected()) {
+		if(Egerrunning) {
+			EgerStart();
+		}
 		//System.out.println("\n\tAutoclicker idofigyelo elindult");
 		TimerTask task=new TimerTask() {
 			public void run() {
@@ -250,33 +248,7 @@ public static void AutoClickStart() {
 //Auto klikker kattintás a megadott mennyiségig a megadott pontra.
 
 	
-	if(AutoclickRunning==false&&Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
-		Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
-		Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
-		SpinnerErtek=(Integer)spinner.getValue();
-		System.out.println("Start gomb megnyomva");
-		internet();
-		for(int i=0;i<SpinnerErtek;i++) {
-			Robot robot = null;
-			try {
-				robot = new Robot();
-			} catch (AWTException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			robot.mouseMove(Helyi_X, Helyi_Y);
-            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
-            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
-            robot.delay(Milsec); // 1 másodperc várakozás a kattintások között
-			//System.out.println("Eger kattintva: "+Helyi_X);
-	}
-        AutoClickStop();
-        F6Integer=0;
-        
-		if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()==0) {
-		System.out.println("Nincs megadva koordinata");
-	}
-	}
+
 	
 	
 	
@@ -385,7 +357,8 @@ public static void AutoClickStop() {
 		
 		
 		
-		 String originalGateway = getGateway();
+		 @SuppressWarnings("unused")
+		String originalGateway = getGateway();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -398,6 +371,7 @@ public static void AutoClickStop() {
 		});
 	}
 
+	@SuppressWarnings("unused")
 	private static Object idoszamolo(int i) {
 		// TODO Auto-generated method stub
 		return null;
@@ -414,6 +388,7 @@ public static void AutoClickStop() {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		int KepernyoSzeles=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
