@@ -114,6 +114,7 @@ public class Ablak implements NativeKeyListener{
 	static boolean KattintasMegjelolve=false;
 	static int Milsec=1000;
 	static boolean vedelem=true;
+	static int figyeles=0;
 	
 	
 
@@ -134,7 +135,7 @@ public class Ablak implements NativeKeyListener{
             System.out.println("F6 kikapcsolva!");
             System.out.println(F6Integer);
             AutoClickStop();
-            F6Integer=0;
+            
             
         }
     }
@@ -176,19 +177,36 @@ public static void EgerStart() {
 			public void run() {
 				 Eger_Poz_X = MouseInfo.getPointerInfo().getLocation().getX();
 				 Eger_Poz_Y = MouseInfo.getPointerInfo().getLocation().getY();
-				 int EgerX=(int)Eger_Poz_X;
-				 String EgerX_String=String.valueOf(EgerX);
-				 Helyi_X=EgerX;
-				 Kattintas_X_Poz_Textfield.setText(EgerX_String);
+				 
+					 int EgerX=(int)Eger_Poz_X;
+					 String EgerX_String=String.valueOf(EgerX);
+					 Kattintas_X_Poz_Textfield.setText(EgerX_String);
+					
+					 
+					 int EgerY=(int)Eger_Poz_Y;
+					 String EgerY_String=String.valueOf(EgerY);
+					 Kattintas_Y_Poz_Textfield.setText(EgerY_String);
+				 
+				Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+				Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
 				
+				//Teszt üzem, hogy ha nem rögzített egér pozíciót attól függően, hogy a gomb meg lett nyomva akkor force indítja megint.
+				if(!Egerrunning&&Kattintas_Y_Poz_Textfield.getText().length()==0) {
+					try {
+						Thread.sleep(300);
+						Eger_Poz_X = MouseInfo.getPointerInfo().getLocation().getX();
+						Eger_Poz_Y = MouseInfo.getPointerInfo().getLocation().getY();
+						Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+						Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					
+				}
 				 
-				 int EgerY=(int)Eger_Poz_Y;
-				 Helyi_Y=EgerY;
-				 String EgerY_String=String.valueOf(EgerY);
-				 Kattintas_Y_Poz_Textfield.setText(EgerY_String);
-				 
-				// System.out.println("Eger X pozicio: "+EgerX);
-				 //System.out.println("Eger Y pozicio: "+EgerY);
+
 			}		
 		};
 		timer2.scheduleAtFixedRate(task, 10, 10);
@@ -197,34 +215,28 @@ public static void EgerStart() {
 }
 
 public static void AutoClickStart() {
+	Milsec=Integer.parseInt(Milisec.getText());
 	if(vedelem&&Integer.parseInt(Milisec.getText())<20) {
 		JOptionPane.showMessageDialog(null, "Veszélyes érték megadva! 20 alatt crashel a játék");
 		Milsec=20;
 		Milisec.setText("20");
+		return;
 		
-	}
-	
-	
-	if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
-		System.out.println("Gomb kivalasztva es pozicion nem nulla");
-		internet();
-	}
-//Végtelenített klikkelés
-	if(IsmetlesVegtelen_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
-		System.out.println("Gomb kivalasztva es pozicion nem nulla");
-		internet();
 	}
 	if(Kattintas_X_Poz_Textfield.getText().length()==0) {
 		System.out.println("Nincs megadva koordinata");
+		F6Integer=0;
 		JOptionPane.showMessageDialog(null, "Nincs kattintási koordináta megadva!");
 	}
 	
-	
+
+//Végtelenített klikkelés
 	if (AutoclickRunning==false&&Kattintas_X_Poz_Textfield.getText().length()>0&&IsmetlesVegtelen_Radio_Gomb.isSelected()) {
+		internet();
 		if(Egerrunning) {
 			EgerStart();
 		}
-		//System.out.println("\n\tAutoclicker idofigyelo elindult");
+
 		TimerTask task=new TimerTask() {
 			public void run() {
 				System.out.println("Start gomb megnyomva");
@@ -241,12 +253,46 @@ public static void AutoClickStart() {
 	                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
 			}		
 		};
-		System.out.println("Egyenlore lassitott, hogy majd kerjen erteket maganak a gyakorisagra");
 		timer3.scheduleAtFixedRate(task, Milsec, Milsec);
 	}
 	
 //Auto klikker kattintás a megadott mennyiségig a megadott pontra.
-
+	if (AutoclickRunning==false&&Kattintas_X_Poz_Textfield.getText().length()>0&&Ismetles_Radio_Gomb.isSelected()) {
+		Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+		Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+		
+			internet();
+		
+	TimerTask task=new TimerTask() {
+		public void run() {
+			SpinnerErtek=(Integer)spinner.getValue();	
+			
+			System.out.println("Start gomb megnyomva");
+			internet();
+				Robot robot = null;
+				try {
+					robot = new Robot();
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				robot.mouseMove(Helyi_X, Helyi_Y);
+				System.out.println("Helyi_X erteke: "+Helyi_X);
+                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
+                figyeles++;
+                System.out.println("\nFigyeles szam: "+figyeles);
+                System.out.println("Spinner szam: "+SpinnerErtek);
+                if(figyeles==(SpinnerErtek)) {
+                	AutoClickStop();
+                	figyeles=0;
+                }
+                
+                //ide kell berakni, hogy figyelje a kattintás számokat. (AutoclickRunning = false;)
+		}		
+	};
+	timer3.scheduleAtFixedRate(task, Milsec, Milsec);
+	}
 	
 
 	
@@ -292,6 +338,7 @@ public static void AutoClickStop() {
         System.out.println("\n\tTimer nem fut");
         AutoclickRunning = false;
         timer3 = new Timer();
+        F6Integer=0;
     }
 }
 	
@@ -769,11 +816,13 @@ public static void AutoClickStop() {
 				if(Kattintas_X_Poz_Textfield.getText().length()==0) {
 					System.out.println("Nincs megadva koordinata");
 					JOptionPane.showMessageDialog(null, "Nincs kattintási koordináta megadva!");
+					F6Integer=0;
 					
 					
 				}
 				if(!KattintasMegjelolve) {
 					JOptionPane.showMessageDialog(null, "Nincs kattintási ismétlés megjelölve!");
+					F6Integer=0;
 				}
 				 
 //Ha be van pipálva az, hogy mennyiszer
@@ -784,7 +833,7 @@ public static void AutoClickStop() {
 					//System.out.println(Helyi_X);
 					System.out.println("Start gomb megnyomva");
 					internet();
-					for(int i=0;i<SpinnerErtek;i++) {
+					for(int i=0;i<SpinnerErtek+1;i++) {
 						Robot robot = null;
 						try {
 							robot = new Robot();
@@ -799,6 +848,7 @@ public static void AutoClickStop() {
 						//System.out.println("Eger kattintva: "+Helyi_X);
 				}if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()==0) {
 					System.out.println("Nincs megadva koordinata");
+					F6Integer=0;
 				}
 				}
 //Végtelenített klikkelés
@@ -813,6 +863,7 @@ public static void AutoClickStop() {
 						e1.printStackTrace();
 					}
 					robot.mouseMove(Helyi_X, Helyi_Y);
+					
 					internet();
 					AutoClickStart();
 					
