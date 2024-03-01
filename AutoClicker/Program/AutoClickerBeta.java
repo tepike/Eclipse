@@ -64,7 +64,7 @@ import java.util.TimerTask;
 public class AutoClickerBeta implements NativeKeyListener{
 	
 
-
+   
 
 	private JFrame frame;
 	private JTextField Ora;
@@ -94,6 +94,7 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static double Eger_Poz_X2;
 	static double Eger_Poz_Y2;
 	Boolean X_Keres_Aktiv=true;
+
 	static JSpinner spinner = new JSpinner();
 	static int SpinnerErtek=0;
 	static boolean frissites=true;
@@ -115,6 +116,9 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static int Milsec=1000;
 	static boolean vedelem=true;
 	static int figyeles=0;
+	
+	
+	
 	
 	
 
@@ -424,19 +428,29 @@ public static void AutoClickStop() {
 		return null;
 	}
 
+
+	
+	
 	/**
 	 * Create the application.
 	 */
 	public AutoClickerBeta() {
-		initialize();
+        initialize();
+
+    }
 		
-	}
+		
+	
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
+	    
+
+	    
+		
 		Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		int KepernyoSzeles=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		int KepernyoMagas=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -905,7 +919,7 @@ public static void AutoClickStop() {
 	}	
 	
 
-	
+
 	public static void internet() {
 		if(Internet_Lekapcs_Box.isSelected()) {
         try {
