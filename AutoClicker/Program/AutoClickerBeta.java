@@ -61,7 +61,7 @@ import javax.swing.JCheckBox;
 import java.util.TimerTask;
 
 
-public class Ablak implements NativeKeyListener{
+public class AutoClickerBeta implements NativeKeyListener{
 	
 
 
@@ -355,7 +355,7 @@ public static void AutoClickStop() {
             System.exit(1);
         }
 
-        GlobalScreen.addNativeKeyListener(new Ablak());
+        GlobalScreen.addNativeKeyListener(new AutoClickerBeta());
 
         //Eddig tart a billentyűzet figyelés
 
@@ -409,7 +409,7 @@ public static void AutoClickStop() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ablak window = new Ablak();
+					AutoClickerBeta window = new AutoClickerBeta();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -427,7 +427,7 @@ public static void AutoClickStop() {
 	/**
 	 * Create the application.
 	 */
-	public Ablak() {
+	public AutoClickerBeta() {
 		initialize();
 		
 	}
