@@ -8,25 +8,25 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Egervalami extends JFrame {
-    private JPanel panel;
-    private JLabel textLabel;
+    private JPanel Egerpanel;
+    private JLabel EgerTextLabel;
 
     public Egervalami() {
-        super("Mouse Tracker");
+        super();
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0)); // Átlátszó háttér
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBackground(new Color(192, 192, 192)); // Szürke háttérszín
-        panel.setBorder(new LineBorder(new Color(192, 192, 192))); // Halvány szürke keret
-        add(panel);
+        Egerpanel = new JPanel();
+        Egerpanel.setLayout(new BorderLayout());
+        Egerpanel.setBackground(new Color(192, 192, 192)); // Szürke háttérszín
+        Egerpanel.setBorder(new LineBorder(new Color(192, 192, 192))); // Halvány szürke keret
+        add(Egerpanel);
 
-        textLabel = new JLabel("Minta szöveg2");
-        textLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        textLabel.setForeground(Color.BLACK); // Fekete szöveg
-        panel.add(textLabel, BorderLayout.CENTER); // A szöveg középre helyezése a panelen belül
+        EgerTextLabel = new JLabel("Minta szöveg2");
+        EgerTextLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        EgerTextLabel.setForeground(Color.BLACK); // Fekete szöveg
+        Egerpanel.add(EgerTextLabel, BorderLayout.CENTER); // A szöveg középre helyezése a Egerpanelen belül
 
         setSize(150, 30);
         setAlwaysOnTop(true); // Mindig felül

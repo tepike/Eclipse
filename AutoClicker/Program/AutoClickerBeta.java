@@ -48,7 +48,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -88,6 +88,7 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static JLabel Kattintas_Ismetles_Fejlec_1 = new JLabel("Kattintási ismétlés");
 	static JRadioButton Ismetles_Radio_Gomb = new JRadioButton("Ismétlés hányszor:");
 	static JCheckBox VedelemCheckBox = new JCheckBox("Vedelem Be\\Ki");
+	JCheckBox Internet_Keslelete_Check_box = new JCheckBox("+Kesleltetes(mp)");
 	
 	static double Eger_Poz_X;
 	static double Eger_Poz_Y;
@@ -116,6 +117,8 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static int Milsec=1000;
 	static boolean vedelem=true;
 	static int figyeles=0;
+	static boolean internetKesleltetes=false;
+	public static JTextField Internet_Kesleltes_Text;
 	
 	
 	
@@ -436,6 +439,7 @@ public static void AutoClickStop() {
 	 */
 	public AutoClickerBeta() {
         initialize();
+        
 
     }
 		
@@ -716,10 +720,47 @@ public static void AutoClickStop() {
 		}
 		Internet_comboBox.setBounds(202, 18, 130, 22);
 		panel.add(Internet_comboBox);
+		Internet_Lekapcs_Box.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		
-		Internet_Lekapcs_Box.setBounds(367, 18, 147, 23);
+		Internet_Lekapcs_Box.setBounds(363, 18, 147, 23);
 		panel.add(Internet_Lekapcs_Box);
+		
+		Internet_Keslelete_Check_box.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				if(Internet_Keslelete_Check_box.isSelected()) {
+					internetKesleltetes=true;
+					System.out.println("\n\t Elvileg true a check box");
+					System.out.println("\n\t Check box: "+Internet_Keslelete_Check_box.isSelected());
+					System.out.println("Boolean: "+internetKesleltetes);
+		    		String TextField=Internet_Kesleltes_Text.getText();
+		    		int MegadottIdo=Integer.parseInt(TextField);
+		    		if(MegadottIdo<0) {
+		    			JOptionPane.showMessageDialog(null, "A késleltetési idő nem lehet kevesebb mint 0");
+		    			Internet_Kesleltes_Text.setText("0");
+		    		}
+				
+				}
+				else {
+				System.out.println("\n\t Check box: "+Internet_Keslelete_Check_box.isSelected());
+				internetKesleltetes=false;
+				System.out.println("Boolean: "+internetKesleltetes);
+				}
+			}
+		});
+		
+		
+		Internet_Keslelete_Check_box.setFont(new Font("Tahoma", Font.BOLD, 11));
+		Internet_Keslelete_Check_box.setBounds(363, 44, 125, 23);
+		panel.add(Internet_Keslelete_Check_box);
+		
+		Internet_Kesleltes_Text = new JTextField();
+		Internet_Kesleltes_Text.setText("0");
+		Internet_Kesleltes_Text.setFont(new Font("Tahoma", Font.BOLD, 16));
+		Internet_Kesleltes_Text.setHorizontalAlignment(SwingConstants.RIGHT);
+		Internet_Kesleltes_Text.setBounds(494, 42, 60, 22);
+		panel.add(Internet_Kesleltes_Text);
+		Internet_Kesleltes_Text.setColumns(10);
 		
 		
 
@@ -928,13 +969,14 @@ public static void AutoClickStop() {
 
             // Hálózati kapcsolat letiltása
             disableNetwork();
-
+            
             // Új átjáró beállítása
             setGateway(newGateway);
 
+            
             // Hálózati kapcsolat engedélyezése
             enableNetwork();
-
+            
             // Visszaállítás az eredeti átjáróra
             setGateway(newGateway);
         } catch (IOException | InterruptedException e) {
@@ -993,6 +1035,25 @@ public static void AutoClickStop() {
         Random rand = new Random();
         return "192.168." + rand.nextInt(256) + "." + rand.nextInt(256);
     }
+    private static void InternetKesleletet() {
+    	System.out.println("\nKesletetes elindul");
+    	System.out.println(internetKesleltetes);
+    	if(internetKesleltetes) {
+    		String TextField=Internet_Kesleltes_Text.getText();
+    		int MegadottIdo=Integer.parseInt(TextField);
+    		System.out.println("\nKesletetes elindult, megadott ido: "+MegadottIdo+"  Indult: "+LocalTime.now());
+    		try {
+				Thread.sleep(MegadottIdo*1000);
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		System.out.println("Kesleltetes vege"+LocalTime.now());
+    	}
+    }
+    
+    
 	}
 
 
