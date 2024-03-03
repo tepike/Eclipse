@@ -88,7 +88,7 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static JLabel Kattintas_Ismetles_Fejlec_1 = new JLabel("Kattintási ismétlés");
 	static JRadioButton Ismetles_Radio_Gomb = new JRadioButton("Ismétlés hányszor:");
 	static JCheckBox VedelemCheckBox = new JCheckBox("Vedelem Be\\Ki");
-	JCheckBox Internet_Keslelete_Check_box = new JCheckBox("+Kesleltetes(mp)");
+	static JCheckBox Internet_Keslelete_Check_box = new JCheckBox("+Kesleltetes(mp)");
 	
 	static double Eger_Poz_X;
 	static double Eger_Poz_Y;
@@ -119,6 +119,8 @@ public class AutoClickerBeta implements NativeKeyListener{
 	static int figyeles=0;
 	static boolean internetKesleltetes=false;
 	public static JTextField Internet_Kesleltes_Text;
+	static int InternetIdoIg=0;
+	static int InternetIdoIndulas=0;
 	
 	
 	
@@ -141,7 +143,15 @@ public class AutoClickerBeta implements NativeKeyListener{
         if (F6Integer==2&e.getKeyCode() == NativeKeyEvent.VC_F6) {
             System.out.println("F6 kikapcsolva!");
             System.out.println(F6Integer);
+            figyeles=0;
             AutoClickStop();
+            if(internetKesleltetes) {
+            	internetbe();
+            	internetKesleltetes=false;
+            	
+            	
+            }
+            
             
             
         }
@@ -223,11 +233,18 @@ public static void EgerStart() {
 
 public static void AutoClickStart() {
 	Milsec=Integer.parseInt(Milisec.getText());
+	if(!vedelem&&Integer.parseInt(Milisec.getText())<1) {
+		Milsec=1;
+		Milisec.setText("1");
+		
+	}
+	
 	if(vedelem&&Integer.parseInt(Milisec.getText())<20) {
 		JOptionPane.showMessageDialog(null, "Veszélyes érték megadva! 20 alatt crashel a játék");
 		Milsec=20;
 		Milisec.setText("20");
-		return;
+		F6Integer=0;
+		
 		
 	}
 	if(Kattintas_X_Poz_Textfield.getText().length()==0) {
@@ -239,15 +256,44 @@ public static void AutoClickStart() {
 
 //Végtelenített klikkelés
 	if (AutoclickRunning==false&&Kattintas_X_Poz_Textfield.getText().length()>0&&IsmetlesVegtelen_Radio_Gomb.isSelected()) {
-		internet();
+		//internet(); 	Szerintem nem kell 2*
 		if(Egerrunning) {
 			EgerStart();
 		}
-
+		InterletLeIdoMegallapit();
+		F6Integer=1;
+		
+		internet(); //(csak akkor indul el ha le akarom kapcsolni, és nincs bepipálva a késleltetés)
+		if(IsmetlesVegtelen_Radio_Gomb.isSelected()&&internetKesleltetes&&Internet_Kesleltes_Text.getText().length()>0) {
+			internetle();
+		}
+		
+System.out.println("Startgomb elvileg 1* kéne, hogy jelezzen de tudja a fasz, hogy mit csinal");
 		TimerTask task=new TimerTask() {
 			public void run() {
-				System.out.println("Start gomb megnyomva");
-				internet();
+				
+				if(Egerrunning&&Helyi_X==0) {
+					EgerStart();
+				}
+				
+				
+				
+				if(Helyi_X==0) {
+					Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+					Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+				}
+				
+				
+				InterletLeIdoIndulasiParancs();
+				if(InternetIdoIndulas==InternetIdoIg) {
+					System.out.println("Elertuk a kivant idot | internet bekapcsol");
+					internetbe();
+					AutoClickStop();
+				}
+				//System.out.println("Start gomb megnyomva");
+				System.out.println("Ido indulas: "+InternetIdoIndulas);
+				System.out.println("Ido eddig kell: "+InternetIdoIg);
+				
 					Robot robot = null;
 					try {
 						robot = new Robot();
@@ -261,6 +307,7 @@ public static void AutoClickStart() {
 			}		
 		};
 		timer3.scheduleAtFixedRate(task, Milsec, Milsec);
+		
 	}
 	
 //Auto klikker kattintás a megadott mennyiségig a megadott pontra.
@@ -268,14 +315,36 @@ public static void AutoClickStart() {
 		Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
 		Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
 		
-			internet();
-		
+			//internet(); Szerintem nem kell 2*
+		InterletLeIdoMegallapit();
+		F6Integer=1;
+		internetle();
+		internet(); //(csak akkor indul el ha le akarom kapcsolni, és nincs bepipálva a késleltetés)
 	TimerTask task=new TimerTask() {
 		public void run() {
+			
+
+			if(Helyi_X==0) {
+				Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+				Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+			}
+			InterletLeIdoIndulasiParancs();
+			if(InternetIdoIndulas==InternetIdoIg&&!internetKesleltetes) {
+				System.out.println("Elertuk a kivant idot | internet bekapcsol");
+				internetbe();
+				AutoClickStop();
+			}
+			if(!internetKesleltetes) {
+				System.out.println("False lett az ertek | internet bekapcsol");
+				internetbe();
+				AutoClickStop();
+			}
+
+			
 			SpinnerErtek=(Integer)spinner.getValue();	
 			
 			System.out.println("Start gomb megnyomva");
-			internet();
+			
 				Robot robot = null;
 				try {
 					robot = new Robot();
@@ -290,6 +359,10 @@ public static void AutoClickStart() {
                 figyeles++;
                 System.out.println("\nFigyeles szam: "+figyeles);
                 System.out.println("Spinner szam: "+SpinnerErtek);
+                if(internetKesleltetes&&figyeles==SpinnerErtek) {
+                	internetbe();
+                	
+                }
                 if(figyeles==(SpinnerErtek)) {
                 	AutoClickStop();
                 	figyeles=0;
@@ -300,12 +373,6 @@ public static void AutoClickStart() {
 	};
 	timer3.scheduleAtFixedRate(task, Milsec, Milsec);
 	}
-	
-
-	
-	
-	
-	
 	
 	//AutoclickRunning=true;
 }
@@ -405,8 +472,7 @@ public static void AutoClickStop() {
             System.out.println(name);
             
         }
-        System.out.println("Print1: "+interfaceNames.get(0));
-        System.out.println("Print2: "+interfaceNames.get(1));
+
     
 		
 		
@@ -855,6 +921,7 @@ public static void AutoClickStop() {
 		
 		Start_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				Milsec=Integer.parseInt(Milisec.getText());
 				if(vedelem&&Integer.parseInt(Milisec.getText())<20) {
 					JOptionPane.showMessageDialog(null, "Veszélyes érték megadva! 20 alatt crashel a játék");
 					Milsec=20;
@@ -881,33 +948,87 @@ public static void AutoClickStop() {
 				}
 				 
 //Ha be van pipálva az, hogy mennyiszer
-				if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
+				if (AutoclickRunning==false&&Kattintas_X_Poz_Textfield.getText().length()>0&&Ismetles_Radio_Gomb.isSelected()) {
 					Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
 					Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
-					SpinnerErtek=(Integer)spinner.getValue();
-					//System.out.println(Helyi_X);
-					System.out.println("Start gomb megnyomva");
-					internet();
-					for(int i=0;i<SpinnerErtek+1;i++) {
-						Robot robot = null;
-						try {
-							robot = new Robot();
-						} catch (AWTException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					
+						//internet(); Szerintem nem kell 2*
+					InterletLeIdoMegallapit();
+					F6Integer=1;
+					internetle();
+					internet(); //(csak akkor indul el ha le akarom kapcsolni, és nincs bepipálva a késleltetés)
+				TimerTask task=new TimerTask() {
+					public void run() {
+						
+
+						if(Helyi_X==0) {
+							Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+							Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
 						}
-						robot.mouseMove(Helyi_X, Helyi_Y);
-		                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
-		                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
-		                robot.delay(Milsec); // 1 másodperc várakozás a kattintások között
-						//System.out.println("Eger kattintva: "+Helyi_X);
-				}if(Ismetles_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()==0) {
-					System.out.println("Nincs megadva koordinata");
-					F6Integer=0;
+						
+						InterletLeIdoIndulasiParancs();
+						if(InternetIdoIndulas==InternetIdoIg&&!internetKesleltetes) {
+							System.out.println("Elertuk a kivant idot | internet bekapcsol");
+							internetbe();
+							AutoClickStop();
+						}
+						
+						if(!internetKesleltetes) {
+							System.out.println("False lett az ertek | internet bekapcsol");
+							internetbe();
+							AutoClickStop();
+						}
+						
+						InterletLeIdoIndulasiParancs();
+						if(InternetIdoIndulas==InternetIdoIg) {
+							System.out.println("Elertuk a kivant idot | internet bekapcsol");
+							internetbe();
+							AutoClickStop();
+						}
+						//System.out.println("Start gomb megnyomva");
+						System.out.println("Ido indulas: "+InternetIdoIndulas);
+						System.out.println("Ido eddig kell: "+InternetIdoIg);
+						
+						
+
+
+						
+						SpinnerErtek=(Integer)spinner.getValue();	
+						
+						System.out.println("Start gomb megnyomva");
+						
+							Robot robot = null;
+							try {
+								robot = new Robot();
+							} catch (AWTException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							robot.mouseMove(Helyi_X, Helyi_Y);
+							System.out.println("Helyi_X erteke: "+Helyi_X);
+			                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb lenyomása
+			                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); // Egér bal gomb felengedése
+			                figyeles++;
+			                System.out.println("\nFigyeles szam: "+figyeles);
+			                System.out.println("Spinner szam: "+SpinnerErtek);
+			                if(internetKesleltetes&&figyeles==SpinnerErtek) {
+			                	internetbe();
+			                	
+			                }
+			                if(figyeles==(SpinnerErtek)) {
+			                	AutoClickStop();
+			                	figyeles=0;
+			                }
+			                
+			                //ide kell berakni, hogy figyelje a kattintás számokat. (AutoclickRunning = false;)
+					}		
+				};
+				timer3.scheduleAtFixedRate(task, Milsec, Milsec);
 				}
-				}
+				
 //Végtelenített klikkelés
 				if(IsmetlesVegtelen_Radio_Gomb.isSelected()&Kattintas_X_Poz_Textfield.getText().length()>0) {
+					F6Integer=1;
 					Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
 					Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
 					Robot robot = null;
@@ -934,10 +1055,20 @@ public static void AutoClickStop() {
 		
 		Stop_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				
 				TimeStop();
 				EgerStop();
 				AutoClickStop();
 				F6Bekapcsolva=false;
+				figyeles=0;
+				
+				System.out.println(internetKesleltetes);
+				if(internetKesleltetes) {
+					internetbe();
+					internetKesleltetes=false;
+					F6Integer=0;
+					
+				}
 				
 			}
 		});
@@ -962,7 +1093,10 @@ public static void AutoClickStop() {
 
 
 	public static void internet() {
-		if(Internet_Lekapcs_Box.isSelected()) {
+		if(Internet_Kesleltes_Text.getText().length()>0&Internet_Keslelete_Check_box.isSelected()) {
+			internetKesleltetes=true;
+		}
+		if(Internet_Lekapcs_Box.isSelected()&&!internetKesleltetes) {
         try {
             // Véletlenszerűen generált új átjáró IP cím
             String newGateway = generateRandomGateway();
@@ -984,6 +1118,46 @@ public static void AutoClickStop() {
         }
 		}
 		
+    }
+	
+	//F6-os klikkelésnél nézze, hogy van-e delay a vissza kapcsoláshoz
+	public static void internetle() {
+		if(Internet_Kesleltes_Text.getText().length()>0&Internet_Keslelete_Check_box.isSelected()) {
+			internetKesleltetes=true;
+		
+        try {
+            // Véletlenszerűen generált új átjáró IP cím
+            String newGateway = generateRandomGateway();
+            // Hálózati kapcsolat letiltása
+            disableNetwork();
+            // Új átjáró beállítása
+            setGateway(newGateway);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+		}
+		
+    }
+	
+	//F6-os klikkelésnél nézze, hogy van-e delay a vissza kapcsoláshoz
+	public static void internetbe() {
+		
+		if(internetKesleltetes) {
+			
+			
+        try {
+            // Véletlenszerűen generált új átjáró IP cím
+            String newGateway = generateRandomGateway();
+            // Hálózati kapcsolat engedélyezése
+            enableNetwork();
+            // Visszaállítás az eredeti átjáróra
+            setGateway(newGateway);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+		}
+		internetKesleltetes=false;
     }
 
     // Metódus az eredeti átjáró IP címének lekérésére
@@ -1035,22 +1209,25 @@ public static void AutoClickStop() {
         Random rand = new Random();
         return "192.168." + rand.nextInt(256) + "." + rand.nextInt(256);
     }
-    private static void InternetKesleletet() {
-    	System.out.println("\nKesletetes elindul");
-    	System.out.println(internetKesleltetes);
-    	if(internetKesleltetes) {
-    		String TextField=Internet_Kesleltes_Text.getText();
-    		int MegadottIdo=Integer.parseInt(TextField);
-    		System.out.println("\nKesletetes elindult, megadott ido: "+MegadottIdo+"  Indult: "+LocalTime.now());
-    		try {
-				Thread.sleep(MegadottIdo*1000);
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		System.out.println("Kesleltetes vege"+LocalTime.now());
+    
+    private static void InterletLeIdoMegallapit() {
+    	figyeles=0;
+    	if(Internet_Lekapcs_Box.isSelected()&Internet_Keslelete_Check_box.isSelected()) {
+    		System.out.println("Ido figyeles megallashoz elindult");
+        	int BekertKesleltetes=Integer.parseInt(Internet_Kesleltes_Text.getText());
+        	InternetIdoIg=LocalTime.now().getSecond()+BekertKesleltetes+1;
+        	if (InternetIdoIg>=60) {
+        		InternetIdoIg=InternetIdoIg-60;
+        		
+    			
+    		}
     	}
+
+    }
+
+    private static void InterletLeIdoIndulasiParancs() {
+    	InternetIdoIndulas=LocalTime.now().getSecond();
+    	
     }
     
     
