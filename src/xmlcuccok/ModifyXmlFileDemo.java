@@ -1,4 +1,4 @@
-package sql_3;
+package xmlcuccok;
 
 import java.util.Scanner;
 import java.io.File;

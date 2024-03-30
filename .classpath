@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="Vizsga"/>
 	<classpathentry kind="src" path="Grafikusmegjelnes"/>
 	<classpathentry kind="src" path="AutoClicker"/>
+	<classpathentry kind="src" path="Fivem_Programs"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
 		<attributes>
 			<attribute name="module" value="true"/>

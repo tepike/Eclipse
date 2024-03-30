@@ -1,4 +1,4 @@
-package Program;
+package AutoClicker;
 
 import java.awt.EventQueue;
 
@@ -48,7 +48,6 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -61,7 +60,7 @@ import javax.swing.JCheckBox;
 import java.util.TimerTask;
 
 
-public class AutoClickerBeta implements NativeKeyListener{
+public class main implements NativeKeyListener{
 	
 
    
@@ -168,7 +167,7 @@ public static void TimeStart() {
 				i++;
 			}		
 		};
-		timer.scheduleAtFixedRate(task, 10, 10);
+		timer.scheduleAtFixedRate(task, 100, 100);
 	}
 	running=true;
 }
@@ -209,10 +208,16 @@ public static void EgerStart() {
 				
 				//Teszt üzem, hogy ha nem rögzített egér pozíciót attól függően, hogy a gomb meg lett nyomva akkor force indítja megint.
 				if(!Egerrunning&&Kattintas_Y_Poz_Textfield.getText().length()==0) {
-					Eger_Poz_X = MouseInfo.getPointerInfo().getLocation().getX();
-					Eger_Poz_Y = MouseInfo.getPointerInfo().getLocation().getY();
-					Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
-					Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+					try {
+						Thread.sleep(300);
+						Eger_Poz_X = MouseInfo.getPointerInfo().getLocation().getX();
+						Eger_Poz_Y = MouseInfo.getPointerInfo().getLocation().getY();
+						Helyi_X= Integer.parseInt(Kattintas_X_Poz_Textfield.getText());
+						Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 					
 				}
@@ -323,16 +328,12 @@ System.out.println("Startgomb elvileg 1* kéne, hogy jelezzen de tudja a fasz, h
 				Helyi_Y= Integer.parseInt(Kattintas_Y_Poz_Textfield.getText());
 			}
 			InterletLeIdoIndulasiParancs();
-			if(InternetIdoIndulas==InternetIdoIg) {
+			if(InternetIdoIndulas==InternetIdoIg&&!internetKesleltetes) {
 				System.out.println("Elertuk a kivant idot | internet bekapcsol");
 				internetbe();
 				AutoClickStop();
 			}
-			if(!internetKesleltetes) {
-				System.out.println("False lett az ertek | internet bekapcsol");
-				internetbe();
-				AutoClickStop();
-			}
+
 
 			
 			SpinnerErtek=(Integer)spinner.getValue();	
@@ -423,7 +424,7 @@ public static void AutoClickStop() {
             System.exit(1);
         }
 
-        GlobalScreen.addNativeKeyListener(new AutoClickerBeta());
+        GlobalScreen.addNativeKeyListener(new main());
 
         //Eddig tart a billentyűzet figyelés
 
@@ -476,7 +477,7 @@ public static void AutoClickStop() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AutoClickerBeta window = new AutoClickerBeta();
+					main window = new main();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -497,7 +498,7 @@ public static void AutoClickStop() {
 	/**
 	 * Create the application.
 	 */
-	public AutoClickerBeta() {
+	public main() {
         initialize();
         
 
@@ -1009,7 +1010,7 @@ public static void AutoClickStop() {
 			                	internetbe();
 			                	
 			                }
-			                if(figyeles==(SpinnerErtek)) {
+			                if(figyeles==SpinnerErtek) {
 			                	AutoClickStop();
 			                	figyeles=0;
 			                }

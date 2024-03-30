@@ -58,7 +58,7 @@ public class xmladatok {
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			
 			DOMSource s=new DOMSource(c);
-			StreamResult r=new StreamResult(new File("kezeles.xml"));
+			StreamResult r=new StreamResult(new File("kezeles35.xml"));
 			t.transform(s, r);
 			System.out.println("Kész van");
 	      

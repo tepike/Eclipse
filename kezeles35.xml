@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Tanulok>
+    <Tanulo>
+        <Diak>
+            <Osztaly>Adidas</Osztaly>
+            <Tagozat>Nike</Tagozat>
+            <Termek>Nike</Termek>
+        </Diak>
+    </Tanulo>
+</Tanulok>
