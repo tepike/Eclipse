@@ -24,6 +24,7 @@ public class Keret extends futattas{
 	public static JFrame keret = new JFrame();
 	public static JLabel Hatterkep_Keret= new JLabel();
 	public static Timer timer = new Timer();
+	public static JLabel Label_Kilepes = new JLabel("X");
 	
     //Ablak mozgatása
 	static int pointerX= (int)MouseInfo.getPointerInfo().getLocation().getX();
@@ -45,7 +46,7 @@ public class Keret extends futattas{
 		keret.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		keret.getContentPane().setLayout(null);
 		
-		JLabel Label_Kilepes = new JLabel("X");
+		
 		Label_Kilepes.addMouseListener(new MouseAdapter() {
 			
 			public void mouseClicked(MouseEvent e) {

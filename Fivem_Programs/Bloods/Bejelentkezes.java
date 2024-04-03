@@ -5,9 +5,13 @@ import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -19,11 +23,13 @@ import javax.swing.JToggleButton;
 public class Bejelentkezes extends Keret{
 	public static JPanel Login_Panel= new JPanel();
 	public static JLabel Bejelentkezo_Label = new JLabel("Bejelentkezés");
-	private static String Felhasznalo="Test";
-	private static String Jelszo="Test";
+	private static String Becenev="Tepike";
+	private static String Felhasznalo="1";
+	private static String Jelszo="1";
 	private static JTextField Felhasznalo_Text;
 	private static JPasswordField Jelszo_Text;
 	public static JButton LoginButton= new JButton("Bejelentkezés");
+	public static JPanel Adatok_Panel = new JPanel();
 	
 	
 	/**
@@ -54,8 +60,32 @@ public class Bejelentkezes extends Keret{
 		//Utolso folyamat
 		Login_Panel.setVisible(true);
 		Hatterkep_Keret.add(Login_Panel);
+		LoginButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(Felhasznalo_Text.getText().length()<1) {
+					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
+					System.out.println("Nincs megadott felhasznalo");
+				}
+				if(Jelszo_Text.getText().length()<1) {
+					JOptionPane.showMessageDialog(null, "Nincs megadva jelszó");
+					System.out.println("Nincs megadott jelszo");
+				}
+				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+				
+				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+					Toolkit.getDefaultToolkit().beep();
+					Menu.Menu_futtat();
+				}
+
+		}});
 		
-		JPanel Adatok_Panel = new JPanel();
+		
+		LoginButton.setBounds(270, 201, 120, 30);
+		Login_Panel.add(LoginButton);
+		LoginButton.setVisible(true);
+		
+		
 		
 		Adatok_Panel.setBounds(10, 70, 380, 120);
 		Adatok_Panel.setBackground(new Color(100,100,100,180));
@@ -91,13 +121,11 @@ public class Bejelentkezes extends Keret{
 		Felhasznalo_Text.setColumns(10);
 		
 		
-		LoginButton.setBounds(270, 201, 120, 30);
-		Login_Panel.add(LoginButton);
-		LoginButton.setVisible(true);
-		
+	}
+	public static void Bejelentkezes_bezar() {
+		Login_Panel.setVisible(false);
 		
 	}
-
 
 	public static String getFelhasznalo() {
 		return Felhasznalo;
@@ -116,5 +144,11 @@ public class Bejelentkezes extends Keret{
 
 	public static void setJelszo(String jelszo) {
 		Jelszo = jelszo;
+	}
+	public static String getBecenev() {
+		return Becenev;
+	}
+	public static void setBecenev(String becenev) {
+		Becenev = becenev;
 	}
 }
