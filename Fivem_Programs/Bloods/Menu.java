@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import TeljesProgram.MenuPanel;
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Menu extends Bejelentkezes{
 	public static JPanel Menu_panel= new JPanel();
@@ -33,9 +34,16 @@ public class Menu extends Bejelentkezes{
 		Menu_panel.setBackground(new Color(0,0,0,100));
 		
 		Hatterkep_Keret.add(Menu_panel);
+		
+		Menu_panel.setLayout(null);
+		
+
+		Menu_Felso_panel.setLayout(null);
+		Menu_Osszesito_panel.setLayout(null);
+		
+		
 		Hatterkep_Keret.add(Menu_Felso_panel);
 		Hatterkep_Keret.add(Menu_Osszesito_panel);
-		Menu_panel.setLayout(null);
 		Bejelentkezes.Bejelentkezes_bezar();
 		keret.setSize((int)keret.getSize().getWidth()+700,(int)keret.getSize().getHeight()+100);
 		keret.setLocation(((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-((int)keret.getSize().getWidth()/2)), ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2)-((int)keret.getSize().getHeight()/2));
@@ -43,6 +51,9 @@ public class Menu extends Bejelentkezes{
 		Hatterkep_Keret.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Menu_Hatterkep.jpg")));
 		Hatterkep_Keret.setSize((int)keret.getSize().width,(int)keret.getSize().height);
 		System.out.println(keret.getSize());
+		
+		Aruk.Aruk_Futtat();
+		
 		
 		
 	}
