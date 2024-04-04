@@ -12,12 +12,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/tepi7/OneDrive/Asztali gép/mysql-connector-j-8.2.0.jar">
+	<classpathentry kind="lib" path="jnativehook-2.2.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/tepi7/OneDrive/Asztali gép/jnativehook-2.2.2.jar">
+	<classpathentry kind="lib" path="mysql-connector-j-8.2.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
