@@ -49,7 +49,7 @@ public class Keret extends futattas{
 		
 		Label_Kilepes.addMouseListener(new MouseAdapter() {
 			
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				System.out.println("Alkalmazas bezarasa");
 				System.exit(0);
 			}
@@ -58,6 +58,7 @@ public class Keret extends futattas{
 		Label_Kilepes.setHorizontalAlignment(SwingConstants.CENTER);
 		Label_Kilepes.setFont(new Font("Tahoma", Font.BOLD, 25));
 		Label_Kilepes.setBounds(552, 0, 48, 41);
+		
 		
 		keret.getContentPane().add(Label_Kilepes);
 		Hatterkep_Keret.addMouseListener(new MouseAdapter() {

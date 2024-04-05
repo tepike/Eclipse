@@ -61,7 +61,7 @@ public class Bejelentkezes extends Keret{
 		Login_Panel.setVisible(true);
 		Hatterkep_Keret.add(Login_Panel);
 		LoginButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				if(Felhasznalo_Text.getText().length()<1) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 					System.out.println("Nincs megadott felhasznalo");
