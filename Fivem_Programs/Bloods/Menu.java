@@ -36,8 +36,6 @@ public class Menu extends Bejelentkezes{
 		Hatterkep_Keret.add(Menu_panel);
 		
 		Menu_panel.setLayout(null);
-		
-
 		Menu_Felso_panel.setLayout(null);
 		Menu_Osszesito_panel.setLayout(null);
 		

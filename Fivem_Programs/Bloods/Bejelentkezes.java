@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -16,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToggleButton;
@@ -104,6 +110,43 @@ public class Bejelentkezes extends Keret{
 		Jelszo_Text.setHorizontalAlignment(SwingConstants.CENTER);
 		Jelszo_Text.setFont(new Font("Tahoma", Font.BOLD, 16));
 		Jelszo_Text.setBounds(139, 59, 186, 25);
+		Jelszo_Text.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	        		  if(Felhasznalo_Text.getText().length()<1) {
+	  					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
+	  					System.out.println("Nincs megadott felhasznalo");
+	  				}
+	  				if(Jelszo_Text.getText().length()<1) {
+	  					JOptionPane.showMessageDialog(null, "Nincs megadva jelszó");
+	  					System.out.println("Nincs megadott jelszo");
+	  				}
+	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+	  				
+	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  					Toolkit.getDefaultToolkit().beep();
+	  					Menu.Menu_futtat();
+	  				}
+		                 
+		             }
+				
+			}
+		});
 		Adatok_Panel.add(Jelszo_Text);
 		
 		JLabel Jelszo_Label = new JLabel("Jelszó:");
@@ -116,6 +159,44 @@ public class Bejelentkezes extends Keret{
 		Felhasznalo_Text.setFont(new Font("Tahoma", Font.BOLD, 16));
 		Felhasznalo_Text.setHorizontalAlignment(SwingConstants.CENTER);
 		Felhasznalo_Text.setBounds(139, 24, 186, 25);
+		Felhasznalo_Text.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	        		  if(Felhasznalo_Text.getText().length()<1) {
+	  					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
+	  					System.out.println("Nincs megadott felhasznalo");
+	  				}
+	  				if(Jelszo_Text.getText().length()<1) {
+	  					JOptionPane.showMessageDialog(null, "Nincs megadva jelszó");
+	  					System.out.println("Nincs megadott jelszo");
+	  				}
+	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+	  				
+	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  					Toolkit.getDefaultToolkit().beep();
+	  					Menu.Menu_futtat();
+	  				}
+		                 
+		             }
+				
+			}
+		});
+		
 		
 		Adatok_Panel.add(Felhasznalo_Text);
 		Felhasznalo_Text.setColumns(10);
