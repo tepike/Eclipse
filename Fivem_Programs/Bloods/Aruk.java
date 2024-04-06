@@ -166,7 +166,7 @@ public class Aruk extends Menu{
 		
 		//Pisztoly kép és szöveg dekralizálása
 		Pistoly_kep.setBounds(8, 5, Fegyver_szeles, Fegyver_magas);
-		Pistoly_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Fegvyerek/Pistol.png")));
+		Pistoly_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Pistol.png")));
 		Pistoly_kep.setVisible(true);
 		
 		Pisztoly_szoveg.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -176,7 +176,7 @@ public class Aruk extends Menu{
 		
 		//AP pisztoly kép és szöveg dekralizálása
 		Ap_Pistoly_kep.setBounds(8, 5, Fegyver_szeles, Fegyver_magas);
-		Ap_Pistoly_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Fegvyerek/AP_Pistol.png")));
+		Ap_Pistoly_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/AP_Pistol.png")));
 		Ap_Pistoly_kep.setVisible(true);
 		
 		Ap_Pisztoly_szoveg.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -186,7 +186,7 @@ public class Aruk extends Menu{
 		
 		//Tec-9 kép és szöveg dekralizálása
 		Tec9_kep.setBounds(8, 5, Fegyver_szeles, Fegyver_magas);
-		Tec9_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Fegvyerek/Machine_Pistol.png")));
+		Tec9_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Machine_Pistol.png")));
 		Tec9_kep.setVisible(true);
 		
 		Tec9_szoveg.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -196,7 +196,7 @@ public class Aruk extends Menu{
 		
 		//Micro SMG kép és szöveg dekralizálása
 		Micro_SMG_kep.setBounds(8, 5, Fegyver_szeles, Fegyver_magas);
-		Micro_SMG_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Fegvyerek/Micro_SMG.png")));
+		Micro_SMG_kep.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Micro_SMG.png")));
 		Micro_SMG_kep.setVisible(true);
 		
 		Micro_SMG_szoveg.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -241,6 +241,11 @@ public class Aruk extends Menu{
 		Reset_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Reset");
+				Pistoly_Mennyiseg.setText("0");
+				AP_Pistoly_Mennyiseg.setText("0");
+				Tec9_Mennyiseg.setText("0");
+				Micro_SMG_Mennyiseg.setText("0");
+				Fegyver_Frissites();
 
 		}});
 		
@@ -279,7 +284,7 @@ public class Aruk extends Menu{
 		Micro_SMG_Megadas();
 
 		Osszegzo_Panel_Letrehozas();
-		Osszegzo_Panel_Feltoltes();
+		Fegyver_Osszegzo_Panel_Feltoltes();
 		
 	}
 	
@@ -494,7 +499,7 @@ public class Aruk extends Menu{
 		Menu_Osszesito_panel.add(Loszer_Osszegzo_Panel);
 		Menu_Osszesito_panel.add(Osszes_Osszegzo_Panel);
 	}
-	private static void Osszegzo_Panel_Feltoltes() {
+	private static void Fegyver_Osszegzo_Panel_Feltoltes() {
 		//Fegyver_Osszegzo_Label.setBounds(10, 3, 190, 30);
 		Fegyver_Osszegzo_Panel.add(Fegyver_Osszegzo_Anyagok_Label);
 
@@ -603,25 +608,67 @@ public class Aruk extends Menu{
 	}
 
 	private static void Fegyver_Frissites() {
+		DecimalFormat df = new DecimalFormat("#,###");
 		
 		int Pisztoly_darab=Integer.parseInt(Pistoly_Mennyiseg.getText());
 		int Ap_Pisztoly_darab=Integer.parseInt(AP_Pistoly_Mennyiseg.getText());
 		int Tec9_darab=Integer.parseInt(Tec9_Mennyiseg.getText());
 		int Micro_SMG_darab=Integer.parseInt(Micro_SMG_Mennyiseg.getText());
+		
 		//Nyers anyagok
 		int Pisztoly_Nyersanyag=(Pisztoly_darab*Pisztoly_osszerak_darab);
 		int AP_Pisztoly_Nyersanyag=(Ap_Pisztoly_darab*Ap_pisztoly_osszerak_darab);
 		int Tec9_Nyersanyag=(Tec9_darab*Tec_9_osszerak_darab);
 		int Micro_SMG_Nyersanyag=(Micro_SMG_darab*Micro_SMG_osszerak_darab);
 		int Osszes_Nyersanyag=(Pisztoly_Nyersanyag+AP_Pisztoly_Nyersanyag+Tec9_Nyersanyag+Micro_SMG_Nyersanyag);
-		//Súly
-		int Pisztoly_Suly=(Pisztoly_darab*((int)Pisztoly_suly));
-		int AP_Pisztoly_Suly=(Ap_Pisztoly_darab*((int)AP_pisztoly_suly));
-		int Tec9_Suly=(Tec9_darab*((int)Tec9_suly));
-		int Micro_SMG_Suly=(Micro_SMG_darab*((int)Micro_SMG_suly));
-		int Osszes_Suly=(Pisztoly_Suly+AP_Pisztoly_Suly+Tec9_Suly+Micro_SMG_Suly);
-		//Ár
+        String Osszes_Fegyver_Nyersanyag_Formazott = df.format(Osszes_Nyersanyag);
+        Fegyver_Osszegzo_Aceldb_Label.setText(Osszes_Fegyver_Nyersanyag_Formazott+" db");
+        Fegyver_Osszegzo_Vasdb_Label.setText(Osszes_Fegyver_Nyersanyag_Formazott+" db");
+        Fegyver_Osszegzo_Rezdb_Label.setText(Osszes_Fegyver_Nyersanyag_Formazott+" db");
 		
+		//Súly
+        double Pisztoly_Suly=(Pisztoly_darab*((double)Pisztoly_suly));
+        double AP_Pisztoly_Suly=(Ap_Pisztoly_darab*((double)AP_pisztoly_suly));
+        double Tec9_Suly=(Tec9_darab*((double)Tec9_suly));
+        double Micro_SMG_Suly=(Micro_SMG_darab*((double)Micro_SMG_suly));
+		double Osszes_Suly=(Pisztoly_Suly+AP_Pisztoly_Suly+Tec9_Suly+Micro_SMG_Suly);
+        String Osszes_Suly_Formazott = df.format(Osszes_Suly);
+        Fegyver_Osszegzo_Sulykg_Label.setText(Osszes_Suly_Formazott+" kg");
+        
+        //Craftolási idő
+    	//int Alapanyag_craftolsai_ido=13;
+    	// int Fegyver_craftolsai_ido=20;
+        int Pisztoly_Teljes_Craft_Ido=(Pisztoly_darab*Alapanyag_craftolsai_ido*Pisztoly_osszerak_darab+Pisztoly_darab*Fegyver_craftolsai_ido);
+        int AP_Pisztoly_Teljes_Craft_Ido=(Ap_Pisztoly_darab*Alapanyag_craftolsai_ido*Ap_pisztoly_osszerak_darab+Ap_Pisztoly_darab*Fegyver_craftolsai_ido);
+        int Tec9_Teljes_Craft_Ido=(Tec9_darab*Alapanyag_craftolsai_ido*Tec_9_osszerak_darab+Tec9_darab*Fegyver_craftolsai_ido);
+        int Micro_SMG_Teljes_Craft_Ido=(Micro_SMG_darab*Alapanyag_craftolsai_ido*Micro_SMG_osszerak_darab+Micro_SMG_darab*Fegyver_craftolsai_ido);
+        
+        int Fegyver_Teljes_Craft_Ido=(Pisztoly_Teljes_Craft_Ido+AP_Pisztoly_Teljes_Craft_Ido+Tec9_Teljes_Craft_Ido+Micro_SMG_Teljes_Craft_Ido);
+        
+        int Orak=Fegyver_Teljes_Craft_Ido/3600;
+        int Percek=(Fegyver_Teljes_Craft_Ido%3600)/60;
+        int Masodpercek=Fegyver_Teljes_Craft_Ido%60;
+        Fegyver_Osszegzo_Craft_ora_Label.setText(Integer.toString(Orak)+" h");
+        Fegyver_Osszegzo_Craft_perc_Label.setText(Integer.toString(Percek)+" min");
+        Fegyver_Osszegzo_Craft_masodperc_Label.setText(Integer.toString(Masodpercek)+" sec");
+        
+        if(Orak==0) {
+        	Fegyver_Osszegzo_Craft_ora_Label.setText("0 h");
+        }
+        if(Percek==0) {
+        	Fegyver_Osszegzo_Craft_perc_Label.setText("0 min");
+        }
+        if(Masodpercek==0) {
+        	Fegyver_Osszegzo_Craft_masodperc_Label.setText("0 sec");
+        }
+        
+        
+        //String Fegyver_Teljes_Craft_Ido_String=(Integer.toString(Fegyver_Teljes_Craft_Ido));
+       // System.out.println("Craft ido = "+Fegyver_Teljes_Craft_Ido_String);
+        //System.out.println("String hossza = "+Fegyver_Teljes_Craft_Ido_String.length());
+        
+		
+		//Ár
 		int Pisztoly_Ar=(Pisztoly_darab*Pisztoly_ar);
 			if(Pisztoly_darab>4&Pisztoly_darab<=9) {
 				double Pisztoly_Ar2=(Pisztoly_Ar*0.9);
@@ -658,14 +705,11 @@ public class Aruk extends Menu{
 				Micro_SMG_Ar=((int)Micro_SMG_Ar2);
 			}
 
-		
-		
-		
 		int Osszes_Fegyver_Ar=(Pisztoly_Ar+AP_Pisztoly_Ar+Tec9_Ar+Micro_SMG_Ar);
         // Összeg fozmázása a láthatóság végett
-        DecimalFormat df = new DecimalFormat("#,###");
+        
         String Osszes_Fegyver_Ar_Formazott = df.format(Osszes_Fegyver_Ar);
-		Fegyver_Osszegzo_Armenny_Label.setText(Osszes_Fegyver_Ar_Formazott);
+		Fegyver_Osszegzo_Armenny_Label.setText(Osszes_Fegyver_Ar_Formazott+" $");
 		
 		
 		
@@ -678,7 +722,7 @@ public class Aruk extends Menu{
 		
 		
 		
-		
+		//Panel frissítése
 		Fegyver_Osszegzo_Panel.setVisible(false);
 		Menu_Osszesito_panel.setVisible(false);
 		Menu_Osszesito_panel.setVisible(true);
