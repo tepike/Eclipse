@@ -30,8 +30,8 @@ public class Bejelentkezes extends Keret{
 	public static JPanel Login_Panel= new JPanel();
 	public static JLabel Bejelentkezo_Label = new JLabel("Bejelentkezés");
 	private static String Becenev="Tepike";
-	private static String Felhasznalo="1";
-	private static String Jelszo="1";
+	private static String Felhasznalo="Bloods";
+	private static String Jelszo="bc";
 	private static JTextField Felhasznalo_Text;
 	private static JPasswordField Jelszo_Text;
 	public static JButton LoginButton= new JButton("Bejelentkezés");
@@ -81,6 +81,7 @@ public class Bejelentkezes extends Keret{
 				
 				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
 					Toolkit.getDefaultToolkit().beep();
+					
 					Menu.Menu_futtat();
 				}
 

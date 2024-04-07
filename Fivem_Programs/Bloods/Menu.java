@@ -18,6 +18,7 @@ public class Menu extends Bejelentkezes{
 	 * @wbp.parser.entryPoint
 	 */
 	public static void Menu_futtat() {
+		
 		Label_Kilepes.setForeground(Color.RED);
 		Label_Kilepes.setBackground(new Color(255,100,100,100));
 		Label_Kilepes.setOpaque(true);
