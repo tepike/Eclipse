@@ -2094,7 +2094,7 @@ public class Aruk extends Menu{
 	int Osszes_Fegyver_Ar=(Pisztoly_Ar+AP_Pisztoly_Ar+Tec9_Ar+Micro_SMG_Ar);
     // Összeg fozmázása a láthatóság végett
     
-    String Osszes_Fegyver_Ar_Formazott = df.format(Osszes_Fegyver_Ar);
+    String Osszes_Fegyver_Ar_Formazott = df2.format(Osszes_Fegyver_Ar);
     Osszes_Osszegzo_Armenny_Label.setText(Osszes_Fegyver_Ar_Formazott+" $");
         
         

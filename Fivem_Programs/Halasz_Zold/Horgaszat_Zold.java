@@ -18,7 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class main2 extends JFrame implements KeyListener {
+@SuppressWarnings("serial")
+public class Horgaszat_Zold extends JFrame implements KeyListener {
 	
 	private boolean analysisInProgress = false;
 
@@ -114,9 +115,11 @@ public class main2 extends JFrame implements KeyListener {
 	static int pointerY=(int)MouseInfo.getPointerInfo().getLocation().getY();
     private int AblakLathato=1;
     
+    static JLabel lblSznJellscaps = new JLabel("SZÍN JELÖLÉS (CAPS)");
+    
     
 
-    public main2() throws AWTException {
+    public Horgaszat_Zold() throws AWTException {
     	
     	lblJelenlegiKrSzma.setText(Integer.toString(JelenlegiKor));
     	lblHtralvKrkSzama.setText(Integer.toString(HorgaszatKorIg-JelenlegiKor));
@@ -162,9 +165,10 @@ public class main2 extends JFrame implements KeyListener {
 	                 System.exit(0);
 	             }
 	        	 
-	        	 else if (e.getKeyCode() == NativeKeyEvent.VC_TAB) {
-		        		JOptionPane.showMessageDialog(null, "A megjelölendő színen nyomj 'X' Gombot");
+	        	 else if (e.getKeyCode() == NativeKeyEvent.VC_CAPS_LOCK) {
+		        		//JOptionPane.showMessageDialog(null, "A megjelölendő színen nyomj 'X' Gombot");
 		        		SzinMegjelol=true;
+		        		lblSznJellscaps.setForeground(Color.GREEN);
 	             }
 	        	 
 
@@ -312,6 +316,7 @@ public class main2 extends JFrame implements KeyListener {
 	        		 }
 	        		 
 	        		 SzinMegjelol=false;
+	        		 lblSznJellscaps.setForeground(Color.RED);
 	        		 Szinjeloles_Aktiv_Boolean_label.setText("Nem");
 	        		 Szinjeloles_Aktiv_Boolean_label.setForeground(Color.BLACK);
 	        		 
@@ -394,6 +399,12 @@ public class main2 extends JFrame implements KeyListener {
         			panelleark();
         		}
         		
+        	}
+        	
+        	public void mouseEntered(MouseEvent e) {
+        		if(horgaszatfut==2) {
+        			 Ablak2.setVisible(false);
+ 		}
         	}
         });
         
@@ -516,7 +527,7 @@ public class main2 extends JFrame implements KeyListener {
         Csali_Textfield.setColumns(10);
         
         Bedobas_Textfield = new JTextField();
-        Bedobas_Textfield.setText("1500");
+        Bedobas_Textfield.setText("1");
         Bedobas_Textfield.setFont(new Font("Tahoma", Font.BOLD, 13));
         Bedobas_Textfield.setHorizontalAlignment(SwingConstants.CENTER);
         Bedobas_Textfield.setColumns(10);
@@ -532,7 +543,7 @@ public class main2 extends JFrame implements KeyListener {
         Ablak2.getContentPane().add(Beakaszt_Textfield);
         
         Elemzes_Textfield = new JTextField();
-        Elemzes_Textfield.setText("4000");
+        Elemzes_Textfield.setText("3000");
         Elemzes_Textfield.setFont(new Font("Tahoma", Font.BOLD, 13));
         Elemzes_Textfield.setHorizontalAlignment(SwingConstants.CENTER);
         Elemzes_Textfield.setColumns(10);
@@ -662,7 +673,7 @@ public class main2 extends JFrame implements KeyListener {
         lblLthatsgpagedown.setBounds(291, 330, 250, 36);
         Ablak2.getContentPane().add(lblLthatsgpagedown);
         
-        JLabel lblSznJellscaps = new JLabel("SZÍN JELÖLÉS (TAB)");
+       
         lblSznJellscaps.setHorizontalAlignment(SwingConstants.CENTER);
         lblSznJellscaps.setForeground(Color.RED);
         lblSznJellscaps.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -1197,7 +1208,7 @@ private static void ablak2Reset() {
     }
 
     public static void main(String[] args) throws AWTException {
-        new main2();
+        new Horgaszat_Zold();
         try {
 			Thread.sleep(10);
 			ablak2Reset();
