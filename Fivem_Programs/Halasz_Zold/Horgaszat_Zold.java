@@ -12,13 +12,14 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 public class Horgaszat_Zold extends JFrame implements KeyListener {
 	
 	private boolean analysisInProgress = false;
@@ -33,7 +34,8 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
     static boolean talat=false;
     private Timer timer= new Timer();
     private static Timer timer2= new Timer();
-    private  static boolean NumEgned;
+    @SuppressWarnings("unused")
+	private  static boolean NumEgned;
 
     static JFrame Ablak2= new JFrame();
     static JFrame Ablak=new JFrame();
@@ -67,7 +69,8 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
     static double Eger_Y_Double=MouseInfo.getPointerInfo().getLocation().getY();
     static int Eger_X=((int)(Eger_X_Double));
     static int Eger_Y=((int)(Eger_Y_Double));
-    private static int numkod=0;
+    @SuppressWarnings("unused")
+	private static int numkod=0;
     static int sebesseg=10;
     static int sebessegHorgaszat=1000;
     
@@ -125,7 +128,8 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
     	lblHtralvKrkSzama.setText(Integer.toString(HorgaszatKorIg-JelenlegiKor));
     	
     	 Timer timer = new Timer();
-    	 Timer timer2 = new Timer();
+    	 @SuppressWarnings("unused")
+		Timer timer2 = new Timer();
     	 lblAutomata.setForeground(Color.RED);
     	
     	
@@ -263,8 +267,7 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
 	        	 //Gombnyomásra kiválszatható szín
 	        	 else if (SzinMegjelol&(e.getKeyCode() == NativeKeyEvent.VC_X)) {
 	        		 Robot robot;
-	        		 for(int i=0;i!=2;i++) {
-	        			 System.out.println("Kor "+i);
+
 	        		 try {
 	        			 robot = new Robot();
 		                 PointerInfo pointerInfo = MouseInfo.getPointerInfo();
@@ -303,11 +306,6 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
 		                	 System.out.println("A Kekbol levonas kevesebb lett volna mint nulla ezert az eredmenyt beallitom 0-ra");
 		                	 Keresett_Kek_Min=0;
 		                 }
-		                 
-
-		                 
-		                 
-
 	        		 
 					} catch (AWTException e1) {
 						// TODO Auto-generated catch block
@@ -320,7 +318,7 @@ public class Horgaszat_Zold extends JFrame implements KeyListener {
 	        		 Szinjeloles_Aktiv_Boolean_label.setText("Nem");
 	        		 Szinjeloles_Aktiv_Boolean_label.setForeground(Color.BLACK);
 	        		 
-		             }
+		             
 	             
 	        	 Ablak.setLocation(frameX, frameY); 
 	            
@@ -716,7 +714,8 @@ private static void ablak2Reset() {
 }
 
     // Billentyűzet lenyomásának eseménykezelése
-    private void restartTimer() {
+    @SuppressWarnings("unused")
+	private void restartTimer() {
     	
     	 
         timer.cancel(); // Megszakítjuk az aktuális időzítőt
@@ -730,7 +729,8 @@ private static void ablak2Reset() {
         }, 0, sebesseg);
     }
     
-    private void TimerGorgaszatStop() {
+    @SuppressWarnings("unused")
+	private void TimerGorgaszatStop() {
     	timer2.cancel();
     	timer2 = new Timer();
     	
@@ -779,7 +779,10 @@ private static void ablak2Reset() {
                     	
                         robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
                         robot.keyPress(KeyEvent.VK_E);
-                        try {Thread.sleep(1000);
+                        
+                        try {Thread.sleep(100);
+                        	robot.keyRelease(KeyEvent.VK_E);
+                        	Thread.sleep(1000);
                         	robot.keyPress(KeyEvent.VK_4);
                         	
 							Thread.sleep(500);
@@ -876,6 +879,8 @@ private static void ablak2Reset() {
     						Automata_Feladat_Most_1.setText("Elemzés elindult");
     						
                             robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
+                            szinfirssit_auto();
+                            Thread.sleep(100);
                             robot.keyPress(KeyEvent.VK_HOME);
                             Thread.sleep(500);
                             robot.keyRelease(KeyEvent.VK_HOME);
@@ -948,7 +953,7 @@ private static void ablak2Reset() {
 
 
     private void analyzeContent() {
-
+    	
     	frameX=(int)Ablak.getLocation().getX();
     	frameY=(int)Ablak.getLocation().getY();
     	frameWidth=Ablak.getWidth();
@@ -958,6 +963,7 @@ private static void ablak2Reset() {
     	//Horgászati progressbar
         if (aktiv && !analysisInProgress) {
             analysisInProgress = true; // Elemzési folyamat elindítása
+            
 
             // Elemzési folyamat aszinkron módon fut
             Thread analyzeThread = new Thread(() -> {
@@ -1048,7 +1054,8 @@ private static void ablak2Reset() {
         return false; // Ha végigértünk a képen, és nem találtunk megfelelő pixelt
     }
 
-    private void setFrameVisibility(boolean visible) {
+    @SuppressWarnings("unused")
+	private void setFrameVisibility(boolean visible) {
         SwingUtilities.invokeLater(() -> {
             setVisible(visible);
             repaint();
@@ -1124,6 +1131,7 @@ private static void ablak2Reset() {
             	 System.out.println(i);
             	 i++;
             	 Ablak.setLocation((int)Ablak.getLocation().getX(), (int)Ablak.getLocation().getY());
+            	 
                  
                  
              }
@@ -1207,7 +1215,12 @@ private static void ablak2Reset() {
     
     }
 
-    public static void main(String[] args) throws AWTException {
+    public static void main(String[] args) throws AWTException, SQLException {
+    	adatbazis.adatbazis();
+    	adatbazis.adatleker();
+    	//adatbazis.uj_adat_felvetele("30", "10", "40", "20");
+    	//adatbazis.felvett_adat_modositas("1", "1", "1", "1");
+    	// TODO Auto-generated method stub
         new Horgaszat_Zold();
         try {
 			Thread.sleep(10);
@@ -1224,4 +1237,54 @@ private static void ablak2Reset() {
 		// TODO Auto-generated method stub
 		
 	}
+	public void szinfirssit_auto() {
+		System.out.println("Automata elemzes elindult");
+		Robot robot;
+		 try {
+			robot = new Robot();
+            PointerInfo pointerInfo = MouseInfo.getPointerInfo();
+            BufferedImage image = robot.createScreenCapture(pointerInfo.getDevice().getDefaultConfiguration().getBounds());
+            int x = (int)Ablak.getLocation().getX();
+            int y = (int)Ablak.getLocation().getY();
+            Color color = new Color(image.getRGB(x, y));
+            System.out.println("Az egér pozíciójának színe: RGB(" + color.getRed() + ", " + color.getGreen() + ", " + color.getBlue() + ")");
+            int piros=color.getRed();
+            int zold=color.getGreen();
+            int kek=color.getBlue();
+            Erzekelt_Szin_Piros.setText(Integer.toString(Keresett_Piros_Min+25));
+            Erzekelt_Szin_Zold.setText(Integer.toString(Keresett_Zold_Min+25));
+            Erzekelt_Szin_Kek.setText(Integer.toString(Keresett_Kek_Min+25));
+            Keresett_Piros_Max=piros+25;
+            Keresett_Zold_Max=zold+25;
+            Keresett_Kek_Max=kek+25;
+            if(piros-25>=0) {
+           	 System.out.println("\nA Pirosbol vonhato 25, mert ugy is nagyobb vagy egyenlo mint 0");
+           	 Keresett_Piros_Min=piros-25;
+            }else {
+           	 System.out.println("\nA Pirosbol levonas kevesebb lett volna mint nulla ezert az eredmenyt beallitom 0-ra");
+           	 Keresett_Piros_Min=0;
+            }
+            if(zold-25>=0) {
+           	 System.out.println("A Zoldbol vonhato 25, mert ugy is nagyobb vagy egyenlo mint 0");
+           	 Keresett_Zold_Min=zold-25;
+            }else {
+           	 System.out.println("A Zoldbol levonas kevesebb lett volna mint nulla ezert az eredmenyt beallitom 0-ra");
+           	 Keresett_Zold_Min=0;
+            }
+            if(kek-25>=0) {
+           	 System.out.println("A Kekbol vonhato 25, mert ugy is nagyobb vagy egyenlo mint 0");
+           	 Keresett_Kek_Min=kek-25;
+            }else {
+           	 System.out.println("A Kekbol levonas kevesebb lett volna mint nulla ezert az eredmenyt beallitom 0-ra");
+           	 Keresett_Kek_Min=0;
+            }
+		 
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 }
+		
+	
 }
+

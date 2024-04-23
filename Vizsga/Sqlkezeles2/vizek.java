@@ -55,7 +55,23 @@ public class vizek {
                 
                 }}}
         catch(SQLException e) {
+            System.out.println("Tabla letezett");}
+        
+        //Új tábla létrehozása |Fontos, hogy adat beillesztésnél figyelni kell az elérési utat "kornyezetVedelem" |  String sql="INSERT INTO kornyezetVedelem VALUES (?,?,?)"; |
+        try {
+            if (dm!=null) {       
+            ResultSet rs=dm.getTables(null, "APP", "kornyezetVedelem", null);           
+            if (!rs.next()) {               
+                createStatement.execute("create table kornyezetVedelem (tonev varchar(50),vizminoseg varchar(50),datum varchar(50))");
+                System.out.println("Tabla nem letezett, letrehozva");     
+                
+                }}}
+        catch(SQLException e) {
             System.out.println("Tabla letezett");}}
+    
+    
+    
+    
 
     
     
