@@ -348,6 +348,7 @@ public class Aruk extends Menu{
 		Admin_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Admin gomb megnyomva");
+				
 			}
 		});
 		
@@ -2164,7 +2165,9 @@ public class Aruk extends Menu{
 	}
 	
 	public static void Rendeles(){
+		Rendeles.Rendelesi_Kep_Frissit();
 		Rendeles.Rendeles_lathato();
+		Rendeles.Rendeles_Doboz();
 	}
 	
 
