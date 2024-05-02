@@ -219,8 +219,14 @@ public class Aruk extends Menu{
 	static JLabel MG_Loszer_Minusz = new JLabel();
 	static JTextField MG_Loszer_Mennyiseg = new JTextField();
 	
-	
+	//Megadott vásárlási mennyiség vissza állítása 0-ra
 	static JButton Reset_gomb=new JButton("Reset");
+	
+	//Fejléc feltöltése
+	static JLabel Felhasnzalo_Felso= new JLabel("Felhasználó:");
+	static JButton Rendeles_gomb=new JButton("Rendelések");
+	static JButton Bolt_gomb=new JButton("Bolt");
+	static JButton Admin_gomb=new JButton("Admin");
 	
 	
 	
@@ -325,6 +331,28 @@ public class Aruk extends Menu{
 		
 		
 		
+		Rendeles_gomb.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				Rendeles();
+			}
+		});
+		
+		
+		Bolt_gomb.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				Rendeles.Bolt_lathato();
+			}
+		});
+		
+		
+		Admin_gomb.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				System.out.println("Admin gomb megnyomva");
+			}
+		});
+		
+		
+		
 		//Mennyiség 
 		kiegeszitok_hozzadasa();
 		
@@ -356,7 +384,22 @@ public class Aruk extends Menu{
 		Menu_panel.add(Rifle_Loszer_Mennyiseg_panel);
 		Menu_panel.add(Shotgun_Loszer_Mennyiseg_panel);
 		
+		//Felső panel részeinek elhelyezése
+		Felhasnzalo_Felso.setBounds(10, 15, 130, 30);
+		Felhasnzalo_Felso.setFont(new Font("Tahoma", Font.BOLD, 20));
+		Felhasnzalo_Felso.setForeground(Color.white);
+		
+		Admin_gomb.setBounds(680, 15, 90, 30);
+			//Ez alaplból false kell, hogy legyen és kell rá egy metódus ami nézi, hogy az illető admin-e vagy sem ha az akkor töltsön csak be az admin menü
+		Admin_gomb.setVisible(true);
+		Rendeles_gomb.setBounds(780, 15, 110, 30);
+		Bolt_gomb.setBounds(900, 15, 90, 30);
+		
 		Menu_panel.add(Reset_gomb);
+		Menu_Felso_panel.add(Rendeles_gomb);
+		Menu_Felso_panel.add(Felhasnzalo_Felso);
+		Menu_Felso_panel.add(Bolt_gomb);
+		Menu_Felso_panel.add(Admin_gomb);
 	
 		
 	}
@@ -2119,4 +2162,10 @@ public class Aruk extends Menu{
 		Menu_Osszesito_panel.setVisible(true);
 		Loszer_Osszegzo_Panel.setVisible(true);
 	}
+	
+	public static void Rendeles(){
+		Rendeles.Rendeles_lathato();
+	}
+	
+
 }

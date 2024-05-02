@@ -1216,8 +1216,8 @@ private static void ablak2Reset() {
     }
 
     public static void main(String[] args) throws AWTException, SQLException {
-    	adatbazis.adatbazis();
-    	adatbazis.adatleker();
+    	//adatbazis.adatbazis();
+    	//adatbazis.adatleker();
     	//adatbazis.uj_adat_felvetele("30", "10", "40", "20");
     	//adatbazis.felvett_adat_modositas("1", "1", "1", "1");
     	// TODO Auto-generated method stub
