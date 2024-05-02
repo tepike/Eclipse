@@ -17,6 +17,10 @@ import javax.swing.border.Border;
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
 	 static int Rendelesek=8;
+	 static int Doboz_Magas=200;
+	 static int Doboz_Szeles=250;
+	 static int Doboz_X=150;
+	 static int Doboz_Y=30;
 
 	
 	
@@ -47,10 +51,7 @@ public class Rendeles extends Menu {
 		JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
 		JLabel[] Label_tomb = new JLabel[Rendelesek+1];
 		
-		  int Doboz_Magas=200;
-		  int Doboz_Szeles=250;
-		  int Doboz_X=150;
-		  int Doboz_Y=30;
+
 		for(int i =1;i<=Rendelesek;) {
 			final int hanyadik=i;
 
@@ -74,13 +75,17 @@ public class Rendeles extends Menu {
 				public void mousePressed(MouseEvent e) {
 		            if (e.getClickCount() == 2 && !e.isConsumed()) {
 		                    e.consume();
-		                    Rendelesi_Kep_Frissit();
+		                    Doboz_X=((int)Panel_tomb[hanyadik].getLocation().getX());
+		                    Doboz_Y=((int)Panel_tomb[hanyadik].getLocation().getY());
+		                    
 		                    Panel_tomb[hanyadik].setBounds((int)Rendeles_panel.getLocation().getX()/2, (int)Rendeles_panel.getLocation().getY()/2, Doboz_Szeles*2, Doboz_Magas*2);
-		                    Hatterkep_Keret.getRootPane().setComponentZOrder(Panel_tomb[hanyadik], 0);
+		              
 		                    Panel_tomb[hanyadik].repaint();
 		                    
 		                    Label_tomb[hanyadik].setVisible(true);
 		                  
+
+		                    Rendelesi_Kep_Frissit();
 		                    System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
 		            }
 		           
@@ -93,12 +98,14 @@ public class Rendeles extends Menu {
 			Label_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					System.out.println("Megnyomtad az X-et: "+Integer.toString(hanyadik));
-					if(hanyadik<4) {
-						Panel_tomb[hanyadik].setBounds((int)Panel_tomb[hanyadik+1].getLocation().getX()-230, (int)Panel_tomb[hanyadik+1].getLocation().getY()+100, Doboz_Szeles, Doboz_Magas);
-	                    Hatterkep_Keret.getRootPane().setComponentZOrder(Panel_tomb[hanyadik], 0);
-	                    Panel_tomb[hanyadik].repaint();
+					
+						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
+
 	                    Label_tomb[hanyadik].setVisible(false);
-					}
+	                    Rendelesi_Kep_Frissit();
+	               	   Doboz_X=150;
+	            	   Doboz_Y=30;
+					
 
 					
 				}
