@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -21,7 +22,6 @@ public class Rendeles extends Menu {
 	 static int Doboz_Szeles=250;
 	 static int Doboz_X=150;
 	 static int Doboz_Y=30;
-
 	
 	
 	public static void Rendeles_lathato()  {
@@ -60,12 +60,12 @@ public class Rendeles extends Menu {
 			Panel_tomb[i]=new JPanel();
 			Panel_tomb[i].setBounds(Doboz_X, Doboz_Y, Doboz_Szeles, Doboz_Magas);
 			Panel_tomb[i].setBackground(Color.white);
-			Panel_tomb[i].setBorder(BorderFactory.createLineBorder(Color.RED,1));
+			Panel_tomb[i].setBorder(BorderFactory.createLineBorder(Color.gray,4));
 			Panel_tomb[i].setLayout(null);
 			
 			Label_tomb[i]=new JLabel("X");
-			Label_tomb[i].setBounds(230*2, 5, 20, 15);
-			Label_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 25));
+			
+			Label_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_tomb[i].setForeground(Color.red);
 			Label_tomb[i].setVisible(false);
 			Panel_tomb[i].add(Label_tomb[i]);
@@ -77,16 +77,25 @@ public class Rendeles extends Menu {
 		                    e.consume();
 		                    Doboz_X=((int)Panel_tomb[hanyadik].getLocation().getX());
 		                    Doboz_Y=((int)Panel_tomb[hanyadik].getLocation().getY());
+		                    Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 0);
+		                 
 		                    
-		                    Panel_tomb[hanyadik].setBounds((int)Rendeles_panel.getLocation().getX()/2, (int)Rendeles_panel.getLocation().getY()/2, Doboz_Szeles*2, Doboz_Magas*2);
+		                    Panel_tomb[hanyadik].setBounds((int)Rendeles_panel.getWidth()/2-(Doboz_Szeles), (int)Rendeles_panel.getHeight()/2-(Doboz_Magas+75), Doboz_Szeles+350, Doboz_Magas+300);
 		              
 		                    Panel_tomb[hanyadik].repaint();
+		                    Label_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()-30, 5, 30, 30);
 		                    
 		                    Label_tomb[hanyadik].setVisible(true);
 		                  
 
 		                    Rendelesi_Kep_Frissit();
+		                   // System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
+		                    
+		                    int Felso_Panel=keret.getLayeredPane().getPosition(Panel_tomb[hanyadik]);
+		                    System.out.println(Felso_Panel);
 		                    System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
+		                    
+
 		            }
 		           
 				}
@@ -98,6 +107,7 @@ public class Rendeles extends Menu {
 			Label_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					System.out.println("Megnyomtad az X-et: "+Integer.toString(hanyadik));
+						Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 1);
 					
 						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
 
