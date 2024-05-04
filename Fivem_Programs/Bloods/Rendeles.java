@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
-	 static int Rendelesek=8;
+	 static int Rendelesek=16;
 	 static int Doboz_Magas=200;
 	 static int Doboz_Szeles=250;
 	 static int Doboz_X=150;
@@ -26,7 +26,12 @@ public class Rendeles extends Menu {
 	 
 	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
 	static JLabel[] Label_tomb = new JLabel[Rendelesek+1];
+	static JLabel[] Label_Kovetes_tomb = new JLabel[Rendelesek+1];
+	static JLabel Tovabb_Nyil = new JLabel("Tovább");
+	static JLabel Vissza_Nyil = new JLabel("Vissza");
 	
+	static int Maximum_Oldal=(Rendelesek/8);
+	static int Jelenlegi_Oldal=1;
 	
 	public static void Rendeles_lathato()  {
 		System.out.println("Rendeles betoltese");
@@ -67,11 +72,17 @@ public class Rendeles extends Menu {
 			Panel_tomb[i].setLayout(null);
 			
 			Label_tomb[i]=new JLabel("X");
-			
 			Label_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_tomb[i].setForeground(Color.red);
 			Label_tomb[i].setVisible(false);
 			Panel_tomb[i].add(Label_tomb[i]);
+			
+			Label_Kovetes_tomb[i]=new JLabel(Integer.toString(hanyadik));
+			Label_Kovetes_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
+			Label_Kovetes_tomb[i].setForeground(Color.red);
+			Label_Kovetes_tomb[i].setVisible(true);
+			Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
+			Panel_tomb[i].add(Label_Kovetes_tomb[i]);
 			
 			
 			Panel_tomb[i].addMouseListener(new MouseAdapter() {
@@ -87,7 +98,7 @@ public class Rendeles extends Menu {
 		              
 		                    Panel_tomb[hanyadik].repaint();
 		                    Label_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()-30, 5, 30, 30);
-		                    
+		                    Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 		                    Label_tomb[hanyadik].setVisible(true);
 		                  
 
@@ -113,6 +124,7 @@ public class Rendeles extends Menu {
 						Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 1);
 					
 						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
+						Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 
 	                    Label_tomb[hanyadik].setVisible(false);
 	                    Rendelesi_Kep_Frissit();
@@ -145,6 +157,41 @@ public class Rendeles extends Menu {
 			
 			
 		}
+		
+		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Tovabb_Nyil.setForeground(Color.red);
+		Tovabb_Nyil.setBounds(Rendeles_panel.getWidth()/2+50, Rendeles_panel.getHeight()-130, Doboz_Szeles, Doboz_Magas);
+		Rendeles_panel.add(Tovabb_Nyil);
+		
+		Tovabb_Nyil.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				System.out.println("Tovabb nyil megnyomva");
+				
+				for(int i =1;i<=8;i++) {
+					
+					Panel_tomb[i].setVisible(false);
+					Panel_tomb[i+8].setVisible(true);
+				}
+				Rendelesi_Kep_Frissit();
+			}
+		
+		});
+		
+		Vissza_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Vissza_Nyil.setForeground(Color.red);
+		Vissza_Nyil.setBounds(Rendeles_panel.getWidth()/2-50, Rendeles_panel.getHeight()-130, Doboz_Szeles, Doboz_Magas);
+		Rendeles_panel.add(Vissza_Nyil);
+		
+		//Továbblépések láthatóságának kezelése
+		if(Panel_tomb[1].isVisible()) {
+			System.out.println("Visszanyil nem lathato, mert az 1-es rendeles lathato");
+			Vissza_Nyil.setVisible(false);
+		}else{
+			System.out.println("Visszanyil lathato, mert az 1-es rendeles lathato");
+			Vissza_Nyil.setVisible(true);
+		}
+		
+		
 		betoltve=true;
 		}
 		if (betoltve) {
