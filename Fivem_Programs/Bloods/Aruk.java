@@ -2165,9 +2165,10 @@ public class Aruk extends Menu{
 	}
 	
 	public static void Rendeles(){
-		Rendeles.Rendelesi_Kep_Frissit();
+		
 		Rendeles.Rendeles_lathato();
 		Rendeles.Rendeles_Doboz();
+		Rendeles.Rendelesi_Kep_Frissit();
 	}
 	
 

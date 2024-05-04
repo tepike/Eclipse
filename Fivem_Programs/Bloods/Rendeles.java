@@ -22,6 +22,10 @@ public class Rendeles extends Menu {
 	 static int Doboz_Szeles=250;
 	 static int Doboz_X=150;
 	 static int Doboz_Y=30;
+	 static boolean betoltve=false;
+	 
+	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
+	static JLabel[] Label_tomb = new JLabel[Rendelesek+1];
 	
 	
 	public static void Rendeles_lathato()  {
@@ -47,11 +51,10 @@ public class Rendeles extends Menu {
 	}
 	
 	public static void Rendeles_Doboz() {
-		System.out.println("Rendelési dobozok létrehozása");
-		JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
-		JLabel[] Label_tomb = new JLabel[Rendelesek+1];
+		if(!betoltve) {
+			
 		
-
+		System.out.println("Rendelési dobozok létrehozása");
 		for(int i =1;i<=Rendelesek;) {
 			final int hanyadik=i;
 
@@ -142,14 +145,20 @@ public class Rendeles extends Menu {
 			
 			
 		}
+		betoltve=true;
+		}
+		if (betoltve) {
+			System.out.println("Nem tolti ujra a panelekt, mert mar egyszer betoltotte, viszont ha plusz adat jon nem kezeli");
+		}
 		
 	}
 	static void Rendelesi_Kep_Frissit() {
 		System.out.println("Rendelsi panel frissitve");
 		Hatterkep_Keret.setVisible(false);
+		Hatterkep_Keret.setVisible(true);
 		Rendeles_panel.setVisible(false);
 		Rendeles_panel.setVisible(true);
-		Hatterkep_Keret.setVisible(true);
+	
 	}
 
 }
