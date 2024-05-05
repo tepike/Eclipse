@@ -20,6 +20,9 @@ public class Rendeles extends Menu {
 	 static int Rendelesek=79;
 	 static int Rendelesi_Oldalak=(Rendelesek/8);
 	 static int Jelenlegi_Oldal=0;
+	 static int Fennmarado_Rendelesek=(Rendelesek%8);
+	 static boolean Maradok_Szamolva=false;
+	 
 
 	 static int Doboz_Magas=200;
 	 static int Doboz_Szeles=250;
@@ -186,16 +189,38 @@ public class Rendeles extends Menu {
 
 					Jelenlegi_Oldal++;
 					//Ha eléri a rendeléseket akkor kiveszi a tovább gombot, hogy ne csorduljon túl
-					System.err.println("Itt kell variálni, hogy mutassa az egész számok alatt is ne cska ami 8-al osztva 0");
+					
+					
 					if(Jelenlegi_Oldal+1==Rendelesi_Oldalak   &    Jelenlegi_Oldal+1==Rendelesi_Oldalak) {	
-						Tovabb_Nyil.setVisible(false);
+						//Tovabb_Nyil.setVisible(false);
 					}
 					System.out.println("\n\tJelenlegi ="+(Jelenlegi_Oldal+1)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
 					
 					for(int i =1;i<=8;i++) {
+						System.out.println("\tJelenlegi oldal: "+(Jelenlegi_Oldal+1));
+						if(Jelenlegi_Oldal>0)
 						Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
-						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
+						
+						if(Jelenlegi_Oldal==Rendelesi_Oldalak&Rendelesek%8!=0) {
+							System.err.println("\n\tRendeles feletti ertek kezelese");
+							for(int a =1;a<=Fennmarado_Rendelesek;a++) {
+								Panel_tomb[(Rendelesek/8)*8+a].setVisible(true);
+							}
+							Maradok_Szamolva=true;
+						}
+						
+						if(!Maradok_Szamolva) {
+						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);	
+						}
+						
+
+						
 					}
+
+
+					
+					//Fennmaradó oldalak létrehozása és láthatóvá tétele
+
 					//Továbblépések láthatóságának kezelése
 					if(!Panel_tomb[1].isVisible()){
 						System.out.println("\nVisszanyil lathato, mert az 1-es rendeles nem lathato");
@@ -260,8 +285,8 @@ public class Rendeles extends Menu {
 		
 	}
 	static void Rendelesi_Kep_Frissit() {
-		System.out.println("79 % 8 = "+(79%8));
-		System.out.println("79 / 8 = "+(79/8));
+		System.out.println("81 % 8 = "+(81%8));
+		System.out.println("81 / 8 = "+(81/8));
 		System.out.println("Rendelsi panel frissitve");
 		Hatterkep_Keret.setVisible(false);
 		Hatterkep_Keret.setVisible(true);
