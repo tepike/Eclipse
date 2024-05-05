@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
-	 static int Rendelesek=79;
+	 static int Rendelesek=83;
 	 static int Rendelesi_Oldalak=(Rendelesek/8);
 	 static int Jelenlegi_Oldal=0;
 	 static int Fennmarado_Rendelesek=(Rendelesek%8);
@@ -254,8 +254,19 @@ public class Rendeles extends Menu {
 					Jelenlegi_Oldal--;
 					for(int i =1;i<=8;i++) {
 						
+						if(Jelenlegi_Oldal>Rendelesi_Oldalak&Rendelesek%8!=0) {
+							System.err.println("\n\tRendeles feletti ertek kezelese");
+							for(int a =1;a<=Fennmarado_Rendelesek;a++) {
+								Panel_tomb[(Rendelesek/8)*8+a].setVisible(false);
+							}
+							Rendelesi_Kep_Frissit();
+							Maradok_Szamolva=false;
+						}
+						
 						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
-						Panel_tomb[(Jelenlegi_Oldal+1)*8+i].setVisible(false);
+						
+						
+				
 						
 					}
 				}
