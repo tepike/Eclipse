@@ -17,7 +17,10 @@ import javax.swing.border.Border;
 
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
-	 static int Rendelesek=16;
+	 static int Rendelesek=79;
+	 static int Rendelesi_Oldalak=(Rendelesek/8);
+	 static int Jelenlegi_Oldal=0;
+
 	 static int Doboz_Magas=200;
 	 static int Doboz_Szeles=250;
 	 static int Doboz_X=150;
@@ -30,8 +33,8 @@ public class Rendeles extends Menu {
 	static JLabel Tovabb_Nyil = new JLabel("Tovább");
 	static JLabel Vissza_Nyil = new JLabel("Vissza");
 	
-	static int Maximum_Oldal=(Rendelesek/8);
-	static int Jelenlegi_Oldal=1;
+
+
 	
 	public static void Rendeles_lathato()  {
 		System.out.println("Rendeles betoltese");
@@ -58,7 +61,7 @@ public class Rendeles extends Menu {
 	public static void Rendeles_Doboz() {
 		if(!betoltve) {
 			
-		
+
 		System.out.println("Rendelési dobozok létrehozása");
 		for(int i =1;i<=Rendelesek;) {
 			final int hanyadik=i;
@@ -104,9 +107,7 @@ public class Rendeles extends Menu {
 
 		                    Rendelesi_Kep_Frissit();
 		                   // System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
-		                    
-		                    int Felso_Panel=keret.getLayeredPane().getPosition(Panel_tomb[hanyadik]);
-		                    System.out.println(Felso_Panel);
+		            
 		                    System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
 		                    
 
@@ -137,21 +138,26 @@ public class Rendeles extends Menu {
 			});
 			
 			System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
+			
+			//Ennyivel növeli az eltolást minden for ciklus kezdésnél
 			Doboz_X=Doboz_X+270;
-			if(i==4) {
+			if(i%4==0) {
+				System.out.println("Az i elerte a 4-et ezert vissza all alapra a Doboz_X es Y");
 				Doboz_X=150;
 				Doboz_Y=Doboz_Y+240;
 			}
-			
-			if(i==8) {
-				System.out.println("Az i elerte a 4-et ezert vissza all alapra a Doboz_X es Y");
+			if(i%8==0) {
+				
 				Doboz_X=150;
-				Doboz_Y=150;
+				Doboz_Y=30;
 				System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
 			}
+			//A 8 feletti panelokat láthatatlanná teszi első nyitáskor
 			if(i>8) {
 				Panel_tomb[i].setVisible(false);
 			}
+			//Eddig tart
+			
 			Rendeles_panel.add(Panel_tomb[i]);
 			i++;
 			
@@ -160,36 +166,90 @@ public class Rendeles extends Menu {
 		
 		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Tovabb_Nyil.setForeground(Color.red);
-		Tovabb_Nyil.setBounds(Rendeles_panel.getWidth()/2+50, Rendeles_panel.getHeight()-130, Doboz_Szeles, Doboz_Magas);
+		Tovabb_Nyil.setBounds(Rendeles_panel.getWidth()/2+50, Rendeles_panel.getHeight()-40, 60, 35);
 		Rendeles_panel.add(Tovabb_Nyil);
+		
+		if(Panel_tomb[1].isVisible()) {
+			System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
+			Vissza_Nyil.setVisible(false);
+			Rendelesi_Kep_Frissit();
+		}
 		
 		Tovabb_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+
 				System.out.println("Tovabb nyil megnyomva");
-				
-				for(int i =1;i<=8;i++) {
+				//Panelok láthatóvá tétele továbbgomb számára
+				System.err.println("177-es sor bugos valamit kezdeni kell vele.");
+
+				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal<Rendelesi_Oldalak) {
+
+					Jelenlegi_Oldal++;
+					//Ha eléri a rendeléseket akkor kiveszi a tovább gombot, hogy ne csorduljon túl
+					System.err.println("Itt kell variálni, hogy mutassa az egész számok alatt is ne cska ami 8-al osztva 0");
+					if(Jelenlegi_Oldal+1==Rendelesi_Oldalak   &    Jelenlegi_Oldal+1==Rendelesi_Oldalak) {	
+						Tovabb_Nyil.setVisible(false);
+					}
+					System.out.println("\n\tJelenlegi ="+(Jelenlegi_Oldal+1)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
 					
-					Panel_tomb[i].setVisible(false);
-					Panel_tomb[i+8].setVisible(true);
+					for(int i =1;i<=8;i++) {
+						Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
+						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
+					}
+					//Továbblépések láthatóságának kezelése
+					if(!Panel_tomb[1].isVisible()){
+						System.out.println("\nVisszanyil lathato, mert az 1-es rendeles nem lathato");
+						Vissza_Nyil.setVisible(true);
+						
+					}
+					if(Jelenlegi_Oldal==0) {
+						Tovabb_Nyil.setVisible(true);	
+					}
+					Rendelesi_Kep_Frissit();
+					System.out.println("A jelenelgi oldalszam: "+Jelenlegi_Oldal);
+					
+				}else {
+
+				
+					
 				}
+
 				Rendelesi_Kep_Frissit();
 			}
 		
 		});
 		
+		Vissza_Nyil.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+
+				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal!=0) {
+					if(Jelenlegi_Oldal<Rendelesi_Oldalak) {
+						Tovabb_Nyil.setVisible(true);
+					}
+					Jelenlegi_Oldal--;
+					for(int i =1;i<=8;i++) {
+						
+						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
+						Panel_tomb[(Jelenlegi_Oldal+1)*8+i].setVisible(false);
+						
+					}
+				}
+				System.out.println("Jelenlegi oldal vissza lepett = "+Jelenlegi_Oldal);
+				if(Panel_tomb[1].isVisible()){
+					System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
+					Vissza_Nyil.setVisible(false);
+				
+				}
+				Rendelesi_Kep_Frissit();
+			}
+		});
+		
 		Vissza_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Vissza_Nyil.setForeground(Color.red);
-		Vissza_Nyil.setBounds(Rendeles_panel.getWidth()/2-50, Rendeles_panel.getHeight()-130, Doboz_Szeles, Doboz_Magas);
+		Vissza_Nyil.setBounds(Rendeles_panel.getWidth()/2-50, Rendeles_panel.getHeight()-40, 50, 35);
 		Rendeles_panel.add(Vissza_Nyil);
 		
-		//Továbblépések láthatóságának kezelése
-		if(Panel_tomb[1].isVisible()) {
-			System.out.println("Visszanyil nem lathato, mert az 1-es rendeles lathato");
-			Vissza_Nyil.setVisible(false);
-		}else{
-			System.out.println("Visszanyil lathato, mert az 1-es rendeles lathato");
-			Vissza_Nyil.setVisible(true);
-		}
+
 		
 		
 		betoltve=true;
@@ -200,6 +260,8 @@ public class Rendeles extends Menu {
 		
 	}
 	static void Rendelesi_Kep_Frissit() {
+		System.out.println("79 % 8 = "+(79%8));
+		System.out.println("79 / 8 = "+(79/8));
 		System.out.println("Rendelsi panel frissitve");
 		Hatterkep_Keret.setVisible(false);
 		Hatterkep_Keret.setVisible(true);
