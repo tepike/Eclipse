@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
-	 static int Rendelesek=173;
+	 static int Rendelesek=29;
 	 static int Rendelesi_Oldalak=(Rendelesek/8);
 	 static int Rendelesi_Oldalak_Seged=Rendelesi_Oldalak;
 	 static int Jelenlegi_Oldal=0;
@@ -184,82 +184,85 @@ public class Rendeles extends Menu {
 		
 		Tovabb_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-
-
+				System.out.println("\n------------------------------------------------------------------");
 
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal<Rendelesi_Oldalak) {
 
-					Jelenlegi_Oldal++;
-					//Ha eléri a rendeléseket akkor kiveszi a tovább gombot, hogy ne csorduljon túl
+					Jelenlegi_Oldal++;		
+					System.out.println("\nJelenelgi oldal nott");
+					System.out.println("\nJelenlegi oldal = "+(Jelenlegi_Oldal)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
 					
-					
-					if(Jelenlegi_Oldal+1==Rendelesi_Oldalak   &    Jelenlegi_Oldal+1==Rendelesi_Oldalak) {	
-						//Tovabb_Nyil.setVisible(false);
-					}
-					System.out.println("\n\tJelenlegi ="+(Jelenlegi_Oldal+1)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
-					
-					for(int i =1;i<=8;i++) {
-						System.out.println("\tJelenlegi oldal: "+(Jelenlegi_Oldal+1));
-						if(Jelenlegi_Oldal>0)
-						Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
+					for(int i =1;i<=8;i++) {						
+						if(Jelenlegi_Oldal>0&Jelenlegi_Oldal<=Rendelesi_Oldalak) {
+							Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
+						}						
 						
-						if(Jelenlegi_Oldal==Rendelesi_Oldalak&Rendelesek%8!=0) {
-							System.err.println("\n\tRendeles feletti ertek kezelese");
-							for(int a =1;a<=Fennmarado_Rendelesek;a++) {
-								Panel_tomb[(Rendelesek/8)*8+a].setVisible(true);
-							}
-							Tovabb_Nyil.setVisible(false);
-							Maradok_Szamolva=true;
-						}
-						
+						//Innen kell valamit kezdeni
 						if(!Maradok_Szamolva&Jelenlegi_Oldal!=Rendelesi_Oldalak) {
-						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);	
+							
+						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
+							if(Rendelesek%8!=0&Fennmarado_Rendelesek!=i) {
+								Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
+							}
 						}
-						
-
-						
-					}
-
-
+						//Eddig, mert valszeg rossz helyen van a programrész
+					}	
 					
-					//Fennmaradó oldalak létrehozása és láthatóvá tétele
-
-					//Továbblépések láthatóságának kezelése
-					if(!Panel_tomb[1].isVisible()){
-						System.out.println("\nVisszanyil lathato, mert az 1-es rendeles nem lathato");
-						Vissza_Nyil.setVisible(true);
+					//Itt úszik el a program tovább lépése, viszont ha kiveszem akkor nem tölri az utolsó képet ha 1-el visszábról nyitom meg
+					if(Jelenlegi_Oldal==Rendelesi_Oldalak&Rendelesek%8!=0) {
+						System.out.println("\nNem oszthato 8-al betoltve");
 						
+						for(int a =1;a<=Fennmarado_Rendelesek;a++) {
+							Panel_tomb[(Rendelesek/8)*8+a].setVisible(true);
+						}
+						Tovabb_Nyil.setVisible(false);
+						Maradok_Szamolva=true;
 					}
-					if(Jelenlegi_Oldal==0) {
+					
+
+					if(!Panel_tomb[1].isVisible()){
+						Vissza_Nyil.setVisible(true);
+					}
+					if(Panel_tomb[Rendelesek].isVisible()){
+						Tovabb_Nyil.setVisible(false);
+					}
+					
+					if(Jelenlegi_Oldal==0&Rendelesek>8) {
 						Tovabb_Nyil.setVisible(true);	
 					}
-					Rendelesi_Kep_Frissit();
-					System.out.println("A jelenelgi oldalszam: "+Jelenlegi_Oldal);
-					
-				}else {
-
-				
-					
-				}
-				if(Panel_tomb[Rendelesek].isVisible()){
-					Tovabb_Nyil.setVisible(false);
-				}
+				}				
 				Rendelesi_Kep_Frissit();
+				System.out.println("\n------------------------------------------------------------------------");
 			}
 		
 		});
 		
 		Vissza_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-
+				System.out.println("\n****************************************************************************");
+				
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal!=0) {
+					Jelenlegi_Oldal--;
 					if(Jelenlegi_Oldal<Rendelesi_Oldalak) {
 						Tovabb_Nyil.setVisible(true);
 					}
-					Jelenlegi_Oldal--;
+					
 
 				}
 				for(int i =1;i<=8;i++) {
+					if(Jelenlegi_Oldal>0) {
+						
+						Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
+					}
+					if(Jelenlegi_Oldal<Rendelesi_Oldalak-1) {
+						Panel_tomb[(Jelenlegi_Oldal+1)*8+i].setVisible(false);
+					}
+					if(Jelenlegi_Oldal==Rendelesi_Oldalak) {
+						if(i!=Fennmarado_Rendelesek) {
+							Panel_tomb[(Jelenlegi_Oldal)*8+i].setVisible(false);
+						}
+						
+					}
 					
 					if(Jelenlegi_Oldal>Rendelesi_Oldalak&Rendelesek%8!=0) {
 						
@@ -280,11 +283,14 @@ public class Rendeles extends Menu {
 
 				
 				System.out.println("Jelenlegi oldal vissza lepett = "+Jelenlegi_Oldal);
+				
 				if(Panel_tomb[1].isVisible()){
 					System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
 					Vissza_Nyil.setVisible(false);
+					Jelenlegi_Oldal=0;
 				
 				}
+
 				Rendelesi_Kep_Frissit();
 			}
 		});
@@ -305,9 +311,7 @@ public class Rendeles extends Menu {
 		
 	}
 	static void Rendelesi_Kep_Frissit() {
-		System.out.println("81 % 8 = "+(81%8));
-		System.out.println("81 / 8 = "+(81/8));
-		System.out.println("Rendelsi panel frissitve");
+		System.out.println("\nRendelsi panel frissitve");
 		Hatterkep_Keret.setVisible(false);
 		Hatterkep_Keret.setVisible(true);
 		Rendeles_panel.setVisible(false);
