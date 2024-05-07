@@ -187,6 +187,7 @@ public class Rendeles extends Menu {
 				System.out.println("\n------------------------------------------------------------------");
 
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal<Rendelesi_Oldalak) {
+					Maradok_Szamolva=false;
 
 					Jelenlegi_Oldal++;		
 					System.out.println("\nJelenelgi oldal nott");
@@ -197,7 +198,6 @@ public class Rendeles extends Menu {
 							Panel_tomb[(Jelenlegi_Oldal-1)*8+i].setVisible(false);
 						}						
 						
-						//Innen kell valamit kezdeni
 						if(!Maradok_Szamolva&Jelenlegi_Oldal!=Rendelesi_Oldalak) {
 							
 						Panel_tomb[Jelenlegi_Oldal*8+i].setVisible(true);
@@ -216,13 +216,14 @@ public class Rendeles extends Menu {
 							Panel_tomb[(Rendelesek/8)*8+a].setVisible(true);
 						}
 						Tovabb_Nyil.setVisible(false);
-						Maradok_Szamolva=true;
+						//Maradok_Szamolva=true;
 					}
 					
 
 					if(!Panel_tomb[1].isVisible()){
 						Vissza_Nyil.setVisible(true);
 					}
+					
 					if(Panel_tomb[Rendelesek].isVisible()){
 						Tovabb_Nyil.setVisible(false);
 					}
@@ -264,7 +265,7 @@ public class Rendeles extends Menu {
 						
 					}
 					
-					if(Jelenlegi_Oldal>Rendelesi_Oldalak&Rendelesek%8!=0) {
+					if(Jelenlegi_Oldal==Rendelesi_Oldalak-1&Rendelesek%8!=0) {
 						
 						System.err.println("\n\tRendeles feletti ertek kezelese");
 						for(int a =1;a<=Fennmarado_Rendelesek;a++) {
