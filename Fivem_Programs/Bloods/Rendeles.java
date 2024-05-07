@@ -1,19 +1,13 @@
 package Bloods;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+
 
 public class Rendeles extends Menu {
 	 static JPanel Rendeles_panel= new JPanel();
