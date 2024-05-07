@@ -61,11 +61,11 @@ public class Rendeles extends Menu {
 		if(!betoltve) {
 			
 
-		System.out.println("Rendelési dobozok létrehozása");
+		
 		for(int i =1;i<=Rendelesek;) {
 			final int hanyadik=i;
 
-			System.out.println(i);
+			//System.out.println(i);
 			
 			Panel_tomb[i]=new JPanel();
 			Panel_tomb[i].setBounds(Doboz_X, Doboz_Y, Doboz_Szeles, Doboz_Magas);
@@ -104,14 +104,14 @@ public class Rendeles extends Menu {
 		                    Label_tomb[hanyadik].setVisible(true);
 		                  
 
-		                    Rendelesi_Kep_Frissit();
+		                    
 		                   // System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
 		            
-		                    System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
+		                    //System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
 		                    
 
 		            }
-		           
+		            Rendelesi_Kep_Frissit();
 				}
 			});
 			
@@ -120,7 +120,7 @@ public class Rendeles extends Menu {
 			
 			Label_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					System.out.println("Megnyomtad az X-et: "+Integer.toString(hanyadik));
+					//System.out.println("Megnyomtad az X-et: "+Integer.toString(hanyadik));
 						Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 1);
 					
 						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
@@ -129,21 +129,21 @@ public class Rendeles extends Menu {
 	                    Label_tomb[hanyadik].setVisible(false);
 
 	                    
-	                    Rendelesi_Kep_Frissit();
+	                    
 	               	   Doboz_X=150;
 	            	   Doboz_Y=30;
 					
-
+	            	   Rendelesi_Kep_Frissit();
 					
 				}
 			});
 			
-			System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
+			//System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
 			
 			//Ennyivel növeli az eltolást minden for ciklus kezdésnél
 			Doboz_X=Doboz_X+270;
 			if(i%4==0) {
-				System.out.println("Az i elerte a 4-et ezert vissza all alapra a Doboz_X es Y");
+				//System.out.println("Az i elerte a 4-et ezert vissza all alapra a Doboz_X es Y");
 				Doboz_X=150;
 				Doboz_Y=Doboz_Y+240;
 			}
@@ -151,7 +151,7 @@ public class Rendeles extends Menu {
 				
 				Doboz_X=150;
 				Doboz_Y=30;
-				System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
+				//System.out.println("Doboz_X = "+Doboz_X+" Doboz_Y = "+Doboz_Y);
 			}
 			//A 8 feletti panelokat láthatatlanná teszi első nyitáskor
 			if(i>8) {
@@ -164,6 +164,7 @@ public class Rendeles extends Menu {
 			
 			
 		}
+		System.out.println("Rendelési dobozok létrehozása");
 		
 		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Tovabb_Nyil.setForeground(Color.red);
@@ -184,8 +185,8 @@ public class Rendeles extends Menu {
 					Maradok_Szamolva=false;
 
 					Jelenlegi_Oldal++;		
-					System.out.println("\nJelenelgi oldal nott");
-					System.out.println("\nJelenlegi oldal = "+(Jelenlegi_Oldal)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
+					//System.out.println("\nJelenelgi oldal nott");
+					//System.out.println("\nJelenlegi oldal = "+(Jelenlegi_Oldal)+" Rendelsi oldalak = "+Rendelesi_Oldalak);
 					
 					for(int i =1;i<=8;i++) {						
 						if(Jelenlegi_Oldal>0&Jelenlegi_Oldal<=Rendelesi_Oldalak) {
@@ -204,7 +205,7 @@ public class Rendeles extends Menu {
 					
 					//Itt úszik el a program tovább lépése, viszont ha kiveszem akkor nem tölri az utolsó képet ha 1-el visszábról nyitom meg
 					if(Jelenlegi_Oldal==Rendelesi_Oldalak&Rendelesek%8!=0) {
-						System.out.println("\nNem oszthato 8-al betoltve");
+						//System.out.println("\nNem oszthato 8-al betoltve");
 						
 						for(int a =1;a<=Fennmarado_Rendelesek;a++) {
 							Panel_tomb[(Rendelesek/8)*8+a].setVisible(true);
@@ -227,14 +228,14 @@ public class Rendeles extends Menu {
 					}
 				}				
 				Rendelesi_Kep_Frissit();
-				System.out.println("\n------------------------------------------------------------------------");
+				//System.out.println("\n------------------------------------------------------------------------");
 			}
 		
 		});
 		
 		Vissza_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.println("\n****************************************************************************");
+				//System.out.println("\n****************************************************************************");
 				
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal!=0) {
 					Jelenlegi_Oldal--;
@@ -261,12 +262,12 @@ public class Rendeles extends Menu {
 					
 					if(Jelenlegi_Oldal==Rendelesi_Oldalak-1&Rendelesek%8!=0) {
 						
-						System.err.println("\n\tRendeles feletti ertek kezelese");
+						//System.err.println("\n\tRendeles feletti ertek kezelese");
 						for(int a =1;a<=Fennmarado_Rendelesek;a++) {
 					
 							Panel_tomb[(Rendelesek/8)*8+a].setVisible(false);
 						}
-						Rendelesi_Kep_Frissit();
+						
 						Maradok_Szamolva=false;
 					}
 
@@ -277,10 +278,10 @@ public class Rendeles extends Menu {
 				}
 
 				
-				System.out.println("Jelenlegi oldal vissza lepett = "+Jelenlegi_Oldal);
+				//System.out.println("Jelenlegi oldal vissza lepett = "+Jelenlegi_Oldal);
 				
 				if(Panel_tomb[1].isVisible()){
-					System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
+					//System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
 					Vissza_Nyil.setVisible(false);
 					Jelenlegi_Oldal=0;
 				
@@ -288,6 +289,7 @@ public class Rendeles extends Menu {
 
 				Rendelesi_Kep_Frissit();
 			}
+			
 		});
 		
 		Vissza_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -301,7 +303,7 @@ public class Rendeles extends Menu {
 		betoltve=true;
 		}
 		if (betoltve) {
-			System.out.println("Nem tolti ujra a panelekt, mert mar egyszer betoltotte, viszont ha plusz adat jon nem kezeli");
+			System.out.println("Nem tolti ujra a panelekt, mert mar egyszer betoltotte, viszont ha plusz adat jon nem kezeli, nincs deklarálva");
 		}
 		
 	}
