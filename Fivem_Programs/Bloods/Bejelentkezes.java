@@ -1,30 +1,19 @@
 package Bloods;
 
 import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
-
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.Window;
-
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JToggleButton;
 
 public class Bejelentkezes extends Keret{
 	public static JPanel Login_Panel= new JPanel();
@@ -39,9 +28,14 @@ public class Bejelentkezes extends Keret{
 	
 	
 	/**
+	 * @throws Exception 
 	 * @wbp.parser.entryPoint
 	 */
-	public static void Login_Futtat() {
+	public static void Login_Futtat() throws Exception {
+		Adatbazis adat= new Adatbazis();
+		Adatbazis.Felhasznalok();
+		//adat.addfelhasznalo("Test", "Jelszo", "DinRifat");
+		
 		Bejelentkezo_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
 		Bejelentkezo_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -67,6 +61,7 @@ public class Bejelentkezes extends Keret{
 		Login_Panel.setVisible(true);
 		Hatterkep_Keret.add(Login_Panel);
 		LoginButton.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			public void mousePressed(MouseEvent e) {
 				if(Felhasznalo_Text.getText().length()<1) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
@@ -125,6 +120,7 @@ public class Bejelentkezes extends Keret{
 				
 			}
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent e) {
 	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -141,6 +137,7 @@ public class Bejelentkezes extends Keret{
 	  				
 	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
 	  					Toolkit.getDefaultToolkit().beep();
+	  					
 	  					Menu.Menu_futtat();
 	  				}
 		                 
@@ -174,6 +171,7 @@ public class Bejelentkezes extends Keret{
 				
 			}
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent e) {
 	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {

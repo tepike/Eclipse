@@ -2,13 +2,10 @@ package Bloods;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import TeljesProgram.MenuPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
+
 
 public class Menu extends Bejelentkezes{
 	public static JPanel Menu_panel= new JPanel();
@@ -18,6 +15,7 @@ public class Menu extends Bejelentkezes{
 	 * @wbp.parser.entryPoint
 	 */
 	public static void Menu_futtat() {
+		Adatbazis.Rendelesek();
 		
 		Label_Kilepes.setForeground(Color.RED);
 		Label_Kilepes.setBackground(new Color(255,100,100,100));

@@ -1,14 +1,11 @@
 package Bloods;
 
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.MouseInfo;
-
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -33,9 +30,10 @@ public class Keret extends futattas{
     static int frameY = ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - Keret_Magas) / 2; 
     
 	/**
+	 * @throws Exception 
 	 * @wbp.parser.entryPoint
 	 */
-	public static void KeretFuttat(){
+	public static void KeretFuttat() throws Exception{
 		System.out.println("Keret megjelenites elindult");
 		
 		

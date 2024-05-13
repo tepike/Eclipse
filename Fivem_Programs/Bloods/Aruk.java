@@ -2,21 +2,16 @@ package Bloods;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -24,8 +19,24 @@ public class Aruk extends Menu{
 	//Fegyver árak
 	public static int Pisztoly_ar=100_000;
 	public static int Tec9_ar=150_000;
-	public static int Micro_SMG_ar=300_000;
-	public static int Ap_Pisztoly_ar=250_000;
+	public static int Micro_SMG_ar=150_000;
+	public static int Ap_Pisztoly_ar=150_000;
+	
+	//Kedvezmeny szorzo
+	static double Pisztoly_Kedvezmeny_5=0.8;
+	static double Pisztoly_Kedvezmeny_10=0.8;
+	
+	static double AP_Pisztoly_Kedvezmeny_5=0.8;
+	static double AP_Pisztoly_Kedvezmeny_10=0.8;
+	
+	static double Tec9_Kedvezmeny_5=0.8;
+	static double Tec9_Kedvezmeny_10=0.8;
+	
+	static double Micro_SMG_Kedvezmeny_5=0.8;
+	static double Micro_SMG_Kedvezmeny_10=0.8;
+	
+	
+	
 
 	//Craftolási plusszok
 	static int Alapanyag_craftolsai_ido=13;
@@ -964,37 +975,37 @@ public class Aruk extends Menu{
 		//Ár
 		int Pisztoly_Ar=(Pisztoly_darab*Pisztoly_ar);
 			if(Pisztoly_darab>4&Pisztoly_darab<=9) {
-				double Pisztoly_Ar2=(Pisztoly_Ar*0.9);
+				double Pisztoly_Ar2=(Pisztoly_Ar*Pisztoly_Kedvezmeny_5);
 				Pisztoly_Ar=((int)Pisztoly_Ar2);
 			}if(Pisztoly_darab>9) {
-				double Pisztoly_Ar2=(Pisztoly_Ar*0.7);
+				double Pisztoly_Ar2=(Pisztoly_Ar*Pisztoly_Kedvezmeny_10);
 				Pisztoly_Ar=((int)Pisztoly_Ar2);
 			}
 			
 		int AP_Pisztoly_Ar=(Ap_Pisztoly_darab*Ap_Pisztoly_ar);
 			if(Ap_Pisztoly_darab>4&Ap_Pisztoly_darab<=9) {
-				double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*0.92);
+				double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*AP_Pisztoly_Kedvezmeny_5);
 				AP_Pisztoly_Ar=((int)AP_Pisztoly_Ar2);
 			}if(Ap_Pisztoly_darab>9) {
-				double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*0.84);
+				double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*AP_Pisztoly_Kedvezmeny_10);
 				AP_Pisztoly_Ar=((int)AP_Pisztoly_Ar2);
 			}
 			
 		int Tec9_Ar=(Tec9_darab*Tec9_ar);
 			if(Tec9_darab>4&Tec9_darab<=9) {
-				double Tec9_Ar2=(Tec9_Ar*0.86);
+				double Tec9_Ar2=(Tec9_Ar*Tec9_Kedvezmeny_5);
 				Tec9_Ar=((int)Tec9_Ar2);
 			}if(Tec9_darab>9) {
-				double Tec9_Ar2=(Tec9_Ar*0.73);
+				double Tec9_Ar2=(Tec9_Ar*Tec9_Kedvezmeny_10);
 				Tec9_Ar=((int)Tec9_Ar2);
 			}
 			
 		int Micro_SMG_Ar=(Micro_SMG_darab*Micro_SMG_ar);
 			if(Micro_SMG_darab>4&Micro_SMG_darab<=9) {
-				double Micro_SMG_Ar2=(Micro_SMG_Ar*0.93);
+				double Micro_SMG_Ar2=(Micro_SMG_Ar*Micro_SMG_Kedvezmeny_5);
 				Micro_SMG_Ar=((int)Micro_SMG_Ar2);
 			}if(Micro_SMG_darab>9) {
-				double Micro_SMG_Ar2=(Micro_SMG_Ar*0.83);
+				double Micro_SMG_Ar2=(Micro_SMG_Ar*Micro_SMG_Kedvezmeny_10);
 				Micro_SMG_Ar=((int)Micro_SMG_Ar2);
 			}
 
@@ -1649,9 +1660,8 @@ public class Aruk extends Menu{
 		DecimalFormat df2 = new DecimalFormat("#.###");
 		int Pisztoly_Loszer_Nyersanyag=0;
 		int SMG_Loszer_Nyersanyag=0;
-		int MG_Loszer_Nyersanyag=0;
 		int Rifle_Loszer_Nyersanyag=0;
-		int Shotgun_Loszer_Nyersanyag=0;
+
 		
 		int Pisztoly_Loszer_darab=Integer.parseInt(Pisztoly_Loszer_Mennyiseg.getText());
 		int SMG_Loszer_darab=Integer.parseInt(SMG_Loszer_Mennyiseg.getText());
@@ -1953,9 +1963,8 @@ public class Aruk extends Menu{
         
         int Pisztoly_Loszer_Nyersanyag=0;
 		int SMG_Loszer_Nyersanyag=0;
-		int MG_Loszer_Nyersanyag=0;
 		int Rifle_Loszer_Nyersanyag=0;
-		int Shotgun_Loszer_Nyersanyag=0;
+
 		
 		int Pisztoly_Loszer_darab=Integer.parseInt(Pisztoly_Loszer_Mennyiseg.getText());
 		int SMG_Loszer_darab=Integer.parseInt(SMG_Loszer_Mennyiseg.getText());
@@ -2101,37 +2110,37 @@ public class Aruk extends Menu{
         //Árak összes
         int Pisztoly_Ar=(Pisztoly_darab*Pisztoly_ar);
 		if(Pisztoly_darab>4&Pisztoly_darab<=9) {
-			double Pisztoly_Ar2=(Pisztoly_Ar*0.9);
+			double Pisztoly_Ar2=(Pisztoly_Ar*Pisztoly_Kedvezmeny_5);
 			Pisztoly_Ar=((int)Pisztoly_Ar2);
 		}if(Pisztoly_darab>9) {
-			double Pisztoly_Ar2=(Pisztoly_Ar*0.7);
+			double Pisztoly_Ar2=(Pisztoly_Ar*Pisztoly_Kedvezmeny_10);
 			Pisztoly_Ar=((int)Pisztoly_Ar2);
 		}
 		
 	int AP_Pisztoly_Ar=(Ap_Pisztoly_darab*Ap_Pisztoly_ar);
 		if(Ap_Pisztoly_darab>4&Ap_Pisztoly_darab<=9) {
-			double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*0.92);
+			double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*AP_Pisztoly_Kedvezmeny_5);
 			AP_Pisztoly_Ar=((int)AP_Pisztoly_Ar2);
 		}if(Ap_Pisztoly_darab>9) {
-			double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*0.84);
+			double AP_Pisztoly_Ar2=(AP_Pisztoly_Ar*AP_Pisztoly_Kedvezmeny_10);
 			AP_Pisztoly_Ar=((int)AP_Pisztoly_Ar2);
 		}
 		
 	int Tec9_Ar=(Tec9_darab*Tec9_ar);
 		if(Tec9_darab>4&Tec9_darab<=9) {
-			double Tec9_Ar2=(Tec9_Ar*0.86);
+			double Tec9_Ar2=(Tec9_Ar*Tec9_Kedvezmeny_5);
 			Tec9_Ar=((int)Tec9_Ar2);
 		}if(Tec9_darab>9) {
-			double Tec9_Ar2=(Tec9_Ar*0.73);
+			double Tec9_Ar2=(Tec9_Ar*Tec9_Kedvezmeny_10);
 			Tec9_Ar=((int)Tec9_Ar2);
 		}
 		
 	int Micro_SMG_Ar=(Micro_SMG_darab*Micro_SMG_ar);
 		if(Micro_SMG_darab>4&Micro_SMG_darab<=9) {
-			double Micro_SMG_Ar2=(Micro_SMG_Ar*0.93);
+			double Micro_SMG_Ar2=(Micro_SMG_Ar*Micro_SMG_Kedvezmeny_5);
 			Micro_SMG_Ar=((int)Micro_SMG_Ar2);
 		}if(Micro_SMG_darab>9) {
-			double Micro_SMG_Ar2=(Micro_SMG_Ar*0.83);
+			double Micro_SMG_Ar2=(Micro_SMG_Ar*Micro_SMG_Kedvezmeny_10);
 			Micro_SMG_Ar=((int)Micro_SMG_Ar2);
 		}
 
