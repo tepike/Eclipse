@@ -67,12 +67,7 @@ public class Bejelentkezes extends Keret{
 			public void mousePressed(MouseEvent e) {
 				System.out.println(probalkozasok);
 				Adatbazis.Felhasznalo_Leker();
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
 				
 				if(Felhasznalo_Text.getText().length()<1) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
