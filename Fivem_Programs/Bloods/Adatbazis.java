@@ -105,7 +105,7 @@ public class Adatbazis {
     
     public static void Felhasznalo_Leker() {
         try {
-            String sql = "SELECT id FROM bloods_felhasznalok WHERE id = ?";
+            String sql = "SELECT id, password FROM bloods_felhasznalok WHERE id = ?";
             PreparedStatement prm = con.prepareStatement(sql);
             prm.setString(1, Bejelentkezes.Felhasznalo_Text.getText()); // beállítjuk a keresési feltételt
             ResultSet rs = prm.executeQuery();
@@ -114,7 +114,8 @@ public class Adatbazis {
             if (rs.next()) {
                 // Az eredmény kiírása
                 System.out.println("Kiiras probalas");
-                System.out.println("\nProba = " + rs.getString("id"));
+                System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
+                System.out.println("\nLekert jelszo = " + rs.getString("password"));
             } else {
                 System.out.println("Nincs találat.");
             }
