@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 
 public class Adatbazis {
+	
     final String drive="com.mysql.cj.jdbc.Driver";
     final String username="root";
     final String password="";
@@ -115,7 +116,13 @@ public class Adatbazis {
                 // Az eredmény kiírása
                 System.out.println("Kiiras probalas");
                 System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
+                Bejelentkezes.setFelhasznalo(rs.getString("id"));
                 System.out.println("\nLekert jelszo = " + rs.getString("password"));
+                Bejelentkezes.setJelszo(rs.getString("password"));
+                
+                //System.out.println("\nFelhasznalo es lofasz printeles");
+                //System.out.println("Felh: "+Bejelentkezes.getFelhasznalo());
+                //System.out.println("Jelszo: "+Bejelentkezes.getJelszo());
             } else {
                 System.out.println("Nincs találat.");
             }
