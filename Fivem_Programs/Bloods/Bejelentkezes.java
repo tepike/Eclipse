@@ -26,6 +26,7 @@ public class Bejelentkezes extends Keret{
 	public static JButton LoginButton= new JButton("Bejelentkezés");
 	public static JPanel Adatok_Panel = new JPanel();
 	static int probalkozasok=0;
+	static public String probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
 	
 	
 	/**
@@ -78,8 +79,9 @@ public class Bejelentkezes extends Keret{
 					System.out.println("Nincs megadott jelszo");
 				}
 				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
-					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+					JOptionPane.showMessageDialog(null, probak);
 					probalkozasok++;
+					probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
 					if(probalkozasok==3) {
 						System.exit(0);
 					}
@@ -135,6 +137,8 @@ public class Bejelentkezes extends Keret{
 			@Override
 			public void keyPressed(KeyEvent e) {
 	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	        		  Adatbazis.Felhasznalo_Leker();
+	        		  
 	        		  if(Felhasznalo_Text.getText().length()<1) {
 	  					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 	  					System.out.println("Nincs megadott felhasznalo");
@@ -145,6 +149,11 @@ public class Bejelentkezes extends Keret{
 	  				}
 	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
 	  					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+						probalkozasok++;
+						probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
+						if(probalkozasok==3) {
+							System.exit(0);
+						}
 	  				
 	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
 	  					Toolkit.getDefaultToolkit().beep();
