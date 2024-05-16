@@ -71,7 +71,8 @@ public class Adatbazis {
     public static void Felhasznalok() {
         	  	  System.out.println("Felhasznalok adattabla elindul");
         	         try {
-        	             if (dm!=null) {   
+        	             if (dm!=null) { 
+        	            	 System.out.println("Dm nem nulla");
         	          	   
         	             ResultSet rs=dm.getTables(null, "APP", "bloods_felhasznalok", null);   
         	             
@@ -79,6 +80,7 @@ public class Adatbazis {
         	                 createStatement.execute("create table bloods_felhasznalok (Id char(30),Password char(30),Teljes_Nev char(50),primary key (Teljes_Nev))"); 
         	                 System.err.println("\nTábla nem létezett létrehozva bloods_felhasznalok\n");                            
         	                 }
+
         	             }
         	         }catch(SQLException e) {
         	             System.out.println("Tábla létezett bloods_felhasznalok");                      
@@ -100,7 +102,28 @@ public class Adatbazis {
               System.out.println("Tábla létezett bloods_rendelesek");                      
                   } 
     }
+    
+    public static void Felhasznalo_Leker() {
+        try {
+            String sql = "SELECT id FROM bloods_felhasznalok WHERE id = ?";
+            PreparedStatement prm = con.prepareStatement(sql);
+            prm.setString(1, Bejelentkezes.Felhasznalo_Text.getText()); // beállítjuk a keresési feltételt
+            ResultSet rs = prm.executeQuery();
 
+            // Ellenőrizzük, hogy van-e eredmény
+            if (rs.next()) {
+                // Az eredmény kiírása
+                System.out.println("Kiiras probalas");
+                System.out.println("\nProba = " + rs.getString("id"));
+            } else {
+                System.out.println("Nincs találat.");
+            }
+        } catch (Exception e) {
+            System.out.println("Hiba a felhasználó név keresésében: " + e.getMessage());
+        }
+    }
+    
+  
           
           
 }

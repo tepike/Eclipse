@@ -19,12 +19,13 @@ public class Bejelentkezes extends Keret{
 	public static JPanel Login_Panel= new JPanel();
 	public static JLabel Bejelentkezo_Label = new JLabel("Bejelentkezés");
 	private static String Becenev="Tepike";
-	private static String Felhasznalo="1";
-	private static String Jelszo="1";
-	private static JTextField Felhasznalo_Text;
-	private static JPasswordField Jelszo_Text;
+	private static String Felhasznalo;
+	private static String Jelszo;
+	static JTextField Felhasznalo_Text;
+	static JPasswordField Jelszo_Text;
 	public static JButton LoginButton= new JButton("Bejelentkezés");
 	public static JPanel Adatok_Panel = new JPanel();
+	static int probalkozasok=0;
 	
 	
 	/**
@@ -34,7 +35,8 @@ public class Bejelentkezes extends Keret{
 	public static void Login_Futtat() throws Exception {
 		Adatbazis adat= new Adatbazis();
 		Adatbazis.Felhasznalok();
-		//adat.addfelhasznalo("Test", "Jelszo", "DinRifat");
+		
+		//adat.addfelhasznalo("Test", "Jelszo", "Din Rifat");
 		
 		Bejelentkezo_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
 		Bejelentkezo_Label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -63,6 +65,13 @@ public class Bejelentkezes extends Keret{
 		LoginButton.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("deprecation")
 			public void mousePressed(MouseEvent e) {
+				System.out.println(probalkozasok);
+				Adatbazis.Felhasznalo_Leker();
+				
+				
+				Felhasznalo=Felhasznalo_Text.getText();
+				Jelszo=Jelszo_Text.getText();
+				
 				if(Felhasznalo_Text.getText().length()<1) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 					System.out.println("Nincs megadott felhasznalo");
@@ -73,8 +82,13 @@ public class Bejelentkezes extends Keret{
 				}
 				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
 					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+					probalkozasok++;
+					if(probalkozasok==3) {
+						System.exit(0);
+					}
 				
 				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+					probalkozasok=0;
 					Toolkit.getDefaultToolkit().beep();
 					
 					Menu.Menu_futtat();
