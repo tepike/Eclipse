@@ -115,9 +115,9 @@ public class Adatbazis {
             if (rs.next()) {
                 // Az eredmény kiírása
                 System.out.println("Kiiras probalas");
-                System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
+                //System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
                 Bejelentkezes.setFelhasznalo(rs.getString("id"));
-                System.out.println("\nLekert jelszo = " + rs.getString("password"));
+                //System.out.println("\nLekert jelszo = " + rs.getString("password"));
                 Bejelentkezes.setJelszo(rs.getString("password"));
                 
                 //System.out.println("\nFelhasznalo es lofasz printeles");
