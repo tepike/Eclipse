@@ -34,6 +34,7 @@ public class Bejelentkezes extends Keret{
 	 * @wbp.parser.entryPoint
 	 */
 	public static void Login_Futtat() throws Exception {
+		@SuppressWarnings("unused")
 		Adatbazis adat= new Adatbazis();
 		Adatbazis.Felhasznalok();
 		
@@ -148,7 +149,7 @@ public class Bejelentkezes extends Keret{
 	  					System.out.println("Nincs megadott jelszo");
 	  				}
 	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
-	  					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
+						JOptionPane.showMessageDialog(null, probak);
 						probalkozasok++;
 						probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
 						if(probalkozasok==3) {

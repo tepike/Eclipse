@@ -16,8 +16,8 @@ public class Adatbazis {
     final String password="";
     final String url="jdbc:mysql://localhost:3306/bloods";
     static Connection con=null;
-     static Statement createStatement=null;
-     static DatabaseMetaData dm=null;
+    static Statement createStatement=null;
+    static DatabaseMetaData dm=null;
    
     public Adatbazis() throws Exception  {
        
@@ -119,7 +119,8 @@ public class Adatbazis {
                 Bejelentkezes.setFelhasznalo(rs.getString("id"));
                 //System.out.println("\nLekert jelszo = " + rs.getString("password"));
                 Bejelentkezes.setJelszo(rs.getString("password"));
-                
+                //Adott adat olvasása itt az első adat az 1 nem a 0.
+                System.out.println(rs.getString(1));
                 //System.out.println("\nFelhasznalo es lofasz printeles");
                 //System.out.println("Felh: "+Bejelentkezes.getFelhasznalo());
                 //System.out.println("Jelszo: "+Bejelentkezes.getJelszo());
@@ -129,6 +130,26 @@ public class Adatbazis {
         } catch (Exception e) {
             System.out.println("Hiba a felhasználó név keresésében: " + e.getMessage());
         }
+        
+    }
+    public static void Rendeles_darab() {
+    	System.out.println("\tRendelesi darabszam szamolasa");
+    	
+    	try {
+			String sqlCount= "SELECT COUNT(id) FROM bloods_felhasznalok";
+			PreparedStatement prmCount= con.prepareStatement(sqlCount);
+			ResultSet rsCount = prmCount.executeQuery();
+			
+			if(rsCount.next()) {
+				final int Count= rsCount.getInt(1);
+				System.out.println("Az id-k szama: "+Count);
+				Menu.Rendelesek_Adatbazis=Count;
+			}
+		} catch (Exception e) {
+			e.getMessage();
+			System.out.println("Hiba a megszamlalasban");
+		}
+    	
     }
     
   

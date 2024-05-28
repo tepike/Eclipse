@@ -344,7 +344,13 @@ public class Aruk extends Menu{
 		
 		Rendeles_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				Rendeles();
+				
+				try {
+					Rendeles();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -2173,8 +2179,10 @@ public class Aruk extends Menu{
 		Loszer_Osszegzo_Panel.setVisible(true);
 	}
 	
-	public static void Rendeles(){
+	public static void Rendeles() throws Exception{
 		
+		//Adatbazis.Rendeles_darab();
+
 		Rendeles.Rendeles_lathato();
 		Rendeles.Rendeles_Doboz();
 		Rendeles.Rendelesi_Kep_Frissit();

@@ -10,8 +10,9 @@ import javax.swing.JPanel;
 
 
 public class Rendeles extends Menu {
+	
 	 static JPanel Rendeles_panel= new JPanel();
-	 static int Rendelesek=29;
+	 static int Rendelesek=Menu.Rendelesek_Adatbazis;
 	 static int Rendelesi_Oldalak=(Rendelesek/8);
 	 static int Rendelesi_Oldalak_Seged=Rendelesi_Oldalak;
 	 static int Jelenlegi_Oldal=0;
@@ -26,6 +27,7 @@ public class Rendeles extends Menu {
 	 static int Doboz_Y=30;
 	 static boolean betoltve=false;
 	 
+	 //Az a gond, hogy a rendelesek az 0 így a panel csak 1.
 	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
 	static JLabel[] Label_tomb = new JLabel[Rendelesek+1];
 	static JLabel[] Label_Kovetes_tomb = new JLabel[Rendelesek+1];
@@ -36,6 +38,12 @@ public class Rendeles extends Menu {
 
 	
 	public static void Rendeles_lathato()  {
+
+		System.out.println("\n Tomb merete: "+Panel_tomb.length);
+		
+		
+		
+		
 		System.out.println("Rendeles betoltese");
 		Menu_panel.setVisible(false);
 		Menu_Osszesito_panel.setVisible(false);
@@ -63,9 +71,12 @@ public class Rendeles extends Menu {
 
 		
 		for(int i =1;i<=Rendelesek;) {
+			
 			final int hanyadik=i;
 
 			//System.out.println(i);
+			//System.out.println("Rendelesek szama: "+Rendelesek);
+	
 			
 			Panel_tomb[i]=new JPanel();
 			Panel_tomb[i].setBounds(Doboz_X, Doboz_Y, Doboz_Szeles, Doboz_Magas);
@@ -169,7 +180,11 @@ public class Rendeles extends Menu {
 		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Tovabb_Nyil.setForeground(Color.red);
 		Tovabb_Nyil.setBounds(Rendeles_panel.getWidth()/2+50, Rendeles_panel.getHeight()-40, 60, 35);
+		Tovabb_Nyil.setVisible(false);
 		Rendeles_panel.add(Tovabb_Nyil);
+		if(Jelenlegi_Oldal==0&Rendelesek>8) {
+			Tovabb_Nyil.setVisible(true);	
+		}
 		
 		if(Panel_tomb[1].isVisible()) {
 			System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
@@ -226,6 +241,7 @@ public class Rendeles extends Menu {
 					if(Jelenlegi_Oldal==0&Rendelesek>8) {
 						Tovabb_Nyil.setVisible(true);	
 					}
+
 				}				
 				Rendelesi_Kep_Frissit();
 				//System.out.println("\n------------------------------------------------------------------------");

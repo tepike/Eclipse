@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 
 public class Menu extends Bejelentkezes{
+	public static int Rendelesek_Adatbazis;
 	public static JPanel Menu_panel= new JPanel();
 	public static JPanel Menu_Felso_panel= new JPanel();
 	public static JPanel Menu_Osszesito_panel= new JPanel();
@@ -50,6 +51,8 @@ public class Menu extends Bejelentkezes{
 		System.out.println(keret.getSize());
 		
 		Aruk.Aruk_Futtat();
+		Adatbazis.Rendeles_darab();
+		
 		
 		
 		
