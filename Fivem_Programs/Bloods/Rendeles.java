@@ -34,6 +34,41 @@ public class Rendeles extends Menu {
 	static JLabel Tovabb_Nyil = new JLabel("Tovább");
 	static JLabel Vissza_Nyil = new JLabel("Vissza");
 	
+	  String Azonosito;
+	  String Rendelest_felvette;
+	  String Rendeles_leadva;
+	  String Elerhetoseg;
+	  String Eloleg;
+	  String Eloleg_fizetve;
+	  String Tetelek;
+	  String Fizetendo;
+	  String Elkeszitesi_ido;
+	  String Vallalt_teljesites;
+	  String Teljesitve;
+	
+	public Rendeles (String Azonosito,String Rendelest_felvette,String Rendeles_leadva,
+					String Elerhetoseg,String Eloleg, String Eloleg_fizetve,String Tetelek,
+					String Fizetendo,String Elkeszitesi_ido,String Vallalt_teljesites,String Teljesitve){
+		
+		this.Azonosito=Azonosito;
+		this.Rendelest_felvette=Rendelest_felvette;
+		this.Rendeles_leadva=Rendeles_leadva;
+		this.Elerhetoseg=Elerhetoseg;
+		this.Eloleg=Eloleg;
+		this.Eloleg_fizetve=Eloleg_fizetve;
+		this.Tetelek=Tetelek;
+		this.Fizetendo=Fizetendo;
+		this.Elkeszitesi_ido=Elkeszitesi_ido;
+		this.Vallalt_teljesites=Vallalt_teljesites;
+		this.Teljesitve=Teljesitve;
+		return;
+	}
+	public void printeles() {
+		System.out.println("Adatok printelese: Azonosito: "+Azonosito+"| Rendelest_felvette: "+Rendelest_felvette+"| Rendeles_leadva: "+Rendeles_leadva+"| Elerhetoseg: "+Elerhetoseg+"| Eloleg: "+Eloleg
+				+"| Eloleg_fizetve: "+Eloleg_fizetve+"| Tetelek: "+Tetelek+"| Fizetendo: "+Fizetendo+"| Elkeszitesi_ido: "+Elkeszitesi_ido+"| Vallalt_teljesites: "+Vallalt_teljesites
+				+"| Teljesitve: "+Teljesitve);
+	}
+	
 
 
 	
@@ -67,6 +102,7 @@ public class Rendeles extends Menu {
 	
 	public static void Rendeles_Doboz() {
 		if(!betoltve) {
+			Adatbazis.Rendelesek_lekerdezese();
 			
 
 		
@@ -77,19 +113,22 @@ public class Rendeles extends Menu {
 			//System.out.println(i);
 			//System.out.println("Rendelesek szama: "+Rendelesek);
 	
-			
+			//Rendelési panel létrehozása
 			Panel_tomb[i]=new JPanel();
 			Panel_tomb[i].setBounds(Doboz_X, Doboz_Y, Doboz_Szeles, Doboz_Magas);
 			Panel_tomb[i].setBackground(Color.white);
 			Panel_tomb[i].setBorder(BorderFactory.createLineBorder(Color.gray,4));
 			Panel_tomb[i].setLayout(null);
 			
+			//Panel bázárásának megalkotása
 			Label_tomb[i]=new JLabel("X");
 			Label_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_tomb[i].setForeground(Color.red);
 			Label_tomb[i].setVisible(false);
 			Panel_tomb[i].add(Label_tomb[i]);
 			
+			
+			//Rendelések kitöltése amikor kicsi
 			Label_Kovetes_tomb[i]=new JLabel(Integer.toString(hanyadik));
 			Label_Kovetes_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_Kovetes_tomb[i].setForeground(Color.red);
@@ -97,7 +136,7 @@ public class Rendeles extends Menu {
 			Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 			Panel_tomb[i].add(Label_Kovetes_tomb[i]);
 			
-			
+			//Panel dupla kattintásra nagyítása
 			Panel_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 		            if (e.getClickCount() == 2 && !e.isConsumed()) {
@@ -110,6 +149,8 @@ public class Rendeles extends Menu {
 		                    Panel_tomb[hanyadik].setBounds((int)Rendeles_panel.getWidth()/2-(Doboz_Szeles), (int)Rendeles_panel.getHeight()/2-(Doboz_Magas+75), Doboz_Szeles+350, Doboz_Magas+300);
 		              
 		                    Panel_tomb[hanyadik].repaint();
+		                    
+		                  //Rendelések kitöltése amikor nagy
 		                    Label_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()-30, 5, 30, 30);
 		                    Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 		                    Label_tomb[hanyadik].setVisible(true);
@@ -135,6 +176,8 @@ public class Rendeles extends Menu {
 						Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 1);
 					
 						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
+						
+						//Kitöltés vissza állítása kis méretre
 						Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 
 	                    Label_tomb[hanyadik].setVisible(false);

@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -136,7 +137,7 @@ public class Adatbazis {
     	System.out.println("\tRendelesi darabszam szamolasa");
     	
     	try {
-			String sqlCount= "SELECT COUNT(id) FROM bloods_felhasznalok";
+			String sqlCount= "SELECT COUNT(azonosito) FROM bloods_rendelesek";
 			PreparedStatement prmCount= con.prepareStatement(sqlCount);
 			ResultSet rsCount = prmCount.executeQuery();
 			
@@ -150,6 +151,49 @@ public class Adatbazis {
 			System.out.println("Hiba a megszamlalasban");
 		}
     	
+    }
+    
+    public static void Rendelesek_lekerdezese() {
+    	//Adatbázisban hozzak létre tömböt ami felveszi az adatokat és így megtudom hívni a rendeléseknél a panel létrehozásásos for ciklusnál.
+    	
+    	System.out.println("Rendeles lekerdezes elindult");
+    	try {
+    		String sqlLekerdez="SELECT * FROM bloods_rendelesek";
+    		PreparedStatement prmLekerdez=con.prepareStatement(sqlLekerdez);
+    		ResultSet rsLekerdez= prmLekerdez.executeQuery();
+    		ResultSetMetaData rsmd= rsLekerdez.getMetaData();
+    		System.out.println("Osszes column: "+rsmd.getColumnCount()+"\n");
+    		String Columns []  = new String [rsmd.getColumnCount()+1];
+    		Rendeles[] Sql_Adatok   = new Rendeles [rsmd.getColumnCount()+1];
+    		boolean Column_megadva=false;
+    		
+    		while(rsLekerdez.next()) {
+    			//Fejléc tömbösítése a vissza kérdezehtőség miatt.
+    			if(!Column_megadva) {
+    				System.out.println("Column tomb letrehozasa");
+    				for(int a =1;a<=rsmd.getColumnCount();) {
+    					Columns[a]=new String(rsmd.getColumnLabel(a));
+    					//System.out.println("Tomb tartalma: "+a+" "+Columns[a]);
+    					a++;
+    				}
+    				Column_megadva=true;
+    				//System.out.println("\nTomb merete: "+Columns.length+"\n");
+    			}
+    			
+    			for(int a =1;a<rsmd.getColumnCount();) {
+    				System.out.println(rsmd.getColumnLabel(a)+": "+rsLekerdez.getString(a));
+    				Sql_Adatok[a]= new Rendeles(rsLekerdez.getString(1), rsLekerdez.getString(2),rsLekerdez.getString(3),rsLekerdez.getString(4),rsLekerdez.getString(5),
+    						rsLekerdez.getString(6),rsLekerdez.getString(7),rsLekerdez.getString(8),rsLekerdez.getString(9),rsLekerdez.getString(10),rsLekerdez.getString(11));
+    				a++;
+    			}
+    			//Adatok ki printelése void alapján
+    			Sql_Adatok[1].printeles();
+    			System.out.println("\n");
+    		}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
   
