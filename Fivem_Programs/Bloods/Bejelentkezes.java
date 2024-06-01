@@ -140,6 +140,7 @@ public class Bejelentkezes extends Keret{
 	        	  if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 	        		  Adatbazis.Felhasznalo_Leker();
 	        		  
+	        		  
 	        		  if(Felhasznalo_Text.getText().length()<1) {
 	  					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 	  					System.out.println("Nincs megadott felhasznalo");

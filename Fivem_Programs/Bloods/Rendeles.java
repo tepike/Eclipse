@@ -31,6 +31,8 @@ public class Rendeles extends Menu {
 	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
 	static JLabel[] Label_tomb = new JLabel[Rendelesek+1];
 	static JLabel[] Label_Kovetes_tomb = new JLabel[Rendelesek+1];
+	static JLabel[][] Label_Rendeles_Adatok = new JLabel[Rendelesek+1][40];
+	static JLabel[][] Label_Columns= new JLabel[Rendelesek+1][40];
 	static JLabel Tovabb_Nyil = new JLabel("Tovább");
 	static JLabel Vissza_Nyil = new JLabel("Vissza");
 	
@@ -45,6 +47,10 @@ public class Rendeles extends Menu {
 	  String Elkeszitesi_ido;
 	  String Vallalt_teljesites;
 	  String Teljesitve;
+	  
+	  static int Label_Magassag=0;
+	  static int Osszes_Colum=0;
+	  static boolean Colum_Betoltve=false;
 	
 	public Rendeles (String Azonosito,String Rendelest_felvette,String Rendeles_leadva,
 					String Elerhetoseg,String Eloleg, String Eloleg_fizetve,String Tetelek,
@@ -100,15 +106,21 @@ public class Rendeles extends Menu {
 
 	}
 	
-	public static void Rendeles_Doboz() {
+	public static void Rendeles_Doboz() throws Exception {
+		
 		if(!betoltve) {
 			Adatbazis.Rendelesek_lekerdezese();
+			
+			
+			
 			
 
 		
 		for(int i =1;i<=Rendelesek;) {
 			
 			final int hanyadik=i;
+			
+
 
 			//System.out.println(i);
 			//System.out.println("Rendelesek szama: "+Rendelesek);
@@ -122,10 +134,28 @@ public class Rendeles extends Menu {
 			
 			//Panel bázárásának megalkotása
 			Label_tomb[i]=new JLabel("X");
-			Label_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
+			
 			Label_tomb[i].setForeground(Color.red);
 			Label_tomb[i].setVisible(false);
 			Panel_tomb[i].add(Label_tomb[i]);
+			
+			
+			Label_Magassag=0;
+				
+
+			
+				for(int d=1;d<Osszes_Colum;d++) {
+					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+					Panel_tomb[i].add(Label_Columns[i][d]);
+					Label_Columns[i][d].setFont(new Font("Tahoma", Font.BOLD, 20));
+					Label_Columns[i][d].setBounds(Panel_tomb[i].getWidth()/4, 5+Label_Magassag, 200, 50);
+					
+					Label_Magassag=Label_Magassag+30;
+					
+					
+				}
+				
+
 			
 			
 			//Rendelések kitöltése amikor kicsi

@@ -9,6 +9,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JLabel;
+
 
 public class Adatbazis {
 	
@@ -19,6 +21,8 @@ public class Adatbazis {
     static Connection con=null;
     static Statement createStatement=null;
     static DatabaseMetaData dm=null;
+    static int Panel_Darab=1;
+    
    
     public Adatbazis() throws Exception  {
        
@@ -169,14 +173,21 @@ public class Adatbazis {
     		
     		while(rsLekerdez.next()) {
     			//Fejléc tömbösítése a vissza kérdezehtőség miatt.
+    			
     			if(!Column_megadva) {
     				System.out.println("Column tomb letrehozasa");
     				for(int a =1;a<=rsmd.getColumnCount();) {
     					Columns[a]=new String(rsmd.getColumnLabel(a));
-    					//System.out.println("Tomb tartalma: "+a+" "+Columns[a]);
+    					System.out.println("Tomb tartalma: "+a+" "+Columns[a]);
+    					Rendeles.Label_Columns[Panel_Darab][a]= new JLabel(rsmd.getColumnLabel(a));
     					a++;
+    					
     				}
-    				Column_megadva=true;
+    				System.out.println("Panel darab sql tombositesben (Adatbazis): "+Panel_Darab);
+    				if(Panel_Darab==Menu.Rendelesek_Adatbazis) {
+    					Column_megadva=true;
+    				}
+    				Rendeles.Osszes_Colum=Columns.length;
     				//System.out.println("\nTomb merete: "+Columns.length+"\n");
     			}
     			
@@ -188,7 +199,9 @@ public class Adatbazis {
     			}
     			//Adatok ki printelése void alapján
     			Sql_Adatok[1].printeles();
+    			System.out.println(Sql_Adatok[1].Azonosito);
     			System.out.println("\n");
+    			Panel_Darab++;
     		}
 			
 		} catch (Exception e) {
