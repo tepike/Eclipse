@@ -29,7 +29,7 @@ public class Rendeles extends Menu {
 	 
 	 //Az a gond, hogy a rendelesek az 0 így a panel csak 1.
 	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
-	static JLabel[] Label_tomb = new JLabel[Rendelesek+1];
+	static JLabel[] Label_tomb_X = new JLabel[Rendelesek+1];
 	static JLabel[] Label_Kovetes_tomb = new JLabel[Rendelesek+1];
 	static JLabel[][] Label_Rendeles_Adatok = new JLabel[Rendelesek+1][40];
 	static JLabel[][] Label_Columns= new JLabel[Rendelesek+1][40];
@@ -133,36 +133,39 @@ public class Rendeles extends Menu {
 			Panel_tomb[i].setLayout(null);
 			
 			//Panel bázárásának megalkotása
-			Label_tomb[i]=new JLabel("X");
-			
-			Label_tomb[i].setForeground(Color.red);
-			Label_tomb[i].setVisible(false);
-			Panel_tomb[i].add(Label_tomb[i]);
+			Label_tomb_X[i]=new JLabel("X");
+			Label_tomb_X[i].setFont(new Font("Tahoma", Font.BOLD, 20));
+			Label_tomb_X[i].setForeground(Color.red);
+			Label_tomb_X[i].setVisible(false);
+			Panel_tomb[i].add(Label_tomb_X[i]);
 			
 			
 			Label_Magassag=0;
 				
 
-			
+				// Rendelési panelek kisképes betöltése
 				for(int d=1;d<Osszes_Colum;d++) {
 					System.out.println("\nPanelek feltoltese sql adattal: "+d);
 					Panel_tomb[i].add(Label_Columns[i][d]);
-					Label_Columns[i][d].setFont(new Font("Tahoma", Font.BOLD, 20));
-					Label_Columns[i][d].setBounds(Panel_tomb[i].getWidth()/4, 5+Label_Magassag, 200, 50);
-					
-					Label_Magassag=Label_Magassag+30;
-					
-					
+					Label_Columns[i][d].setFont(new Font("Tahoma", Font.BOLD, 18));
+					Label_Columns[i][d].setBounds(7, 0+Label_Magassag, 200, 30);
+					if(d==2|d==3|d==6|d==7|d==8|d==9|d==11) {
+						System.err.println("D vizsgalata: "+d);
+						Label_Columns[i][d].setVisible(false);
+						// Labelek állítása darbszámhoz hozva
+						Label_Magassag=Label_Magassag-45;	
+					}
+					if(d==1|d==4|d==5|d==10) {
+						Label_Columns[i][d].setBounds(7, 0+Label_Magassag, 200, 30);						
+					}
+					Label_Magassag=Label_Magassag+45;
+
 				}
 				
-
-			
-			
-			//Rendelések kitöltése amikor kicsi
 			Label_Kovetes_tomb[i]=new JLabel(Integer.toString(hanyadik));
 			Label_Kovetes_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_Kovetes_tomb[i].setForeground(Color.red);
-			Label_Kovetes_tomb[i].setVisible(true);
+			Label_Kovetes_tomb[i].setVisible(false);
 			Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 			Panel_tomb[i].add(Label_Kovetes_tomb[i]);
 			
@@ -174,23 +177,37 @@ public class Rendeles extends Menu {
 		                    Doboz_X=((int)Panel_tomb[hanyadik].getLocation().getX());
 		                    Doboz_Y=((int)Panel_tomb[hanyadik].getLocation().getY());
 		                    Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 0);
-		                 
-		                    
 		                    Panel_tomb[hanyadik].setBounds((int)Rendeles_panel.getWidth()/2-(Doboz_Szeles), (int)Rendeles_panel.getHeight()/2-(Doboz_Magas+75), Doboz_Szeles+350, Doboz_Magas+300);
-		              
 		                    Panel_tomb[hanyadik].repaint();
-		                    
 		                  //Rendelések kitöltése amikor nagy
-		                    Label_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()-30, 5, 30, 30);
-		                    Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
-		                    Label_tomb[hanyadik].setVisible(true);
-		                  
+		                    Label_tomb_X[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()-30, 5, 30, 30);
+		                    //Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
+		                    Label_tomb_X[hanyadik].setVisible(true);
+		                    
+		    				// Rendelési panelek kisképes betöltése
+		                    
+		                    Label_Magassag=0;
+		                    try {
+			    				for(int d=1;d<Osszes_Colum;d++) {
+			    					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+			    					Panel_tomb[hanyadik].add(Label_Columns[hanyadik][d]);
+			    					Label_Columns[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
+			    					Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);
+			    					Label_Columns[hanyadik][d].setVisible(true);
+			    					
+			    					
+			    					Panel_tomb[hanyadik].add(Label_Rendeles_Adatok[hanyadik][d]);
+			    					Label_Rendeles_Adatok[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
+			    					Label_Rendeles_Adatok[hanyadik][d].setBounds(300, 0+Label_Magassag, 200, 30);
+			    					Label_Rendeles_Adatok[hanyadik][d].setVisible(true);
+			    					System.err.println(Label_Rendeles_Adatok[hanyadik][d].getText());
 
-		                    
-		                   // System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
-		            
-		                    //System.out.println("Megnyomtad duplán a panel: "+Integer.toString(hanyadik));
-		                    
+			    					Label_Magassag=Label_Magassag+45;
+			    					
+			    				}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
 
 		            }
 		            Rendelesi_Kep_Frissit();
@@ -200,17 +217,31 @@ public class Rendeles extends Menu {
 		                                          
 
 			
-			Label_tomb[i].addMouseListener(new MouseAdapter() {
+			Label_tomb_X[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					//System.out.println("Megnyomtad az X-et: "+Integer.toString(hanyadik));
 						Rendeles_panel.setComponentZOrder(Panel_tomb[hanyadik], 1);
-					
 						Panel_tomb[hanyadik].setBounds(Doboz_X,Doboz_Y, Doboz_Szeles, Doboz_Magas);
-						
 						//Kitöltés vissza állítása kis méretre
 						Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
-
-	                    Label_tomb[hanyadik].setVisible(false);
+	                    Label_tomb_X[hanyadik].setVisible(false);
+	                    Label_Magassag=0;
+	    				for(int d=1;d<Osszes_Colum;d++) {
+	    					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+	    					Panel_tomb[hanyadik].add(Label_Columns[hanyadik][d]);
+	    					Label_Columns[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
+	    					Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);
+	    					if(d==2|d==3|d==6|d==7|d==8|d==9|d==11) {
+	    						System.err.println("D vizsgalata: "+d);
+	    						Label_Columns[hanyadik][d].setVisible(false);
+	    						// Labelek állítása darbszámhoz hozva
+	    						Label_Magassag=Label_Magassag-45;	
+	    					}
+	    					if(d==1|d==4|d==5|d==10) {
+	    						Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);						
+	    					}
+	    					Label_Magassag=Label_Magassag+45;
+	    				}
 
 	                    
 	                    

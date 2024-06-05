@@ -191,18 +191,23 @@ public class Adatbazis {
     				//System.out.println("\nTomb merete: "+Columns.length+"\n");
     			}
     			
-    			for(int a =1;a<rsmd.getColumnCount();) {
+    			for(int a =1;a<rsmd.getColumnCount()+1;) {
     				System.out.println(rsmd.getColumnLabel(a)+": "+rsLekerdez.getString(a));
     				Sql_Adatok[a]= new Rendeles(rsLekerdez.getString(1), rsLekerdez.getString(2),rsLekerdez.getString(3),rsLekerdez.getString(4),rsLekerdez.getString(5),
-    						rsLekerdez.getString(6),rsLekerdez.getString(7),rsLekerdez.getString(8),rsLekerdez.getString(9),rsLekerdez.getString(10),rsLekerdez.getString(11));
+    											rsLekerdez.getString(6),rsLekerdez.getString(7),rsLekerdez.getString(8),rsLekerdez.getString(9),rsLekerdez.getString(10),rsLekerdez.getString(11));
+    				
+    				Rendeles.Label_Rendeles_Adatok[Panel_Darab][a]= new JLabel(rsLekerdez.getString(a));
+    				
     				a++;
     			}
-    			//Adatok ki printelése void alapján
+    			//Adatok ki printelése void alapján (1-es azonosítóval)
     			Sql_Adatok[1].printeles();
+    			
     			System.out.println(Sql_Adatok[1].Azonosito);
     			System.out.println("\n");
     			Panel_Darab++;
     		}
+    		System.err.println("Proba ki iratas 1-es azonosito 2-es reszlegere "+Rendeles.Label_Rendeles_Adatok[1][11].getText());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
