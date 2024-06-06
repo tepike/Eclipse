@@ -166,7 +166,7 @@ public class Adatbazis {
     		PreparedStatement prmLekerdez=con.prepareStatement(sqlLekerdez);
     		ResultSet rsLekerdez= prmLekerdez.executeQuery();
     		ResultSetMetaData rsmd= rsLekerdez.getMetaData();
-    		System.out.println("Osszes column: "+rsmd.getColumnCount()+"\n");
+    		//System.out.println("Osszes column: "+rsmd.getColumnCount()+"\n");
     		String Columns []  = new String [rsmd.getColumnCount()+1];
     		Rendeles[] Sql_Adatok   = new Rendeles [rsmd.getColumnCount()+1];
     		boolean Column_megadva=false;
@@ -175,15 +175,15 @@ public class Adatbazis {
     			//Fejléc tömbösítése a vissza kérdezehtőség miatt.
     			
     			if(!Column_megadva) {
-    				System.out.println("Column tomb letrehozasa");
+    				//System.out.println("Column tomb letrehozasa");
     				for(int a =1;a<=rsmd.getColumnCount();) {
     					Columns[a]=new String(rsmd.getColumnLabel(a));
-    					System.out.println("Tomb tartalma: "+a+" "+Columns[a]);
+    					//System.out.println("Tomb tartalma: "+a+" "+Columns[a]);
     					Rendeles.Label_Columns[Panel_Darab][a]= new JLabel(rsmd.getColumnLabel(a));
     					a++;
     					
     				}
-    				System.out.println("Panel darab sql tombositesben (Adatbazis): "+Panel_Darab);
+    				//System.out.println("Panel darab sql tombositesben (Adatbazis): "+Panel_Darab);
     				if(Panel_Darab==Menu.Rendelesek_Adatbazis) {
     					Column_megadva=true;
     				}
@@ -192,7 +192,7 @@ public class Adatbazis {
     			}
     			
     			for(int a =1;a<rsmd.getColumnCount()+1;) {
-    				System.out.println(rsmd.getColumnLabel(a)+": "+rsLekerdez.getString(a));
+    				//System.out.println(rsmd.getColumnLabel(a)+": "+rsLekerdez.getString(a));
     				Sql_Adatok[a]= new Rendeles(rsLekerdez.getString(1), rsLekerdez.getString(2),rsLekerdez.getString(3),rsLekerdez.getString(4),rsLekerdez.getString(5),
     											rsLekerdez.getString(6),rsLekerdez.getString(7),rsLekerdez.getString(8),rsLekerdez.getString(9),rsLekerdez.getString(10),rsLekerdez.getString(11));
     				
@@ -201,16 +201,45 @@ public class Adatbazis {
     				a++;
     			}
     			//Adatok ki printelése void alapján (1-es azonosítóval)
-    			Sql_Adatok[1].printeles();
+    			//Sql_Adatok[1].printeles();
     			
-    			System.out.println(Sql_Adatok[1].Azonosito);
-    			System.out.println("\n");
+    			//System.out.println(Sql_Adatok[1].Azonosito);
+    			//System.out.println("\n");
     			Panel_Darab++;
     		}
-    		System.err.println("Proba ki iratas 1-es azonosito 2-es reszlegere "+Rendeles.Label_Rendeles_Adatok[1][11].getText());
+    		//System.err.println("Proba ki iratas 1-es azonosito 2-es reszlegere "+Rendeles.Label_Rendeles_Adatok[1][11].getText());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+    }
+    public static void Adat_Frissit_Egy() {
+    	try {
+    		
+    		System.out.println("\tEgy darabos panel frissites");
+    		String sql_Egy_adat = "Select * From bloods_rendelesek Where Azonosito = ?";
+    		
+			PreparedStatement prm = con.prepareStatement(sql_Egy_adat);
+			prm.setString(1, Integer.toString(Rendeles.kivalasztott_panel));
+			ResultSet rst= prm.executeQuery();
+			ResultSetMetaData rsmeta= rst.getMetaData();
+			
+			int osszes= rsmeta.getColumnCount();
+			while(rst.next()) {
+				for(int i =1;i<osszes+1;i++) {
+					//System.out.println("Egy darab adat frissitese megnyitaskor: "+rst.getString(i));
+					Rendeles.Label_Rendeles_Adatok[Rendeles.kivalasztott_panel][i].setText(rst.getString(i));
+					//System.err.println("\n\tAdatok vissza ellenorzese: "+Rendeles.Label_Rendeles_Adatok[Rendeles.kivalasztott_panel][i].getText());
+				}
+			}
+			
+			for(int i =1;i<osszes;i++) {
+				//System.out.println("Egy darab adat frissitese megnyitaskor: "+rsmeta.getColumnLabel(i));
+			}
+			
+    		
+		} catch (Exception e) {
+			System.err.println("Hiba az egy darabos adat frissitesenel");
 		}
     }
     

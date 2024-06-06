@@ -50,7 +50,9 @@ public class Rendeles extends Menu {
 	  
 	  static int Label_Magassag=0;
 	  static int Osszes_Colum=0;
+	  static int Osszes_Colum_Hasnolit=0;
 	  static boolean Colum_Betoltve=false;
+	  static int kivalasztott_panel;
 	
 	public Rendeles (String Azonosito,String Rendelest_felvette,String Rendeles_leadva,
 					String Elerhetoseg,String Eloleg, String Eloleg_fizetve,String Tetelek,
@@ -108,8 +110,14 @@ public class Rendeles extends Menu {
 	
 	public static void Rendeles_Doboz() throws Exception {
 		
+		Osszes_Colum_Hasnolit=Osszes_Colum;
+		Adatbazis.Rendelesek_lekerdezese();
+		if(Osszes_Colum_Hasnolit!=Osszes_Colum) {
+			betoltve=false;
+		}
+		
 		if(!betoltve) {
-			Adatbazis.Rendelesek_lekerdezese();
+			
 			
 			
 			
@@ -144,21 +152,30 @@ public class Rendeles extends Menu {
 				
 
 				// Rendelési panelek kisképes betöltése
+			System.out.println("\nPanelek feltoltese sql adattal");
 				for(int d=1;d<Osszes_Colum;d++) {
-					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+					
 					Panel_tomb[i].add(Label_Columns[i][d]);
 					Label_Columns[i][d].setFont(new Font("Tahoma", Font.BOLD, 18));
 					Label_Columns[i][d].setBounds(7, 0+Label_Magassag, 200, 30);
+					
+					Panel_tomb[i].add(Label_Rendeles_Adatok[hanyadik][d]);
+					Label_Rendeles_Adatok[i][d].setFont(new Font("Tahoma", Font.BOLD, 15));
+					Label_Rendeles_Adatok[i][d].setBounds(7, 20+Label_Magassag, 200, 30);
+					
+					
+					
 					if(d==2|d==3|d==6|d==7|d==8|d==9|d==11) {
-						System.err.println("D vizsgalata: "+d);
+						//System.err.println("D vizsgalata: "+d);
 						Label_Columns[i][d].setVisible(false);
+						Label_Rendeles_Adatok[i][d].setVisible(false);
 						// Labelek állítása darbszámhoz hozva
-						Label_Magassag=Label_Magassag-45;	
+						Label_Magassag=Label_Magassag-50;	
 					}
 					if(d==1|d==4|d==5|d==10) {
 						Label_Columns[i][d].setBounds(7, 0+Label_Magassag, 200, 30);						
 					}
-					Label_Magassag=Label_Magassag+45;
+					Label_Magassag=Label_Magassag+50;
 
 				}
 				
@@ -188,8 +205,11 @@ public class Rendeles extends Menu {
 		                    
 		                    Label_Magassag=0;
 		                    try {
+		                    	kivalasztott_panel=hanyadik;
+		                    	Adatbazis.Adat_Frissit_Egy();
+		                    	System.out.println("\nPanelek feltoltese sql adattal");
 			    				for(int d=1;d<Osszes_Colum;d++) {
-			    					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+			    					
 			    					Panel_tomb[hanyadik].add(Label_Columns[hanyadik][d]);
 			    					Label_Columns[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
 			    					Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);
@@ -200,11 +220,14 @@ public class Rendeles extends Menu {
 			    					Label_Rendeles_Adatok[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
 			    					Label_Rendeles_Adatok[hanyadik][d].setBounds(300, 0+Label_Magassag, 200, 30);
 			    					Label_Rendeles_Adatok[hanyadik][d].setVisible(true);
-			    					System.err.println(Label_Rendeles_Adatok[hanyadik][d].getText());
+			    					//System.err.println(Label_Rendeles_Adatok[hanyadik][d].getText());
 
 			    					Label_Magassag=Label_Magassag+45;
 			    					
+			    					
+			    							    					
 			    				}
+			    				
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
@@ -226,21 +249,30 @@ public class Rendeles extends Menu {
 						Label_Kovetes_tomb[hanyadik].setBounds(Panel_tomb[hanyadik].getWidth()/2, 50, 60, 30);
 	                    Label_tomb_X[hanyadik].setVisible(false);
 	                    Label_Magassag=0;
+	                    System.out.println("\nPanelek feltoltese sql adattal");
+                    	kivalasztott_panel=hanyadik;
+                    	Adatbazis.Adat_Frissit_Egy();
 	    				for(int d=1;d<Osszes_Colum;d++) {
-	    					System.out.println("\nPanelek feltoltese sql adattal: "+d);
+	    					
 	    					Panel_tomb[hanyadik].add(Label_Columns[hanyadik][d]);
 	    					Label_Columns[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 18));
 	    					Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);
+	    					
+	    					Panel_tomb[hanyadik].add(Label_Rendeles_Adatok[hanyadik][d]);
+	    					Label_Rendeles_Adatok[hanyadik][d].setFont(new Font("Tahoma", Font.BOLD, 15));
+	    					Label_Rendeles_Adatok[hanyadik][d].setBounds(7, 20+Label_Magassag, 200, 30);
+	    					
 	    					if(d==2|d==3|d==6|d==7|d==8|d==9|d==11) {
-	    						System.err.println("D vizsgalata: "+d);
+	    						//System.err.println("D vizsgalata: "+d);
 	    						Label_Columns[hanyadik][d].setVisible(false);
+	    						Label_Rendeles_Adatok[hanyadik][d].setVisible(false);
 	    						// Labelek állítása darbszámhoz hozva
-	    						Label_Magassag=Label_Magassag-45;	
+	    						Label_Magassag=Label_Magassag-50;	
 	    					}
 	    					if(d==1|d==4|d==5|d==10) {
 	    						Label_Columns[hanyadik][d].setBounds(7, 0+Label_Magassag, 200, 30);						
 	    					}
-	    					Label_Magassag=Label_Magassag+45;
+	    					Label_Magassag=Label_Magassag+50;
 	    				}
 
 	                    
