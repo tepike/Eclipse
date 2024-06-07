@@ -10,14 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 
 public class Adatbazis {
 	
-    final String drive="com.mysql.cj.jdbc.Driver";
-    final String username="root";
-    final String password="";
-    final String url="jdbc:mysql://localhost:3306/bloods";
+    final static String drive="com.mysql.cj.jdbc.Driver";
+    final static String username="root";
+    final static String password="";
+    final static String url="jdbc:mysql://localhost:3306/bloods";
     static Connection con=null;
     static Statement createStatement=null;
     static DatabaseMetaData dm=null;
@@ -110,31 +111,77 @@ public class Adatbazis {
     }
     
     public static void Felhasznalo_Leker() {
-        try {
-            String sql = "SELECT id, password FROM bloods_felhasznalok WHERE id = ?";
-            PreparedStatement prm = con.prepareStatement(sql);
-            prm.setString(1, Bejelentkezes.Felhasznalo_Text.getText()); // beállítjuk a keresési feltételt
-            ResultSet rs = prm.executeQuery();
+    	if(con!=null) {
+            try {
+                String sql = "SELECT id, password FROM bloods_felhasznalok WHERE id = ?";
+                PreparedStatement prm = con.prepareStatement(sql);
+                prm.setString(1, Bejelentkezes.Felhasznalo_Text.getText()); // beállítjuk a keresési feltételt
+                ResultSet rs = prm.executeQuery();
 
-            // Ellenőrizzük, hogy van-e eredmény
-            if (rs.next()) {
-                // Az eredmény kiírása
-                System.out.println("Kiiras probalas");
-                //System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
-                Bejelentkezes.setFelhasznalo(rs.getString("id"));
-                //System.out.println("\nLekert jelszo = " + rs.getString("password"));
-                Bejelentkezes.setJelszo(rs.getString("password"));
-                //Adott adat olvasása itt az első adat az 1 nem a 0.
-                System.out.println(rs.getString(1));
-                //System.out.println("\nFelhasznalo es lofasz printeles");
-                //System.out.println("Felh: "+Bejelentkezes.getFelhasznalo());
-                //System.out.println("Jelszo: "+Bejelentkezes.getJelszo());
-            } else {
-                System.out.println("Nincs találat.");
+                // Ellenőrizzük, hogy van-e eredmény
+                if (rs.next()) {
+                    // Az eredmény kiírása
+                    System.out.println("Kiiras probalas");
+                    //System.out.println("\nLekert felhasznalo = " + rs.getString("id"));
+                    Bejelentkezes.setFelhasznalo(rs.getString("id"));
+                    //System.out.println("\nLekert jelszo = " + rs.getString("password"));
+                    Bejelentkezes.setJelszo(rs.getString("password"));
+                    //Adott adat olvasása itt az első adat az 1 nem a 0.
+                    System.out.println(rs.getString(1));
+                    //System.out.println("\nFelhasznalo es lofasz printeles");
+                    //System.out.println("Felh: "+Bejelentkezes.getFelhasznalo());
+                    //System.out.println("Jelszo: "+Bejelentkezes.getJelszo());
+                } else {
+                    System.out.println("Nincs találat.");
+                }
+            } catch (Exception e) {
+                System.out.println("Hiba a felhasználó név keresésében: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("Hiba a felhasználó név keresésében: " + e.getMessage());
-        }
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(null, "Nincs kapcsolat az adatbázissal");
+    		while(con==null) {
+    	        try {
+    	            con =DriverManager.getConnection(url,username,password);
+    	            System.out.println("Híd ok");}
+    	           catch(SQLException e) {
+    	               System.out.println("Nincs híd");}
+    	           try {
+    	           if (con!=null) {
+    	               createStatement=con.createStatement();
+    	               System.out.println("Utasítás létrejött");
+    	           }
+    	           }
+    	           catch(SQLException e) {
+    	               System.out.println("Nem jött létre utasítás");
+    	           }
+    	          
+    	           try {
+    	               if (createStatement!=null) {
+    	          
+    	                dm=con.getMetaData();
+    	                System.out.println("Metaadat ok");
+    	                JOptionPane.showMessageDialog(null, "Létrejött a kapcsolat az adatbázissal");
+    	                Bejelentkezes.Adatbazis_Kapcsolat_Sikeres();
+    	                }
+    	           }catch (SQLException e) {
+    	               System.out.println("Metaadat nem ok");
+    	           }
+    	           try {
+    	        	   if(con==null) {
+    	        		   System.err.println("Nincs kapcsolat az adatbazissal, 5mp mulva ujra kapcsolodik");
+    	        		   Bejelentkezes.Adatbazis_Kapcsolat_Hiba();
+    	        		   Thread.sleep(5000);
+    	        	   }
+    	        	   
+					
+				} catch (Exception e) {
+					e.getMessage();
+				}
+    			
+    		}
+		}
+
         
     }
     public static void Rendeles_darab() {

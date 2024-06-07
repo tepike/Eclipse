@@ -1,6 +1,8 @@
 package Bloods;
 
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +29,8 @@ public class Bejelentkezes extends Keret{
 	public static JPanel Adatok_Panel = new JPanel();
 	static int probalkozasok=0;
 	static public String probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
+	static JPanel Betoltes_Panel= new JPanel();
+	static JLabel Betoltes= new JLabel();
 	
 	
 	/**
@@ -38,6 +42,7 @@ public class Bejelentkezes extends Keret{
 		Adatbazis adat= new Adatbazis();
 		Adatbazis.Felhasznalok();
 		
+
 		//adat.addfelhasznalo("Test", "Jelszo", "Din Rifat");
 		
 		Bejelentkezo_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -64,6 +69,28 @@ public class Bejelentkezes extends Keret{
 		//Utolso folyamat
 		Login_Panel.setVisible(true);
 		Hatterkep_Keret.add(Login_Panel);
+		
+		//Betolto loop gif
+		Betoltes_Panel.setBounds(Login_Panel.getX()-10,Login_Panel.getY()-10,Login_Panel.getWidth()+20, Login_Panel.getHeight()+60);
+		Betoltes_Panel.setBackground(new Color(0,0,0,0));
+		Betoltes_Panel.setOpaque(false);
+		
+		Betoltes.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/loading.gif")));
+		Betoltes.setBounds(Keret_Szeles/2-200,Keret_Magas-400,400,400);
+		Betoltes.setForeground(Color.black);
+		
+		Betoltes_Panel.add(Betoltes);
+		Hatterkep_Keret.add(Betoltes_Panel);
+		Hatterkep_Keret.setComponentZOrder(Betoltes_Panel, 0);
+		System.out.println(Hatterkep_Keret.getComponentZOrder(Betoltes_Panel));
+		System.out.println(Hatterkep_Keret.getComponentZOrder(Login_Panel));
+		Betoltes_Panel.setVisible(false);
+		
+
+		
+		
+
+		
 		LoginButton.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("deprecation")
 			public void mousePressed(MouseEvent e) {
@@ -253,4 +280,24 @@ public class Bejelentkezes extends Keret{
 	public static void setBecenev(String becenev) {
 		Becenev = becenev;
 	}
+	public static void Adatbazis_Kapcsolat_Hiba() {
+		Betoltes_Panel.setVisible(true);
+		Hatterkep_Keret.setVisible(false);
+		Login_Panel.setVisible(false);
+		Hatterkep_Keret.setVisible(true);
+		Login_Panel.setVisible(true);
+
+		Felhasznalo_Text.setEditable(false);
+		Jelszo_Text.setEditable(false);
+	}
+	public static void Adatbazis_Kapcsolat_Sikeres() {
+		Betoltes_Panel.setVisible(false);
+		Hatterkep_Keret.setVisible(false);
+		Login_Panel.setVisible(false);
+		Hatterkep_Keret.setVisible(true);
+		Login_Panel.setVisible(true);
+		Felhasznalo_Text.setEditable(true);
+		Jelszo_Text.setEditable(true);
+	}
+	
 }
