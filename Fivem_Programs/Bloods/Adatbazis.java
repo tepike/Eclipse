@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,7 +26,7 @@ public class Adatbazis {
     static Statement createStatement=null;
     static DatabaseMetaData dm=null;
     static int Panel_Darab=1;
-    
+    static Timer timer = new Timer();
    
     public Adatbazis() throws Exception  {
        
@@ -138,49 +141,65 @@ public class Adatbazis {
                 System.out.println("Hiba a felhasználó név keresésében: " + e.getMessage());
             }
     	}
+    	
     	else {
     		JOptionPane.showMessageDialog(null, "Nincs kapcsolat az adatbázissal");
-    		while(con==null) {
-    	        try {
-    	            con =DriverManager.getConnection(url,username,password);
-    	            System.out.println("Híd ok");}
-    	           catch(SQLException e) {
-    	               System.out.println("Nincs híd");}
-    	           try {
-    	           if (con!=null) {
-    	               createStatement=con.createStatement();
-    	               System.out.println("Utasítás létrejött");
-    	           }
-    	           }
-    	           catch(SQLException e) {
-    	               System.out.println("Nem jött létre utasítás");
-    	           }
-    	          
-    	           try {
-    	               if (createStatement!=null) {
-    	          
-    	                dm=con.getMetaData();
-    	                System.out.println("Metaadat ok");
-    	                JOptionPane.showMessageDialog(null, "Létrejött a kapcsolat az adatbázissal");
-    	                Bejelentkezes.Adatbazis_Kapcsolat_Sikeres();
-    	                }
-    	           }catch (SQLException e) {
-    	               System.out.println("Metaadat nem ok");
-    	           }
-    	           try {
-    	        	   if(con==null) {
-    	        		   System.err.println("Nincs kapcsolat az adatbazissal, 5mp mulva ujra kapcsolodik");
-    	        		   Bejelentkezes.Adatbazis_Kapcsolat_Hiba();
-    	        		   Thread.sleep(5000);
-    	        	   }
-    	        	   
+    		
+    		timer.scheduleAtFixedRate(new TimerTask() {
+				
+				@Override
+				public void run() {
+					System.out.println("Timer fut "+LocalDateTime.now());
+					if(con==null) {
+			  	        try {
+		    	            con =DriverManager.getConnection(url,username,password);
+		    	            System.out.println("Híd ok");}
+		    	           catch(SQLException e) {
+		    	               System.out.println("Nincs híd");}
+		    	           try {
+		    	           if (con!=null) {
+		    	               createStatement=con.createStatement();
+		    	               System.out.println("Utasítás létrejött");
+		    	           }
+		    	           }
+		    	           catch(SQLException e) {
+		    	               System.out.println("Nem jött létre utasítás");
+		    	           }
+		    	          
+		    	           try {
+		    	               if (createStatement!=null) {
+		    	          
+		    	                dm=con.getMetaData();
+		    	                System.out.println("Metaadat ok");
+		    	                JOptionPane.showMessageDialog(null, "Létrejött a kapcsolat az adatbázissal");
+		    	                Bejelentkezes.Adatbazis_Kapcsolat_Sikeres();
+		    	                }
+		    	           }catch (SQLException e) {
+		    	               System.out.println("Metaadat nem ok");
+		    	           }
+		    	           try {
+		    	        	   if(con==null) {
+		    	        		   System.err.println("Nincs kapcsolat az adatbazissal, 5mp mulva ujra kapcsolodik");
+		    	        		   Bejelentkezes.Adatbazis_Kapcsolat_Hiba();
+		    	        		   //Thread.sleep(5000);
+		    	        	   }
+		    	        	   
+							
+						} catch (Exception e) {
+							e.getMessage();
+						}
+		    	       	if(con!=null) {
+		    	    		timer.cancel();
+		    	    		timer = new Timer();
+		    	    		
+		    	    	}
+						
+					}
 					
-				} catch (Exception e) {
-					e.getMessage();
 				}
-    			
-    		}
+			}, 0, 5000);
 		}
+
 
         
     }
