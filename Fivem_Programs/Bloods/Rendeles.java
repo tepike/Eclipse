@@ -190,6 +190,7 @@ public class Rendeles extends Menu {
 			Panel_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 		            if (e.getClickCount() == 2 && !e.isConsumed()) {
+		            	Adatbazis.kapcsolat_teszt();
 		                    e.consume();
 		                    Doboz_X=((int)Panel_tomb[hanyadik].getLocation().getX());
 		                    Doboz_Y=((int)Panel_tomb[hanyadik].getLocation().getY());
@@ -231,9 +232,9 @@ public class Rendeles extends Menu {
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
-
+		                    Rendelesi_Kep_Frissit();
 		            }
-		            Rendelesi_Kep_Frissit();
+		            
 				}
 			});
 			

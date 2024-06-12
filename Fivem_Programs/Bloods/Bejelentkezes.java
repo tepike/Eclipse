@@ -98,15 +98,15 @@ public class Bejelentkezes extends Keret{
 				Adatbazis.Felhasznalo_Leker();
 
 				
-				if(Felhasznalo_Text.getText().length()<1) {
+				if(Felhasznalo_Text.getText().length()<1&&Adatbazis.con!=null) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 					System.out.println("Nincs megadott felhasznalo");
 				}
-				if(Jelszo_Text.getText().length()<1) {
+				if(Jelszo_Text.getText().length()<1&&Adatbazis.con!=null) {
 					JOptionPane.showMessageDialog(null, "Nincs megadva jelszó");
 					System.out.println("Nincs megadott jelszo");
 				}
-				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
 					JOptionPane.showMessageDialog(null, probak);
 					probalkozasok++;
 					probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
@@ -114,7 +114,7 @@ public class Bejelentkezes extends Keret{
 						System.exit(0);
 					}
 				
-				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
 					probalkozasok=0;
 					Toolkit.getDefaultToolkit().beep();
 					
@@ -168,15 +168,15 @@ public class Bejelentkezes extends Keret{
 	        		  Adatbazis.Felhasznalo_Leker();
 	        		  
 	        		  
-	        		  if(Felhasznalo_Text.getText().length()<1) {
+	        		  if(Felhasznalo_Text.getText().length()<1&&Adatbazis.con!=null) {
 	  					JOptionPane.showMessageDialog(null, "Nincs megadva felhasználó");
 	  					System.out.println("Nincs megadott felhasznalo");
 	  				}
-	  				if(Jelszo_Text.getText().length()<1) {
+	  				if(Jelszo_Text.getText().length()<1&&Adatbazis.con!=null) {
 	  					JOptionPane.showMessageDialog(null, "Nincs megadva jelszó");
 	  					System.out.println("Nincs megadott jelszo");
 	  				}
-	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  				else if(!Jelszo_Text.getText().equals(getJelszo())|!Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
 						JOptionPane.showMessageDialog(null, probak);
 						probalkozasok++;
 						probak="Hibás adatok\nHátralévő próbálkozások száma : " +(2-probalkozasok);
@@ -184,7 +184,7 @@ public class Bejelentkezes extends Keret{
 							System.exit(0);
 						}
 	  				
-	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
+	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
 	  					Toolkit.getDefaultToolkit().beep();
 	  					
 	  					Menu.Menu_futtat();

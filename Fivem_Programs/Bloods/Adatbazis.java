@@ -34,6 +34,7 @@ public class Adatbazis {
          con =DriverManager.getConnection(url,username,password);
          System.out.println("Híd ok");}
         catch(SQLException e) {
+        	con=null;
             System.out.println("Nincs híd");}
         try {
         if (con!=null) {
@@ -181,7 +182,7 @@ public class Adatbazis {
 		    	        	   if(con==null) {
 		    	        		   System.err.println("Nincs kapcsolat az adatbazissal, 5mp mulva ujra kapcsolodik");
 		    	        		   Bejelentkezes.Adatbazis_Kapcsolat_Hiba();
-		    	        		   //Thread.sleep(5000);
+		    	        		   
 		    	        	   }
 		    	        	   
 							
@@ -228,7 +229,7 @@ public class Adatbazis {
     	
     	System.out.println("Rendeles lekerdezes elindult");
     	try {
-    		String sqlLekerdez="SELECT * FROM bloods_rendelesek";
+    		String sqlLekerdez="SELECT * FROM bloods_rendelesek ORDER BY Azonosito ";
     		PreparedStatement prmLekerdez=con.prepareStatement(sqlLekerdez);
     		ResultSet rsLekerdez= prmLekerdez.executeQuery();
     		ResultSetMetaData rsmd= rsLekerdez.getMetaData();
@@ -309,7 +310,69 @@ public class Adatbazis {
 		}
     }
     
-  
-          
-          
+  public static void kapcsolat_teszt() {
+	  System.out.println("\nKapcsolat tesztelese az adatbazissal (Kapcsolat_teszt void)");
+      try {
+          con =DriverManager.getConnection(url,username,password);
+          System.err.println("\nVan kapcsolat az adatbazissal (Kapcsolat_teszt void)");}
+         catch(SQLException e) {
+         	con=null;
+             System.out.println("\nNincs kapcsolat az adatbazissal (Kapcsolat_teszt void)");
+             timer.scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				System.out.println("Timer fut "+LocalDateTime.now());
+				if(con==null) {
+		  	        try {
+	    	            con =DriverManager.getConnection(url,username,password);
+	    	            System.out.println("Híd ok (Kapcsolat_teszt void)");}
+	    	           catch(SQLException e) {
+	    	               System.out.println("Nincs híd (Kapcsolat_teszt void)");}
+	    	           try {
+	    	           if (con!=null) {
+	    	               createStatement=con.createStatement();
+	    	               System.out.println("Utasítás létrejött (Kapcsolat_teszt void)");
+	    	           }
+	    	           }
+	    	           catch(SQLException e) {
+	    	               System.out.println("Nem jött létre utasítás (Kapcsolat_teszt void)");
+	    	           }
+	    	          
+	    	           try {
+	    	               if (createStatement!=null) {
+	    	          
+	    	                dm=con.getMetaData();
+	    	                System.out.println("Metaadat ok (Kapcsolat_teszt void)");
+	    	                JOptionPane.showMessageDialog(null, "Létrejött a kapcsolat az adatbázissal (Kapcsolat_teszt void)");
+	    	                Bejelentkezes.Adatbazis_Kapcsolat_Sikeres();
+	    	                }
+	    	           }catch (SQLException e) {
+	    	               System.out.println("Metaadat nem ok (Kapcsolat_teszt void)");
+	    	           }
+	    	           try {
+	    	        	   if(con==null) {
+	    	        		   System.err.println("Nincs kapcsolat az adatbazissal, 5mp mulva ujra kapcsolodik (Kapcsolat_teszt void)");
+	    	        		   Bejelentkezes.Adatbazis_Kapcsolat_Hiba();
+	    	        		   
+	    	        	   }
+	    	        	   
+						
+					} catch (Exception e) {
+						e.getMessage();
+					}
+	    	       	if(con!=null) {
+	    	    		timer.cancel();
+	    	    		timer = new Timer();
+	    	    		
+	    	    	}
+					
+				}
+				
+			}
+		}, 0, 5000);
+	}
+  }
 }
+          
+          
