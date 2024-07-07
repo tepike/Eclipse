@@ -26,6 +26,7 @@ public class Adatbazis {
     static Statement createStatement=null;
     static DatabaseMetaData dm=null;
     static int Panel_Darab=1;
+    static boolean Column_megadva=false;
     static Timer timer = new Timer();
    
     public Adatbazis() throws Exception  {
@@ -214,8 +215,28 @@ public class Adatbazis {
 			
 			if(rsCount.next()) {
 				final int Count= rsCount.getInt(1);
-				System.out.println("Az id-k szama: "+Count);
+				//System.out.println("Az id-k szama: "+Count);
 				Menu.Rendelesek_Adatbazis=Count;
+			}
+		} catch (Exception e) {
+			e.getMessage();
+			System.out.println("Hiba a megszamlalasban");
+		}
+    	
+    }
+    
+    public static void Rendeles_darab_Kulonbseg() {
+    	System.out.println("\tRendelesi darabszam kulonbseg szamolasa");
+    	
+    	try {
+			String sqlCount= "SELECT COUNT(azonosito) FROM bloods_rendelesek";
+			PreparedStatement prmCount= con.prepareStatement(sqlCount);
+			ResultSet rsCount = prmCount.executeQuery();
+			
+			if(rsCount.next()) {
+				final int Count= rsCount.getInt(1);
+				//System.out.println("Az id-k szama: "+Count);
+				Menu.Rendelesek_Adatbazis_Kulonbseg=Count;
 			}
 		} catch (Exception e) {
 			e.getMessage();
@@ -236,7 +257,7 @@ public class Adatbazis {
     		//System.out.println("Osszes column: "+rsmd.getColumnCount()+"\n");
     		String Columns []  = new String [rsmd.getColumnCount()+1];
     		Rendeles[] Sql_Adatok   = new Rendeles [rsmd.getColumnCount()+1];
-    		boolean Column_megadva=false;
+    		
     		
     		while(rsLekerdez.next()) {
     			//Fejléc tömbösítése a vissza kérdezehtőség miatt.
@@ -275,7 +296,7 @@ public class Adatbazis {
     			Panel_Darab++;
     		}
     		//System.err.println("Proba ki iratas 1-es azonosito 2-es reszlegere "+Rendeles.Label_Rendeles_Adatok[1][11].getText());
-			
+			System.out.println("Rendeles lekerdezes befejezve");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -283,7 +304,7 @@ public class Adatbazis {
     public static void Adat_Frissit_Egy() {
     	try {
     		
-    		System.out.println("\tEgy darabos panel frissites");
+    		//System.out.println("\tEgy darabos panel frissites");
     		String sql_Egy_adat = "Select * From bloods_rendelesek Where Azonosito = ?";
     		
 			PreparedStatement prm = con.prepareStatement(sql_Egy_adat);
@@ -299,6 +320,7 @@ public class Adatbazis {
 					//System.err.println("\n\tAdatok vissza ellenorzese: "+Rendeles.Label_Rendeles_Adatok[Rendeles.kivalasztott_panel][i].getText());
 				}
 			}
+			
 			
 			for(int i =1;i<osszes;i++) {
 				//System.out.println("Egy darab adat frissitese megnyitaskor: "+rsmeta.getColumnLabel(i));

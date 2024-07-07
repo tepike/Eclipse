@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class Menu extends Bejelentkezes{
 	public static int Rendelesek_Adatbazis;
+	public static int Rendelesek_Adatbazis_Kulonbseg;
 	public static JPanel Menu_panel= new JPanel();
 	public static JPanel Menu_Felso_panel= new JPanel();
 	public static JPanel Menu_Osszesito_panel= new JPanel();

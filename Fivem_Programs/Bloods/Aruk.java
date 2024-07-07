@@ -2182,7 +2182,7 @@ public class Aruk extends Menu{
 	
 	public static void Rendeles() throws Exception{
 		
-		//Adatbazis.Rendeles_darab();
+		Rendeles.Sgl_Darab_Valtozas_Figyeles();
 		Rendeles.Adatbazis_Frissites_Mp_Mehet=true;
 		Rendeles.Rendeles_lathato();
 		Rendeles.Rendeles_Doboz();
