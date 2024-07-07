@@ -4,9 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 
 public class Rendeles extends Menu {
@@ -26,6 +33,10 @@ public class Rendeles extends Menu {
 	 static int Doboz_X=150;
 	 static int Doboz_Y=30;
 	 static boolean betoltve=false;
+	 
+	 static boolean sql_frissitve=false;
+	 static boolean Tovabbnyil_nyomhato=true;
+	 static boolean Visszanyil_nyomhato=true;
 	 
 	 //Az a gond, hogy a rendelesek az 0 így a panel csak 1.
 	static JPanel[] Panel_tomb = new JPanel[Rendelesek+1];
@@ -102,11 +113,27 @@ public class Rendeles extends Menu {
 	
 	public static void Bolt_lathato()  {
 		System.out.println("Bolt betoltese");
+		timer.purge();
+		timer.cancel();
+		timer = new Timer();
 		Menu_panel.setVisible(true);
 		Menu_Osszesito_panel.setVisible(true);
 		Rendeles_panel.setVisible(false);
+		Adatbazis_Frissites_Mp_Mehet=false;
+		Frissites_ujratolt=true;
+		
 
 	}
+	
+	static ArrayList<Integer> arrayList = new ArrayList<Integer>();
+	
+	//Csak akkor lehet true ha éppen a rendelési panel fut különben a timer mindig frissíti az adatokat, az pedig akkor lehetséges ha van visible panel
+	public static Timer timer= new Timer();
+	static boolean Adatbazis_Frissites_Mp_Mehet=true;
+	static boolean Frissites_ujratolt=true;
+
+	static int Sql_frissites_ido=5000;
+	
 	
 	public static void Rendeles_Doboz() throws Exception {
 		
@@ -153,6 +180,13 @@ public class Rendeles extends Menu {
 
 				// Rendelési panelek kisképes betöltése
 			System.out.println("\nPanelek feltoltese sql adattal");
+			
+			if(!sql_frissitve) {
+				System.out.println("Sql frissites true tehat frissit ellenorzes = "+sql_frissitve);
+				Adatbazis.Rendelesek_lekerdezese();
+				sql_frissitve=true;
+			}
+			
 				for(int d=1;d<Osszes_Colum;d++) {
 					
 					Panel_tomb[i].add(Label_Columns[i][d]);
@@ -179,6 +213,7 @@ public class Rendeles extends Menu {
 
 				}
 				
+				
 			Label_Kovetes_tomb[i]=new JLabel(Integer.toString(hanyadik));
 			Label_Kovetes_tomb[i].setFont(new Font("Tahoma", Font.BOLD, 28));
 			Label_Kovetes_tomb[i].setForeground(Color.red);
@@ -187,9 +222,15 @@ public class Rendeles extends Menu {
 			Panel_tomb[i].add(Label_Kovetes_tomb[i]);
 			
 			//Panel dupla kattintásra nagyítása
+		
 			Panel_tomb[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
+    				Visszanyil_nyomhato=false;
+    				Tovabbnyil_nyomhato=false;
 		            if (e.getClickCount() == 2 && !e.isConsumed()) {
+		            	
+
+		            	
 		            	Adatbazis.kapcsolat_teszt();
 		                    e.consume();
 		                    Doboz_X=((int)Panel_tomb[hanyadik].getLocation().getX());
@@ -235,6 +276,7 @@ public class Rendeles extends Menu {
 		                    Rendelesi_Kep_Frissit();
 		            }
 		            
+		            
 				}
 			});
 			
@@ -275,6 +317,9 @@ public class Rendeles extends Menu {
 	    					}
 	    					Label_Magassag=Label_Magassag+50;
 	    				}
+	    				Visszanyil_nyomhato=true;
+	    				Tovabbnyil_nyomhato=true;
+	    				
 
 	                    
 	                    
@@ -313,6 +358,8 @@ public class Rendeles extends Menu {
 			
 		}
 		System.out.println("Rendelési dobozok létrehozása");
+		System.out.println("Sql frissites false tehat kovetkezonek frissiteni fog ellenorzes = "+sql_frissitve);
+		sql_frissitve=false;
 		
 		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Tovabb_Nyil.setForeground(Color.red);
@@ -331,7 +378,13 @@ public class Rendeles extends Menu {
 		
 		Tovabb_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				System.out.println("Tovabbgomb nyomas eszlelve");
+				if(Tovabbnyil_nyomhato) {
+					Rendelesek_szinkronizalasa();
+					
+				
 				System.out.println("\n------------------------------------------------------------------");
+				
 
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal<Rendelesi_Oldalak) {
 					Maradok_Szamolva=false;
@@ -383,12 +436,15 @@ public class Rendeles extends Menu {
 				Rendelesi_Kep_Frissit();
 				//System.out.println("\n------------------------------------------------------------------------");
 			}
+			}
 		
 		});
 		
 		Vissza_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				//System.out.println("\n****************************************************************************");
+				if(Visszanyil_nyomhato) {
+					Rendelesek_szinkronizalasa();
 				
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal!=0) {
 					Jelenlegi_Oldal--;
@@ -442,6 +498,7 @@ public class Rendeles extends Menu {
 
 				Rendelesi_Kep_Frissit();
 			}
+			}
 			
 		});
 		
@@ -467,6 +524,64 @@ public class Rendeles extends Menu {
 		Rendeles_panel.setVisible(false);
 		Rendeles_panel.setVisible(true);
 	
+	}
+	
+	static void Rendelesek_szinkronizalasa() {
+		// boolean: Adatbazis_Frissites_Mp_Mehet
+		timer.cancel();
+		timer = new Timer();
+		
+		System.out.println("ArrayList frissitese");
+		if(arrayList.size()>0) {
+			arrayList.clear();
+		}
+    	for(int i =1;i<Panel_tomb.length;i++) {
+    		if(Panel_tomb[i].isVisible()) {
+    			arrayList.add(i);
+    		}
+    			
+    	}
+    	if(arrayList.size()>0&Adatbazis_Frissites_Mp_Mehet) {
+    		
+    		if(Frissites_ujratolt) {
+    			Frissites_ujratolt=false;
+    		try {
+    			timer.scheduleAtFixedRate(new TimerTask() {
+					
+					@Override
+					public void run() {
+						if(Adatbazis_Frissites_Mp_Mehet) {
+							System.out.println("Sql frissites mp-re fut "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute()+":"+LocalDateTime.now().getSecond());
+							
+							
+							
+						}else {
+							System.err.println("Frissites megallitas, mert Frissites_ujratolt = "+Frissites_ujratolt);
+							timer.cancel();
+						
+						
+					}
+						}
+				}, 0,Sql_frissites_ido );
+				
+			
+				
+				
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		
+    	}
+    	}
+    	
+    	//System.out.println("Lista elemei: "+arrayList);
+    	
+    	
+    	
 	}
 
 

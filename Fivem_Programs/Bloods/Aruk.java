@@ -358,6 +358,7 @@ public class Aruk extends Menu{
 		Bolt_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Rendeles.Bolt_lathato();
+				
 			}
 		});
 		
@@ -2182,9 +2183,10 @@ public class Aruk extends Menu{
 	public static void Rendeles() throws Exception{
 		
 		//Adatbazis.Rendeles_darab();
-		
+		Rendeles.Adatbazis_Frissites_Mp_Mehet=true;
 		Rendeles.Rendeles_lathato();
 		Rendeles.Rendeles_Doboz();
+		Rendeles.Rendelesek_szinkronizalasa();
 		Rendeles.Rendelesi_Kep_Frissit();
 	}
 	
