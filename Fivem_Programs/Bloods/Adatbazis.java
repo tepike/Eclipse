@@ -226,7 +226,7 @@ public class Adatbazis {
     }
     
     public static void Rendeles_darab_Kulonbseg() {
-    	System.out.println("\tRendelesi darabszam kulonbseg szamolasa");
+    	//System.out.println("\tRendelesi darabszam kulonbseg szamolasa");
     	
     	try {
 			String sqlCount= "SELECT COUNT(azonosito) FROM bloods_rendelesek";
@@ -248,7 +248,7 @@ public class Adatbazis {
     public static void Rendelesek_lekerdezese() {
     	//Adatbázisban hozzak létre tömböt ami felveszi az adatokat és így megtudom hívni a rendeléseknél a panel létrehozásásos for ciklusnál.
     	
-    	System.out.println("Rendeles lekerdezes elindult");
+    	//System.out.println("Rendeles lekerdezes elindult");
     	try {
     		String sqlLekerdez="SELECT * FROM bloods_rendelesek ORDER BY Azonosito ";
     		PreparedStatement prmLekerdez=con.prepareStatement(sqlLekerdez);
@@ -296,7 +296,7 @@ public class Adatbazis {
     			Panel_Darab++;
     		}
     		//System.err.println("Proba ki iratas 1-es azonosito 2-es reszlegere "+Rendeles.Label_Rendeles_Adatok[1][11].getText());
-			System.out.println("Rendeles lekerdezes befejezve");
+			//System.out.println("Rendeles lekerdezes befejezve");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -333,10 +333,11 @@ public class Adatbazis {
     }
     
   public static void kapcsolat_teszt() {
-	  System.out.println("\nKapcsolat tesztelese az adatbazissal (Kapcsolat_teszt void)");
+	  //System.out.println("\nKapcsolat tesztelese az adatbazissal (Kapcsolat_teszt void)");
       try {
           con =DriverManager.getConnection(url,username,password);
-          System.err.println("\nVan kapcsolat az adatbazissal (Kapcsolat_teszt void)");}
+          //System.err.println("\nVan kapcsolat az adatbazissal (Kapcsolat_teszt void)");
+          }
          catch(SQLException e) {
          	con=null;
              System.out.println("\nNincs kapcsolat az adatbazissal (Kapcsolat_teszt void)");

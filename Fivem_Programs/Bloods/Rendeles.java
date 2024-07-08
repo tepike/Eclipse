@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -93,7 +95,7 @@ public class Rendeles extends Menu {
 	
 	public static void Rendeles_lathato()  {
 
-		System.out.println("\n Tomb merete: "+Panel_tomb.length);
+		//System.out.println("Tomb merete: "+Panel_tomb.length);
 		
 		
 		
@@ -113,7 +115,6 @@ public class Rendeles extends Menu {
 	
 	public static void Bolt_lathato()  {
 		System.out.println("Bolt betoltese");
-		//Sgl_Darab_Valtozas_Figyeles();
 		timer.purge();
 		timer.cancel();
 		timer = new Timer();
@@ -147,7 +148,7 @@ public class Rendeles extends Menu {
 		
 		
 		if(!betoltve) {
-			System.err.println("\t\t\t\t\t Feltoltes elindul");
+			System.err.println("Feltoltes elindul");
 			
 			
 			
@@ -182,16 +183,19 @@ public class Rendeles extends Menu {
 			Label_Magassag=0;
 				
 
-				// Rendelési panelek kisképes betöltése
-			System.out.println("\nPanelek feltoltese sql adattal");
+
 			
 			if(!sql_frissitve) {
 				System.out.println("Sql frissites true tehat frissit ellenorzes = "+sql_frissitve);
 				
 				sql_frissitve=true;
 			}
-			Adatbazis.Rendelesek_lekerdezese();
-			System.out.println("Osszes_Colum: "+Osszes_Colum);
+			
+			if(hanyadik ==1) {
+				Adatbazis.Rendelesek_lekerdezese();
+			}
+			
+			//System.out.println("Osszes_Colum: "+Osszes_Colum);
 				for(int d=1;d<Osszes_Colum;d++) {
 					
 					Panel_tomb[i].add(Label_Columns[i][d]);
@@ -363,7 +367,7 @@ public class Rendeles extends Menu {
 			
 		}
 		System.out.println("Rendelési dobozok létrehozása");
-		System.out.println("Sql frissites false tehat kovetkezonek frissiteni fog ellenorzes = "+sql_frissitve);
+		//System.out.println("Sql frissites false tehat kovetkezonek frissiteni fog ellenorzes = "+sql_frissitve);
 		sql_frissitve=false;
 		
 		Tovabb_Nyil.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -378,7 +382,7 @@ public class Rendeles extends Menu {
 		if((Panel_tomb.length-1)!=0) {
 			System.err.println(Panel_tomb.length);
 			if(Panel_tomb[1].isVisible()) {
-				System.out.println("\nVisszanyil nem lathato, mert az 1-es rendeles lathato");
+				//System.out.println("Visszanyil nem lathato, mert az 1-es rendeles lathato");
 				Vissza_Nyil.setVisible(false);
 				Rendelesi_Kep_Frissit();
 			}
@@ -389,12 +393,12 @@ public class Rendeles extends Menu {
 		
 		Tovabb_Nyil.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.err.println("\t\t\t\t\tTovabbgomb nyomas eszlelve: "+Tovabbnyil_nyomhato);
+				//System.err.println("Tovabbgomb nyomas eszlelve: "+Tovabbnyil_nyomhato);
 				if(Tovabbnyil_nyomhato) {
 
 					
 				
-				System.out.println("\n------------------------------------------------------------------");
+				
 				
 
 				if(Rendelesi_Oldalak>0&Jelenlegi_Oldal<Rendelesi_Oldalak) {
@@ -445,9 +449,9 @@ public class Rendeles extends Menu {
 
 				}				
 				Rendelesi_Kep_Frissit();
-				System.err.println("arrayLista frissites elott: "+arrayList);
+				//System.err.println("arrayLista frissites elott: "+arrayList);
 				Array_Frissites();
-				System.err.println("arrayLista frissites utan: "+arrayList);
+				//System.err.println("arrayLista frissites utan: "+arrayList);
 				//System.out.println("\n------------------------------------------------------------------------");
 			}
 			}
@@ -512,9 +516,9 @@ public class Rendeles extends Menu {
 				}
 
 				Rendelesi_Kep_Frissit();
-				System.err.println("arrayLista frissites elott: "+arrayList);
+				//System.err.println("arrayLista frissites elott: "+arrayList);
 				Array_Frissites();
-				System.err.println("arrayLista frissites utan: "+arrayList);
+				//System.err.println("arrayLista frissites utan: "+arrayList);
 			}
 			}
 			
@@ -530,13 +534,11 @@ public class Rendeles extends Menu {
 		
 		betoltve=true;
 		}
-		if (betoltve) {
-			System.out.println("Nem tolti ujra a panelekt, mert mar egyszer betoltotte, viszont ha plusz adat jon nem kezeli, nincs deklarálva");
-		}
+
 		
 	}
 	static void Rendelesi_Kep_Frissit() {
-		System.out.println("\nRendelsi panel frissitve");
+		//System.out.println("Rendelsi panel frissitve");
 		Hatterkep_Keret.setVisible(false);
 		Hatterkep_Keret.setVisible(true);
 		Rendeles_panel.setVisible(false);
@@ -549,7 +551,7 @@ public class Rendeles extends Menu {
 		timer.cancel();
 		timer = new Timer();
 		
-		System.out.println("ArrayList frissitese");
+		//System.out.println("ArrayList frissitese");
 		Array_Frissites();
 
     	
@@ -562,6 +564,7 @@ public class Rendeles extends Menu {
 					@Override
 					public void run() {
 						if(Adatbazis_Frissites_Mp_Mehet) {
+							System.out.println("Adatok frissitve: "+LocalTime.now().getHour()+":"+LocalTime.now().getMinute()+":"+LocalTime.now().getSecond());
 							//System.out.println("Sql frissites mp-re fut "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute()+":"+LocalDateTime.now().getSecond());
 							//System.out.println(arrayList);
 							
@@ -606,7 +609,7 @@ public class Rendeles extends Menu {
 	}
 
 	static void Array_Frissites() {
-		System.out.println("ArrayList frissitese");
+		//System.out.println("ArrayList frissitese");
 		if(arrayList.size()>0) {
 			arrayList.removeAll(arrayList);
 		}
@@ -618,14 +621,14 @@ public class Rendeles extends Menu {
     	}
 	}
 	static void Sgl_Darab_Valtozas_Figyeles() {
-		System.out.println("Panel darab frissites szamitas");
+		//System.out.println("Panel darab frissites szamitas");
 		Adatbazis.Rendeles_darab_Kulonbseg();
-		System.out.println("Bejott kulonbeseg = "+Rendelesek_Adatbazis+" kulonbozeti szamolt: "+Menu.Rendelesek_Adatbazis_Kulonbseg);
-		System.err.println("\t\t\t\tFrissites_Utani_Eslo_Toltes: "+Frissites_Utani_Eslo_Toltes);
-		System.out.println("Panel tomb merete: "+Panel_tomb.length);
+		//System.out.println("Bejott kulonbeseg = "+Rendelesek_Adatbazis+" kulonbozeti szamolt: "+Menu.Rendelesek_Adatbazis_Kulonbseg);
+		//System.err.println("\t\t\t\tFrissites_Utani_Eslo_Toltes: "+Frissites_Utani_Eslo_Toltes);
+		//System.out.println("Panel tomb merete: "+Panel_tomb.length);
 		if(Menu.Rendelesek_Adatbazis!=Menu.Rendelesek_Adatbazis_Kulonbseg) {
 			Frissites_Utani_Eslo_Toltes=true;
-			System.err.println("\t\t\t\tFrissites_Utani_Eslo_Toltes True: "+Frissites_Utani_Eslo_Toltes);
+			//System.err.println("\t\t\t\tFrissites_Utani_Eslo_Toltes True: "+Frissites_Utani_Eslo_Toltes);
 
 			//Számos adatok újra megadása
 
