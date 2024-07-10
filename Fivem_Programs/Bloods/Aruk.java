@@ -232,6 +232,11 @@ public class Aruk extends Menu{
 	
 	//Megadott vásárlási mennyiség vissza állítása 0-ra
 	static JButton Reset_gomb=new JButton("Reset");
+	static boolean Rendeles_aktiv=false;
+	static JButton Rendeles_Felvetel_gomb=new JButton("Rendelés felvétel");
+	static JPanel Rendeles_Osszesito = new JPanel();
+	static int Rendeles_Osszesito_Szeles=700;
+	static int Rendeles_Osszesito_Magas=470;
 	
 	//Fejléc feltöltése
 	static JLabel Felhasnzalo_Felso= new JLabel("Felhasználó:");
@@ -337,6 +342,11 @@ public class Aruk extends Menu{
 				Rifle_Loszer_Mennyiseg.setText("0");
 				Shotgun_Loszer_Mennyiseg.setText("0");
 				Loszer_Frissites();
+				
+				Rendeles_aktiv=false;
+				Rendeles_Osszesito.setVisible(false);
+				Bolt_Panel_Frissit();
+				
 
 		}});
 		
@@ -344,7 +354,7 @@ public class Aruk extends Menu{
 		
 		Rendeles_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				Rendeles_Osszesito.setVisible(false);
 				try {
 					Rendeles();
 				} catch (Exception e1) {
@@ -353,6 +363,23 @@ public class Aruk extends Menu{
 				}
 			}
 		});
+		
+		
+		//Rendelés felvéttellel kapcsolatos részek 
+		Rendeles_Felvetel_gomb.setBounds((int)Reset_gomb.getLocation().getX()-150, (int)Reset_gomb.getLocation().getY(), 140, 30);
+		Rendeles_Felvetel_gomb.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				System.out.println("Rendeles felvetel megnyomva");
+				Rendeles_aktiv=true;
+				Bolt_Panel_Frissit();
+				Rendeles_Osszesito.setVisible(true);
+				Osszes_Panel_Frissites();
+		}});
+		
+		Rendeles_Osszesito.setBounds((Menu_panel.getWidth()/2-Rendeles_Osszesito_Szeles/2),(Menu_panel.getHeight())/2-Rendeles_Osszesito_Magas/2,Rendeles_Osszesito_Szeles,Rendeles_Osszesito_Magas);
+		Rendeles_Osszesito.setLayout(null);
+		Rendeles_Osszesito.setVisible(false);
+		
 		
 		
 		Bolt_gomb.addMouseListener(new MouseAdapter() {
@@ -375,7 +402,7 @@ public class Aruk extends Menu{
 		//Mennyiség 
 		kiegeszitok_hozzadasa();
 		
-		
+		Menu_panel.add(Rendeles_Osszesito);
 
 		//Fegyver panelhez adása
 		Menu_panel.add(Pisztoly_panel);
@@ -415,14 +442,13 @@ public class Aruk extends Menu{
 		Bolt_gomb.setBounds(900, 15, 90, 30);
 		
 		Menu_panel.add(Reset_gomb);
+		Menu_panel.add(Rendeles_Felvetel_gomb);
+		
 		Menu_Felso_panel.add(Rendeles_gomb);
 		Menu_Felso_panel.add(Felhasnzalo_Felso);
 		Menu_Felso_panel.add(Bolt_gomb);
 		Menu_Felso_panel.add(Admin_gomb);
-	
-		
 	}
-	
 	//Átláthatóságot segítő részek
 	
 	private static void kiegeszitok_hozzadasa() {
@@ -2188,6 +2214,51 @@ public class Aruk extends Menu{
 		Rendeles.Rendeles_Doboz();
 		Rendeles.Rendelesek_szinkronizalasa();
 		Rendeles.Rendelesi_Kep_Frissit();
+	}
+	
+	static void Bolt_Panel_Frissit() {
+		//Fegyver panelhez adása
+		if(Rendeles_aktiv) {
+		Pisztoly_panel.setVisible(false);
+		AP_Pisztoly_panel.setVisible(false);
+		Tec_9_panel.setVisible(false);
+		Micro_SMG_panel.setVisible(false);
+		Pistoly_Mennyiseg_panel.setVisible(false);
+		AP_Pistoly_Mennyiseg_panel.setVisible(false);
+		Tec9_Mennyiseg_panel.setVisible(false);
+		Micro_SMG_Mennyiseg_panel.setVisible(false);
+		Pisztoly_Loszer_Panel.setVisible(false);
+		SMG_Loszer_Panel.setVisible(false);
+		MG_Loszer_Panel.setVisible(false);
+		Shotgun_Loszer_Panel.setVisible(false);
+		Rifle_Loszer_Panel.setVisible(false);
+		Pisztoly_Loszer_Mennyiseg_panel.setVisible(false);
+		SMG_Loszer_Mennyiseg_panel.setVisible(false);
+		MG_Loszer_Mennyiseg_panel.setVisible(false);
+		Rifle_Loszer_Mennyiseg_panel.setVisible(false);
+		Shotgun_Loszer_Mennyiseg_panel.setVisible(false);
+		}
+		else{
+			Pisztoly_panel.setVisible(true);
+			AP_Pisztoly_panel.setVisible(true);
+			Tec_9_panel.setVisible(true);
+			Micro_SMG_panel.setVisible(true);
+			Pistoly_Mennyiseg_panel.setVisible(true);
+			AP_Pistoly_Mennyiseg_panel.setVisible(true);
+			Tec9_Mennyiseg_panel.setVisible(true);
+			Micro_SMG_Mennyiseg_panel.setVisible(true);
+			Pisztoly_Loszer_Panel.setVisible(true);
+			SMG_Loszer_Panel.setVisible(true);
+			MG_Loszer_Panel.setVisible(true);
+			Shotgun_Loszer_Panel.setVisible(true);
+			Rifle_Loszer_Panel.setVisible(true);
+			Pisztoly_Loszer_Mennyiseg_panel.setVisible(true);
+			SMG_Loszer_Mennyiseg_panel.setVisible(true);
+			MG_Loszer_Mennyiseg_panel.setVisible(true);
+			Rifle_Loszer_Mennyiseg_panel.setVisible(true);
+			Shotgun_Loszer_Mennyiseg_panel.setVisible(true);
+		}
+		
 	}
 	
 
