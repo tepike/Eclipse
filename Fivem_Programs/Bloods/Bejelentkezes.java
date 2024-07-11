@@ -116,7 +116,7 @@ public class Bejelentkezes extends Keret{
 				
 				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
 					probalkozasok=0;
-					Toolkit.getDefaultToolkit().beep();
+					//Toolkit.getDefaultToolkit().beep();
 					
 					Menu.Menu_futtat();
 				}
@@ -185,7 +185,7 @@ public class Bejelentkezes extends Keret{
 						}
 	  				
 	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())&&Adatbazis.con!=null) {
-	  					Toolkit.getDefaultToolkit().beep();
+	  					//Toolkit.getDefaultToolkit().beep();
 	  					
 	  					Menu.Menu_futtat();
 	  				}
@@ -236,7 +236,7 @@ public class Bejelentkezes extends Keret{
 	  					JOptionPane.showMessageDialog(null, "Hibás bejelentkezési adatok");
 	  				
 	  				}else if (Jelszo_Text.getText().equals(getJelszo())&&Felhasznalo_Text.getText().equals(getFelhasznalo())) {
-	  					Toolkit.getDefaultToolkit().beep();
+	  					//Toolkit.getDefaultToolkit().beep();
 	  					Menu.Menu_futtat();
 	  				}
 		                 

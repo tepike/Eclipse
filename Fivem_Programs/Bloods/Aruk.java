@@ -235,7 +235,7 @@ public class Aruk extends Menu{
 	static boolean Rendeles_aktiv=false;
 	static JButton Rendeles_Felvetel_gomb=new JButton("Rendelés felvétel");
 	static JPanel Rendeles_Osszesito = new JPanel();
-	static int Rendeles_Osszesito_Szeles=700;
+	static int Rendeles_Osszesito_Szeles=850;
 	static int Rendeles_Osszesito_Magas=470;
 	
 	//Fejléc feltöltése
@@ -346,6 +346,8 @@ public class Aruk extends Menu{
 				Rendeles_aktiv=false;
 				Rendeles_Osszesito.setVisible(false);
 				Bolt_Panel_Frissit();
+				Rendeles_Felvete.Reset_gomb_Boolean();
+				Rendeles_Felvete.Tetel_darab=0;
 				
 
 		}});
@@ -374,17 +376,23 @@ public class Aruk extends Menu{
 				Bolt_Panel_Frissit();
 				Rendeles_Osszesito.setVisible(true);
 				Osszes_Panel_Frissites();
+				Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
 		}});
 		
-		Rendeles_Osszesito.setBounds((Menu_panel.getWidth()/2-Rendeles_Osszesito_Szeles/2),(Menu_panel.getHeight())/2-Rendeles_Osszesito_Magas/2,Rendeles_Osszesito_Szeles,Rendeles_Osszesito_Magas);
+		Rendeles_Osszesito.setBounds((Menu_panel.getWidth()/2-Rendeles_Osszesito_Szeles/2),(Menu_panel.getHeight())/2-Rendeles_Osszesito_Magas/2-30,Rendeles_Osszesito_Szeles,Rendeles_Osszesito_Magas);
 		Rendeles_Osszesito.setLayout(null);
+		Rendeles_Osszesito.setBackground(new Color(10,10,10,200));
 		Rendeles_Osszesito.setVisible(false);
 		
 		
 		
 		Bolt_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				
 				Rendeles.Bolt_lathato();
+				Rendeles_aktiv=false;
+				Rendeles_Osszesito.setVisible(false);
+				Bolt_Panel_Frissit();
 				
 			}
 		});
@@ -625,6 +633,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Pistoly_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Pisztoly_megadva==false&Integer.parseInt(Pistoly_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.Pisztoly_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Pistoly_Minusz.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Minusz.png")));
@@ -639,6 +653,15 @@ public class Aruk extends Menu{
 				}
 				Pistoly_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.Pisztoly_megadva==true&Integer.parseInt(Pistoly_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.Pisztoly_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
+				
+				
+				
 			}
 		});
 		
@@ -708,6 +731,14 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				AP_Pistoly_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.AP_Pisztoly_megadva==false&Integer.parseInt(AP_Pistoly_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.AP_Pisztoly_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
+				
+				
 			}
 		});
 		AP_Pistoly_Minusz.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Minusz.png")));
@@ -722,6 +753,12 @@ public class Aruk extends Menu{
 				}
 				AP_Pistoly_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.AP_Pisztoly_megadva==true&Integer.parseInt(AP_Pistoly_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.AP_Pisztoly_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -791,6 +828,13 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Tec9_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Tec_9_megadva==false&Integer.parseInt(Tec9_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.Tec_9_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Tec9_Minusz.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Minusz.png")));
@@ -805,6 +849,13 @@ public class Aruk extends Menu{
 				}
 				Tec9_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Tec_9_megadva==true&Integer.parseInt(Tec9_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.Tec_9_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -872,6 +923,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Micro_SMG_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.SMG_megadva==false&Integer.parseInt(Micro_SMG_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.SMG_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Micro_SMG_Minusz.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Minusz.png")));
@@ -886,6 +943,12 @@ public class Aruk extends Menu{
 				}
 				Micro_SMG_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.SMG_megadva==true&Integer.parseInt(Micro_SMG_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.SMG_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1213,6 +1276,12 @@ public class Aruk extends Menu{
 				}
 				Pisztoly_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.Pisztoly_Loszer_megadva==true&Integer.parseInt(Pisztoly_Loszer_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.Pisztoly_Loszer_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1272,6 +1341,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Pisztoly_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Pisztoly_Loszer_megadva==false&Integer.parseInt(Pisztoly_Loszer_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.Pisztoly_Loszer_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Pisztoly_Loszer_Panel.add(Pisztoly_Loszer_Kep);
@@ -1316,6 +1391,12 @@ public class Aruk extends Menu{
 				}
 				SMG_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.SMG_Loszer_megadva==true&Integer.parseInt(SMG_Loszer_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.SMG_Loszer_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1375,6 +1456,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				SMG_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.SMG_Loszer_megadva==false&Integer.parseInt(SMG_Loszer_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.SMG_Loszer_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		SMG_Loszer_Panel.add(SMG_Loszer_Kep);
@@ -1416,6 +1503,12 @@ public class Aruk extends Menu{
 				}
 				MG_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.MG_Loszer_megadva==true&Integer.parseInt(MG_Loszer_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.MG_Loszer_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1475,6 +1568,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				MG_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.MG_Loszer_megadva==false&Integer.parseInt(MG_Loszer_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.MG_Loszer_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		MG_Loszer_Panel.add(MG_Loszer_Kep);
@@ -1517,6 +1616,12 @@ public class Aruk extends Menu{
 				}
 				Rifle_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.Riffle_Loszer_megadva==true&Integer.parseInt(Rifle_Loszer_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.Riffle_Loszer_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1576,6 +1681,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Rifle_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Riffle_Loszer_megadva==false&Integer.parseInt(Rifle_Loszer_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.Riffle_Loszer_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Rifle_Loszer_Panel.add(Rifle_Loszer_Kep);
@@ -1618,6 +1729,12 @@ public class Aruk extends Menu{
 				}
 				Shotgun_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el csökken
+				if(Rendeles_Felvete.Shotgun_Loszer_megadva==true&Integer.parseInt(Shotgun_Loszer_Mennyiseg.getText())==0) {
+					Rendeles_Felvete.Tetel_darab--;
+					Rendeles_Felvete.Shotgun_Loszer_megadva=false;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		
@@ -1677,6 +1794,12 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Shotgun_Loszer_Mennyiseg.setText(Valtozott.toString());
 				Loszer_Frissites();
+				//Rendelés felvételénél a for ciklus mérete 1-el nő
+				if(Rendeles_Felvete.Shotgun_Loszer_megadva==false&Integer.parseInt(Shotgun_Loszer_Mennyiseg.getText())==1) {
+					Rendeles_Felvete.Tetel_darab++;
+					Rendeles_Felvete.Shotgun_Loszer_megadva=true;
+					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+				}
 			}
 		});
 		Shotgun_Loszer_Panel.add(Shotgun_Loszer_Kep);
@@ -2219,6 +2342,7 @@ public class Aruk extends Menu{
 	static void Bolt_Panel_Frissit() {
 		//Fegyver panelhez adása
 		if(Rendeles_aktiv) {
+		
 		Pisztoly_panel.setVisible(false);
 		AP_Pisztoly_panel.setVisible(false);
 		Tec_9_panel.setVisible(false);
@@ -2239,6 +2363,8 @@ public class Aruk extends Menu{
 		Shotgun_Loszer_Mennyiseg_panel.setVisible(false);
 		}
 		else{
+			Menu_panel.setVisible(false);
+			Menu_panel.setVisible(true);
 			Pisztoly_panel.setVisible(true);
 			AP_Pisztoly_panel.setVisible(true);
 			Tec_9_panel.setVisible(true);

@@ -206,7 +206,7 @@ public class Adatbazis {
         
     }
     public static void Rendeles_darab() {
-    	System.out.println("\tRendelesi darabszam szamolasa");
+    	System.out.println("Rendelesi darabszam szamolasa");
     	
     	try {
 			String sqlCount= "SELECT COUNT(azonosito) FROM bloods_rendelesek";
