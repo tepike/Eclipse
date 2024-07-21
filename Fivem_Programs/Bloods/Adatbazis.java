@@ -21,12 +21,13 @@ public class Adatbazis {
     final static String drive="com.mysql.cj.jdbc.Driver";
     final static String username="root";
     final static String password="";
-    final static String url="jdbc:mysql://localhost:3306/bloods";
+    static String url="jdbc:mysql://localhost:3306";
     static Connection con=null;
     static Statement createStatement=null;
     static DatabaseMetaData dm=null;
     static int Panel_Darab=1;
     static boolean Column_megadva=false;
+    static boolean Adatbazis_megtalalva =false;
     static Timer timer = new Timer();
    
     public Adatbazis() throws Exception  {
@@ -34,9 +35,13 @@ public class Adatbazis {
         try {
          con =DriverManager.getConnection(url,username,password);
          System.out.println("Híd ok");}
+        
+        
         catch(SQLException e) {
         	con=null;
-            System.out.println("Nincs híd");}
+            System.out.println("Nincs híd");
+        
+        }
         try {
         if (con!=null) {
             createStatement=con.createStatement();
@@ -52,6 +57,37 @@ public class Adatbazis {
        
              dm=con.getMetaData();
              System.out.println("Metaadat ok");
+             ResultSet rs = dm.getCatalogs();
+             while(rs.next()) {
+            	 System.out.println("Adat tablak: "+rs.getString(1));
+            	 if(rs.getString(1).equals("bloods")) {
+            		 System.err.println(rs.getString(1)+" tabla megtalalva");
+            		 Adatbazis_megtalalva=true;
+                  	url="jdbc:mysql://localhost:3306/bloods";
+                  	con =DriverManager.getConnection(url,username,password);
+                  	createStatement=con.createStatement();
+                  	dm=con.getMetaData();
+            		 
+            	 }
+             }
+             if(!Adatbazis_megtalalva) {
+            	 System.out.println("Bloods Adattabla letrehozasa mert nem letezik");
+                 try {
+                 	
+                 	String Adatbazis_letrehoz="CREATE DATABASE bloods";
+                 	url="jdbc:mysql://localhost:3306/";
+                 	System.out.println("Adatbazis letrehozva");
+                 	 con =DriverManager.getConnection(url,username,password);
+                 	createStatement.execute(Adatbazis_letrehoz);
+                 	url="jdbc:mysql://localhost:3306/bloods";
+                 	con =DriverManager.getConnection(url,username,password);
+                 	createStatement=con.createStatement();
+                 	dm=con.getMetaData();
+     			} catch (Exception e2) {
+     				System.out.println("Az adatbazist nem sikerult letrehozni");
+     			}
+                 
+             }
              }
         }catch (SQLException e) {
             System.out.println("Metaadat nem ok");
@@ -90,8 +126,18 @@ public class Adatbazis {
         	             
         	             if (!rs.next()) {                      
         	                 createStatement.execute("create table bloods_felhasznalok (Id char(30),Password char(30),Teljes_Nev char(50),primary key (Teljes_Nev))"); 
-        	                 System.err.println("\nTábla nem létezett létrehozva bloods_felhasznalok\n");                            
+        	                 System.err.println("\nTábla nem létezett létrehozva bloods_felhasznalok\n");
+        	                 String sql2="INSERT INTO bloods_felhasznalok VALUES ('1','1','Test admin')";
+        	                 PreparedStatement prm=con.prepareStatement(sql2);
+        	                 prm.execute();
+        	                 System.out.println("Alap felhasznalo letrehozva");
         	                 }
+        	             
+        	             ResultSet rs_adatbazis=dm.getCatalogs();
+        	             while(rs.next()) {
+        	            	 System.out.println("Adatbazis nevek lekerdezese");
+        	            	 System.out.println(rs_adatbazis.getString(1));
+        	             }
 
         	             }
         	         }catch(SQLException e) {
@@ -118,7 +164,7 @@ public class Adatbazis {
     public static void Felhasznalo_Leker() {
     	if(con!=null) {
             try {
-                String sql = "SELECT id, password FROM bloods_felhasznalok WHERE id = ?";
+                String sql = "SELECT id, password, teljes_nev FROM bloods_felhasznalok WHERE id = ?";
                 PreparedStatement prm = con.prepareStatement(sql);
                 prm.setString(1, Bejelentkezes.Felhasznalo_Text.getText()); // beállítjuk a keresési feltételt
                 ResultSet rs = prm.executeQuery();
@@ -131,6 +177,7 @@ public class Adatbazis {
                     Bejelentkezes.setFelhasznalo(rs.getString("id"));
                     //System.out.println("\nLekert jelszo = " + rs.getString("password"));
                     Bejelentkezes.setJelszo(rs.getString("password"));
+                    Aruk.Felhasnzalo_Felso.setText("Felhasználó: "+rs.getString("teljes_nev"));
                     //Adott adat olvasása itt az első adat az 1 nem a 0.
                     System.out.println(rs.getString(1));
                     //System.out.println("\nFelhasznalo es lofasz printeles");

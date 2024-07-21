@@ -8,6 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -439,9 +441,13 @@ public class Aruk extends Menu{
 		Menu_panel.add(Shotgun_Loszer_Mennyiseg_panel);
 		
 		//Felső panel részeinek elhelyezése
-		Felhasnzalo_Felso.setBounds(10, 15, 130, 30);
+		Felhasnzalo_Felso.setBounds(10, 15, (Felhasnzalo_Felso.getText().length()*11), 30);
 		Felhasnzalo_Felso.setFont(new Font("Tahoma", Font.BOLD, 20));
 		Felhasnzalo_Felso.setForeground(Color.white);
+		//Felhasználó keret szolésseégi méretének keretezett láthatósága
+		//Felhasnzalo_Felso.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+
+		
 		
 		Admin_gomb.setBounds(680, 15, 90, 30);
 			//Ez alaplból false kell, hogy legyen és kell rá egy metódus ami nézi, hogy az illető admin-e vagy sem ha az akkor töltsön csak be az admin menü
