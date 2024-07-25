@@ -27,13 +27,40 @@ public class Rendeles_Felvete extends Aruk {
 	public static boolean MG_Loszer_megadva=false;
 	public static boolean Riffle_Loszer_megadva=false;
 	public static boolean Shotgun_Loszer_megadva=false;
+	public static long Generalt_azonosito;
+	static JLabel teszt = new JLabel("");
+	static int Gorgetes_Alaphelyzet;
+	static String Felvetel_Ideje;
 	
+	//Rendelés felvételi adatok tárolása feltöltéshez
+	static String Azonosito;
+	static String Rendelest_felvette;
+	static String Rendeles_leadva;
+	static String Elerhetoseg;
+	static String Eloleg;
+	static String Eloleg_fizetve;
+	static String Tetelek;
+	static String Fizetendo;
+	static String Elkeszitesi_ido;
+	static String Vallalt_teljesites;
+	static String Teljesitve;
 	
 	
 	
 	
 	
 	public static void Rendeles_Felvetel_Betoltes() {
+		Hatterkep_Keret.repaint();
+		Menu_panel.repaint();
+		Rendeles_Osszesito.repaint();
+		
+		try {
+			System.err.println("Rendelesi azonosito betoltese");
+			Adatbazis.Azonosito_leker();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Aruk.Rendeles_Osszesito.setAutoscrolls(true);
 		String ev=Integer.toString(LocalDateTime.now().getYear());
@@ -57,31 +84,59 @@ public class Rendeles_Felvete extends Aruk {
 		if(Integer.parseInt(masodperc)<10) {
 			masodperc=("0"+masodperc);
 		}
-		String Felvetel_Ideje=(ev+"."+honap+"."+nap+" "+ora+":"+perc+":"+masodperc);
+		Felvetel_Ideje=(ev+"."+honap+"."+nap+" "+ora+":"+perc+":"+masodperc);
 		System.out.println("Kosrarba rakott tetlek darabszama: "+Tetel_darab);
-		String Teszt_Szoveg="Teszt_Szoveg";
-		JLabel teszt = new JLabel(Teszt_Szoveg);
+		Azonosito=("Azonosító szám: "+Generalt_azonosito);
+		
+		
+		teszt.setText(Azonosito);
+
+		
 		teszt.setForeground(Color.white);
 		teszt.setFont(new Font("Tahoma", Font.BOLD, 24));
 		teszt.setLayout(null);
 		teszt.setBackground(Color.white);
-		teszt.setBounds(30, 30,(((Teszt_Szoveg.length()*28))/2), 50);
+		teszt.setBounds(30, 20,(((Azonosito.length()*28))/2), 30);
+
+		Gorgetes_Alaphelyzet=(int)teszt.getLocation().getY();
 		System.out.println("test".length());
 		Aruk.Rendeles_Osszesito.add(teszt);
 		System.out.println(Felvetel_Ideje);
+		
 		Aruk.Rendeles_Osszesito.addMouseWheelListener(new MouseWheelListener() {
 			
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				System.out.println("Gorgo megnyomva: "+e.getWheelRotation());
+				//System.out.println("Gorgo megnyomva: "+e.getWheelRotation());
+				if(e.getWheelRotation()==1&(int)teszt.location().getY()!=Gorgetes_Alaphelyzet) {
+					//Gorgetes lefele
+					teszt.setLocation((int)teszt.getBounds().getX(),(int)teszt.getBounds().getY()+40);
+					Hatterkep_Keret.repaint();
+					
+
+				}
+				if(e.getWheelRotation()==-1) {
+					//Gorgetes felfele
+					teszt.setLocation((int)teszt.getBounds().getX(),(int)teszt.getBounds().getY()-40);
+					Hatterkep_Keret.repaint();
+
+					
+				}
 				
 			}
 		});
-
+		
+		try {
+			Adatbazis.Rendeles_felvetele();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
 	public static void Reset_gomb_Boolean() {
+			
 		   Pisztoly_megadva=false;
 		   AP_Pisztoly_megadva=false;
 		   Tec_9_megadva=false;

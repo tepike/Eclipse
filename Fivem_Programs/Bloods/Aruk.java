@@ -403,6 +403,8 @@ public class Aruk extends Menu{
 		Admin_gomb.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Admin gomb megnyomva");
+				Hatterkep_Keret.repaint();
+				Aruk.Rendeles_Osszesito.repaint();
 				
 			}
 		});

@@ -29,6 +29,7 @@ public class Adatbazis {
     static boolean Column_megadva=false;
     static boolean Adatbazis_megtalalva =false;
     static Timer timer = new Timer();
+    static String felhasznalo_azonositva;
    
     public Adatbazis() throws Exception  {
        
@@ -59,7 +60,7 @@ public class Adatbazis {
              System.out.println("Metaadat ok");
              ResultSet rs = dm.getCatalogs();
              while(rs.next()) {
-            	 System.out.println("Adat tablak: "+rs.getString(1));
+            	 //System.out.println("Adat tablak: "+rs.getString(1));
             	 if(rs.getString(1).equals("bloods")) {
             		 System.err.println(rs.getString(1)+" tabla megtalalva");
             		 Adatbazis_megtalalva=true;
@@ -125,9 +126,9 @@ public class Adatbazis {
         	             ResultSet rs=dm.getTables(null, "APP", "bloods_felhasznalok", null);   
         	             
         	             if (!rs.next()) {                      
-        	                 createStatement.execute("create table bloods_felhasznalok (Id char(30),Password char(30),Teljes_Nev char(50),primary key (Teljes_Nev))"); 
+        	                 createStatement.execute("create table bloods_felhasznalok (Id char(30),Password char(30),Teljes_Nev char(50),Admin char(4),primary key (Id))"); 
         	                 System.err.println("\nTábla nem létezett létrehozva bloods_felhasznalok\n");
-        	                 String sql2="INSERT INTO bloods_felhasznalok VALUES ('1','1','Test admin')";
+        	                 String sql2="INSERT INTO bloods_felhasznalok VALUES ('1','1','Test admin','igen')";
         	                 PreparedStatement prm=con.prepareStatement(sql2);
         	                 prm.execute();
         	                 System.out.println("Alap felhasznalo letrehozva");
@@ -151,7 +152,7 @@ public class Adatbazis {
               if (dm!=null) {              
               ResultSet rs2=dm.getTables(null, "APP", "bloods_rendelesek", null);                  
               if (!rs2.next()) {                      
-                  createStatement.execute("create table bloods_rendelesek (Azonosito int,Rendelest_Felvette char(50),Rendeles_Leadva char(50),Elerhetoseg char(70),Eloleg int,Eloleg_Fizetve char(5),Tetelek varchar(500),Fizetendo int,Elkeszetisei_Ido char(50),Vallalt_Teljesites char(50),Teljesitve char(5),primary key (Rendelest_Felvette))");
+                  createStatement.execute("create table bloods_rendelesek (Azonosito int,Rendelest_Felvette char(50),Rendeles_Leadva char(50),Elerhetoseg char(70),Eloleg int,Eloleg_Fizetve char(5),Tetelek varchar(500),Fizetendo int,Elkeszetisei_Ido char(50),Vallalt_Teljesites char(50),Teljesitve char(5),primary key (Azonosito))");
                   System.err.println("\nTábla nem létezett létrehozva bloods_rendelesek\n");                            
                   }
               }
@@ -178,6 +179,7 @@ public class Adatbazis {
                     //System.out.println("\nLekert jelszo = " + rs.getString("password"));
                     Bejelentkezes.setJelszo(rs.getString("password"));
                     Aruk.Felhasnzalo_Felso.setText("Felhasználó: "+rs.getString("teljes_nev"));
+                    felhasznalo_azonositva=rs.getString("teljes_nev");
                     //Adott adat olvasása itt az első adat az 1 nem a 0.
                     System.out.println(rs.getString(1));
                     //System.out.println("\nFelhasznalo es lofasz printeles");
@@ -443,6 +445,78 @@ public class Adatbazis {
 		}, 0, 5000);
 	}
   }
+  
+  public static void Azonosito_leker() throws Exception {
+	  String lekerdez="select max(Azonosito) from bloods_rendelesek";
+	  PreparedStatement prm = con.prepareStatement(lekerdez);
+	  ResultSet result= prm.executeQuery();
+	  try {
+		  if(result.next()) {
+			  System.out.println("Van megszamolhato rendelesi azonosito");
+			  if((result.getInt(1))>0){
+				  Rendeles_Felvete.Generalt_azonosito=Integer.parseInt(result.getString(1));
+				  Rendeles_Felvete.Generalt_azonosito++;
+			  }
+			  else{
+				  System.out.println("Nincs megszamolhato rendelesi azonosito ezert beall az alapra");
+				  Rendeles_Felvete.Generalt_azonosito=1;
+				  
+			  }
+
+		  }	
+		  
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	  System.out.println("Azonosito ellenorzes: "+Rendeles_Felvete.Generalt_azonosito);
+  }
+  
+  public static void Rendeles_felvetele() throws Exception {
+	  
+	  System.out.println("Rendeles felvetele elindult");
+	  String feltoltes="insert into bloods_rendelesek (`Azonosito`, `Rendelest_Felvette`, `Rendeles_Leadva`, `Elerhetoseg`, `Eloleg`, `Eloleg_Fizetve`, `Tetelek`, `Fizetendo`, `Elkeszetisei_Ido`, `Vallalt_Teljesites`, `Teljesitve`) values (?,?,?,?,?,?,?,?,?,?,?)";
+      PreparedStatement prm=con.prepareStatement(feltoltes);
+      //Azonosito Int
+      prm.setString(1,Integer.toString((int)Rendeles_Felvete.Generalt_azonosito));
+      //Rendelest_Felvette 
+      prm.setString(2,felhasznalo_azonositva);
+      //Rendeles_Leadva 
+      prm.setString(3,Rendeles_Felvete.Felvetel_Ideje);
+      //Elerhetoseg 
+      prm.setString(4,"Meg nincs");
+      //Eloleg Int
+      prm.setInt(5,0);
+      //Eloleg_Fizetve 
+      prm.setString(6,"Nem");
+      //Tetelek 
+      prm.setString(7,"Meg nincs");
+      //Fizetendo Int
+      prm.setInt(8,0);
+      //Elkeszetisei_Ido 
+      prm.setString(9,"Meg nincs");
+      //Vallalt_Teljesites 
+      prm.setString(10,"Meg nincs");
+      //Teljesitve 
+      prm.setString(11,"Nem");
+      prm.execute();
+      System.out.println("Rendeles sikeresen feltoltve");
+  }
+  
+  /*
+    	Minden leadott rendelés
+    
+    	SELECT Rendelest_Felvette, Azonosito, Rendeles_Leadva
+		FROM bloods_rendelesek
+		INNER JOIN bloods_felhasznalok ON bloods_rendelesek.Rendelest_Felvette = bloods_felhasznalok.Teljes_Nev;
+		
+		Minden ettől az embertől leadott rendelés
+		SELECT Rendelest_Felvette, Azonosito, Rendeles_Leadva
+		FROM bloods_rendelesek 
+		INNER JOIN bloods_felhasznalok ON bloods_rendelesek.Azonosito = bloods_felhasznalok.Id
+		WHERE Rendelest_Felvette='Test admin2';
+    
+   */
+  
 }
           
           
