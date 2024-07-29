@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -246,6 +247,19 @@ public class Aruk extends Menu{
 	static JButton Bolt_gomb=new JButton("Bolt");
 	static JButton Admin_gomb=new JButton("Admin");
 	
+	 //Felvenni kívánt tételek listában való tárolása
+	static ArrayList<String> Vasarlasi_lista = new ArrayList<String>();
+	static int Pisztoly_Lista_Index;
+	static int AP_Pisztoly_Lista_Index;
+	static int Tec9_Lista_Index;
+	static int SMG_Lista_Index;
+	static int Pisztoly_Loszer_Lista_Index;
+	static int SMG_Loszer_Lista_Index;
+	static int MG_Loszer_Lista_Index;
+	static int Rifle_Loszer_Lista_Index;
+	static int Shotgun_Loszer_Lista_Index;
+	
+	
 	
 	
 	/**
@@ -405,6 +419,12 @@ public class Aruk extends Menu{
 				System.out.println("Admin gomb megnyomva");
 				Hatterkep_Keret.repaint();
 				Aruk.Rendeles_Osszesito.repaint();
+				try {
+					Adatbazis.Rendeles_felvetele();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -641,12 +661,19 @@ public class Aruk extends Menu{
 				Integer Valtozott = text+1;
 				Pistoly_Mennyiseg.setText(Valtozott.toString());
 				Fegyver_Frissites();
+				
 				//Rendelés felvételénél a for ciklus mérete 1-el nő
 				if(Rendeles_Felvete.Pisztoly_megadva==false&Integer.parseInt(Pistoly_Mennyiseg.getText())==1) {
 					Rendeles_Felvete.Tetel_darab++;
 					Rendeles_Felvete.Pisztoly_megadva=true;
 					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
+					//Rendelési lista töltése
+					Vasarlasi_lista.add(Pisztoly_szoveg.getText()+" "+Valtozott.toString()+"db");
+					Pisztoly_Lista_Index=(Vasarlasi_lista.size()-1);
 				}
+				//Rendelési lista töltése
+				Vasarlasi_lista.set(Pisztoly_Lista_Index, Pisztoly_szoveg.getText()+" "+Valtozott.toString()+"db");
+				System.out.println("Vasarlasi lista tetelei: "+Vasarlasi_lista);
 			}
 		});
 		Pistoly_Minusz.setIcon(new ImageIcon(Keret.class.getResource("/Bloods/Minusz.png")));
@@ -656,17 +683,31 @@ public class Aruk extends Menu{
 				System.out.println("Pisztoly darabszam csokkent");
 				Integer text=Integer.parseInt(Pistoly_Mennyiseg.getText());
 				Integer Valtozott = text-1;
+				
 				if(Valtozott<0) {
 					Valtozott=0;
 				}
 				Pistoly_Mennyiseg.setText(Valtozott.toString());
+				
+				//Rendelési lista töltése
+				if(Rendeles_Felvete.Pisztoly_megadva==true) {
+					Vasarlasi_lista.set(Pisztoly_Lista_Index, Pisztoly_szoveg.getText()+" "+Valtozott.toString()+"db");
+				}
+				
 				Fegyver_Frissites();
 				//Rendelés felvételénél a for ciklus mérete 1-el csökken
 				if(Rendeles_Felvete.Pisztoly_megadva==true&Integer.parseInt(Pistoly_Mennyiseg.getText())==0) {
 					Rendeles_Felvete.Tetel_darab--;
 					Rendeles_Felvete.Pisztoly_megadva=false;
+					
+					//Rendelési lista töltése
+					Vasarlasi_lista.remove(Pisztoly_Lista_Index);
+					System.out.println("Pisztoly vasarlas torolve a listarol: "+Vasarlasi_lista);
+					
 					Rendeles_Felvete.Rendeles_Felvetel_Betoltes();
 				}
+				//Rendelési lista ellenőrzése
+				System.out.println("Vasarlasi lista tetelei: "+Vasarlasi_lista);
 				
 				
 				

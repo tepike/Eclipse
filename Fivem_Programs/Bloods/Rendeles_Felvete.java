@@ -62,7 +62,7 @@ public class Rendeles_Felvete extends Aruk {
 			e.printStackTrace();
 		}
 		
-		Aruk.Rendeles_Osszesito.setAutoscrolls(true);
+		
 		String ev=Integer.toString(LocalDateTime.now().getYear());
 		String honap=Integer.toString(LocalDateTime.now().getMonthValue());
 		String nap=Integer.toString(LocalDateTime.now().getDayOfMonth());
@@ -90,8 +90,6 @@ public class Rendeles_Felvete extends Aruk {
 		
 		
 		teszt.setText(Azonosito);
-
-		
 		teszt.setForeground(Color.white);
 		teszt.setFont(new Font("Tahoma", Font.BOLD, 24));
 		teszt.setLayout(null);
@@ -127,7 +125,8 @@ public class Rendeles_Felvete extends Aruk {
 		});
 		
 		try {
-			Adatbazis.Rendeles_felvetele();
+			//Felvétel tényleges létrehozása
+			//Adatbazis.Rendeles_felvetele();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

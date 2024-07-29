@@ -282,6 +282,8 @@ public class Rendeles extends Menu {
 							} catch (Exception e2) {
 								e2.printStackTrace();
 							}
+		                    
+		                    
 		                    Rendelesi_Kep_Frissit();
 		            }
 		            
