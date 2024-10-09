@@ -418,13 +418,8 @@ public class Aruk extends Menu{
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Admin gomb megnyomva");
 				Hatterkep_Keret.repaint();
-				Aruk.Rendeles_Osszesito.repaint();
-				try {
-					Adatbazis.Rendeles_felvetele();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+				
 				
 			}
 		});
