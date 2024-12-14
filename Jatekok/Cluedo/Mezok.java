@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 public class Mezok extends Alapkep{
+	static boolean Mezo_Szam_Lathato=false;
 	static int Mezo_X;
 	static int Mezo_Y;
 	static boolean Eger_belepett=false;
@@ -34,6 +35,7 @@ public class Mezok extends Alapkep{
 			Mezok[i].add(Mezo_Szamok[i]);
 			Jatek_Hatterkep.add(Mezok[i]);
 			Mezok[i].setVisible(false);
+			Mezo_Szamok[i].setVisible(Mezo_Szam_Lathato);
 		}
 		
 		Mezok[0].setBounds(150, Jatek_Hatterkep.getHeight()/2-100, 45, 45);
@@ -90,6 +92,7 @@ public class Mezok extends Alapkep{
 		Mezok[14].add(Mezo_Szamok[14]);
 		Mezok[14].setBackground(new Color(255,255,255,200));
 		Jatek_Hatterkep.add(Mezok[14]);
+		Mezo_Szamok[14].setVisible(Mezo_Szam_Lathato);
 		Mezok[14].setVisible(true);
 		
 		Mezok[15]=new JPanel();
@@ -99,6 +102,7 @@ public class Mezok extends Alapkep{
 		Mezok[15].add(Mezo_Szamok[15]);
 		Mezok[15].setBackground(new Color(255,255,255,200));
 		Jatek_Hatterkep.add(Mezok[15]);
+		Mezo_Szamok[15].setVisible(Mezo_Szam_Lathato);
 		Mezok[15].setVisible(true);
 		
 
@@ -109,6 +113,7 @@ public class Mezok extends Alapkep{
 		Mezok[16].add(Mezo_Szamok[16]);
 		Mezok[16].setBackground(new Color(255,255,255,200));
 		Jatek_Hatterkep.add(Mezok[16]);
+		Mezo_Szamok[16].setVisible(Mezo_Szam_Lathato);
 		Mezok[16].setVisible(true);
 		
 		
@@ -120,6 +125,7 @@ public class Mezok extends Alapkep{
 		Mezo_Szamok[13] =new JLabel("14");
 		Mezok[13].add(Mezo_Szamok[13]);
 		Jatek_Hatterkep.add(Mezok[13]);
+		Mezo_Szamok[13].setVisible(Mezo_Szam_Lathato);
 		Mezok[13].setVisible(true);
 		Mezok[13].setBackground(new Color(255,255,255,200));
 		
@@ -283,8 +289,8 @@ public class Mezok extends Alapkep{
 				System.out.println("Eger belepett");
 				Mezo_X=((int)Mezok[Mezo_Eger].getLocation().getX());
 				Mezo_Y=((int)Mezok[Mezo_Eger].getLocation().getY());
-				Mezok[Mezo_Eger].setSize(51,51);
-				Mezok[Mezo_Eger].setLocation((int)Mezok[Mezo_Eger].getLocation().getX()-3,(int)Mezok[Mezo_Eger].getLocation().getY()-3);
+				Mezok[Mezo_Eger].setSize(55,55);
+				Mezok[Mezo_Eger].setLocation((int)Mezok[Mezo_Eger].getLocation().getX()-5,(int)Mezok[Mezo_Eger].getLocation().getY()-5);
 				Eger_belepett=true;
 				Mezok[Mezo_Eger].setBorder(BorderFactory.createLineBorder(Color.RED, 3));
 				Mezo_Szamok[Mezo_Eger].setHorizontalTextPosition(JLabel.CENTER);
