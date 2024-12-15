@@ -21,8 +21,8 @@ import Bloods.Keret;
 public class Alapkep extends Futtatas {
 	static JFrame keret= new JFrame("Cluedo");
 	static JPanel Fokepernyo = new JPanel();
-	public static int Szeles=(1920);
-	public static int Magas=(1080);
+	public static int Szeles=1920;
+	public static int Magas=1080;
 	
 	static JLabel Fo_Hatterkep= new JLabel();
 	static JLabel Kiadas = new JLabel();
@@ -35,6 +35,7 @@ public class Alapkep extends Futtatas {
 	static JButton Start_Gomb = new JButton("Start");
 	
 	public static boolean Jatek_Betoltve=false;
+	
 
 
 public static void Betoltes() {
@@ -53,7 +54,7 @@ public static void Betoltes() {
 	 Fokepernyo.setLayout(new BorderLayout());
 	 Fokepernyo.add(Fo_Hatterkep);
 	 Fo_Hatterkep.setBounds(0,0,600,600);
-	 Fo_Hatterkep.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Fokepernyo.jpg")));
+	 Fo_Hatterkep.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Fokepernyo.jpg")));
 	 Fo_Hatterkep.setVisible(true);
 	 Fo_Hatterkep.add(Start_Gomb);
 	 Start_Gomb.setBounds(keret.getWidth()/2-50,keret.getHeight()/4,100,50);
@@ -62,8 +63,11 @@ public static void Betoltes() {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("Startgomb megnyomva");
-			Jatekkepernyo();
 			
+			//Ezzel a parancsal indul el a konkrét játék
+			//Jatekkepernyo();
+			
+			KarakterValasztas.Karakter_Valaszto();
 		}
 		
 		@Override
@@ -92,7 +96,7 @@ public static void Betoltes() {
 	});
 	 Fo_Hatterkep.add(Kiadas);
 	 
-	 ImageIcon imageIcon = new ImageIcon(Alapkep.class.getResource("/Cluedo/Editon_Tr.jpg")); // load the image to a imageIcon
+	 ImageIcon imageIcon = new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Editon_Tr.jpg")); // load the image to a imageIcon
 	 Image image = imageIcon.getImage(); // transform it 
 	 Image newimg = image.getScaledInstance(600, 350,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 	 imageIcon = new ImageIcon(newimg);  // transform it back
@@ -107,7 +111,7 @@ public static void Betoltes() {
 	 Fokepernyo.add(Jatek_Alap_Hatterkep);
 	 Jatek_Alap_Hatterkep.add(Jatek_Hatterkep);
 	 
-	 ImageIcon imageIcon = new ImageIcon(Alapkep.class.getResource("/Cluedo/Terkep3_TR.png")); // load the image to a imageIcon
+	 ImageIcon imageIcon = new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Terkep3_TR.png")); // load the image to a imageIcon
 	 Image image = imageIcon.getImage(); // transform it 
 	 Image newimg = image.getScaledInstance(1350, 1050,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 	 imageIcon = new ImageIcon(newimg);  // transform it back
@@ -121,7 +125,7 @@ public static void Betoltes() {
 	 
 	 Fo_Hatterkep.setVisible(false);
 	 Jatek_Alap_Hatterkep.setBounds(0,0,600,600);
-	 Jatek_Alap_Hatterkep.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Jatek_Alap_Hatter.jpg")));
+	 Jatek_Alap_Hatterkep.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Jatek_Alap_Hatter.jpg")));
 	 
 	 Jatek_Hatterkep.setVisible(true);
 	 keret.repaint();
