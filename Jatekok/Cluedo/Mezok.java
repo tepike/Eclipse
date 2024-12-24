@@ -2,11 +2,15 @@ package Cluedo;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -24,10 +28,13 @@ public class Mezok extends Alapkep{
 	static int Mezo_Eger=0;
 	static JPanel[] Mezok=new JPanel[300];
 	static JLabel [] Mezo_Szamok= new JLabel[300];
+	public static Timer kocka_timer=new Timer();
+	static Random random= new Random();
+	
 	static void Mezo_Betoltes() {
 
 		for(int i=0;i<300;i++) {
-			System.out.println("Mezo letrehoz: "+i);
+			//System.out.println("Mezo letrehoz: "+i);
 			
 			Mezok[i]=new JPanel();
 			Mezok[i].setLayout(new GridBagLayout());
@@ -128,13 +135,12 @@ public class Mezok extends Alapkep{
 		Mezo_Szamok[13].setVisible(Mezo_Szam_Lathato);
 		Mezok[13].setVisible(true);
 		Mezok[13].setBackground(new Color(255,255,255,200));
-		
-		  		
 		Mezok[12].setBackground(new Color(255,255,255,200));
 		 
 		 
 
 		Kozepso_Mezok();
+		Mezo_Szobak();
 		
 		System.out.println("Mezo betoltve");
 	}
@@ -238,8 +244,102 @@ public class Mezok extends Alapkep{
 			
 		}
 	}
+	static void Mezo_Szobak() {
+		//Számozás kezdődik 53-tól
+		Mezok[53].setBounds(90, 80, 280, 180);
+		Mezok[53].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[53] =new JLabel("Szoba");
+		Mezok[53].add(Mezo_Szamok[53]);
+		Jatek_Hatterkep.add(Mezok[53]);
+		Mezok[53].setVisible(true);
+		Mezo_Szamok[53].setVisible(true);
+		
+		Mezok[54].setBounds(400, 80, 250, 180);
+		Mezok[54].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[54] =new JLabel("Szoba");
+		Mezok[54].add(Mezo_Szamok[54]);
+		Jatek_Hatterkep.add(Mezok[54]);
+		Mezok[54].setVisible(true);
+		Mezo_Szamok[54].setVisible(true);
+		
+		Mezok[55].setBounds(670, 80, 190, 180);
+		Mezok[55].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[55] =new JLabel("Szoba");
+		Mezok[55].add(Mezo_Szamok[55]);
+		Jatek_Hatterkep.add(Mezok[55]);
+		Mezok[55].setVisible(true);
+		Mezo_Szamok[55].setVisible(true);
+		
+		Mezok[56].setBounds(890, 80, 100, 180);
+		Mezok[56].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[56] =new JLabel("Szoba");
+		Mezok[56].add(Mezo_Szamok[56]);
+		Jatek_Hatterkep.add(Mezok[56]);
+		Mezok[56].setVisible(true);
+		Mezo_Szamok[56].setVisible(true);
+		
+		Mezok[57].setBounds(1020, 80, 230, 180);
+		Mezok[57].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[57] =new JLabel("Szoba");
+		Mezok[57].add(Mezo_Szamok[57]);
+		Jatek_Hatterkep.add(Mezok[57]);
+		Mezok[57].setVisible(true);
+		Mezo_Szamok[57].setVisible(true);
+		
+		Mezok[58].setBounds(1020, 280, 230, 160);
+		Mezok[58].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[58] =new JLabel("Szoba");
+		Mezok[58].add(Mezo_Szamok[58]);
+		Jatek_Hatterkep.add(Mezok[58]);
+		Mezok[58].setVisible(true);
+		Mezo_Szamok[58].setVisible(true);
+		
+		Mezok[59].setBounds(1040, 460, 210, 210);
+		Mezok[59].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[59] =new JLabel("Szoba");
+		Mezok[59].add(Mezo_Szamok[59]);
+		Jatek_Hatterkep.add(Mezok[59]);
+		Mezok[59].setVisible(true);
+		Mezo_Szamok[59].setVisible(true);
+		
+		Mezok[60].setBounds(1020, 690, 210, 300);
+		Mezok[60].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[60] =new JLabel("Szoba");
+		Mezok[60].add(Mezo_Szamok[60]);
+		Jatek_Hatterkep.add(Mezok[60]);
+		Mezok[60].setVisible(true);
+		Mezo_Szamok[60].setVisible(true);
+		
+		Mezok[61].setBounds(570, 750, 250, 240);
+		Mezok[61].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[61] =new JLabel("Szoba");
+		Mezok[61].add(Mezo_Szamok[61]);
+		Jatek_Hatterkep.add(Mezok[61]);
+		Mezok[61].setVisible(true);
+		Mezo_Szamok[61].setVisible(true);
+		
+		Mezok[62].setBounds(90, 750, 290, 240);
+		Mezok[62].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[62] =new JLabel("Szoba");
+		Mezok[62].add(Mezo_Szamok[62]);
+		Jatek_Hatterkep.add(Mezok[62]);
+		Mezok[62].setVisible(true);
+		Mezo_Szamok[62].setVisible(true);
+		
+		Mezok[63].setBounds(50, 525, 110, 200);
+		Mezok[63].setBackground(new Color(255,255,255,50));
+		Mezo_Szamok[63] =new JLabel("Szoba");
+		Mezok[63].add(Mezo_Szamok[63]);
+		Jatek_Hatterkep.add(Mezok[63]);
+		Mezok[63].setVisible(true);
+		Mezo_Szamok[63].setVisible(true);
+		
+		
+		
+	}
+	
 	public static void Mezo_eger() {
-		for(int i=0;i<300;i++) {
+		for(int i=0;i<52;i++) {
 			 final int Mezo_Eger=i;
 		Mezok[i].addMouseListener(new MouseInputListener() {
 			
@@ -257,7 +357,9 @@ public class Mezok extends Alapkep{
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+				System.err.println("Mezo megnyomva");
+				Elindult.kovetkezo=true;
+				
 				
 			}
 			
@@ -270,7 +372,7 @@ public class Mezok extends Alapkep{
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if(Eger_belepett&&Eger_kilepett) {
-				System.out.println("Eger kilepett");
+				//System.out.println("Eger kilepett");
 				Mezok[Mezo_Eger].setSize(45,45);
 				Mezok[Mezo_Eger].setLocation(Mezo_X,Mezo_Y);
 				Eger_belepett=false;
@@ -286,7 +388,7 @@ public class Mezok extends Alapkep{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				if(!Eger_belepett) {
-				System.out.println("Eger belepett");
+				//System.out.println("Eger belepett");
 				Mezo_X=((int)Mezok[Mezo_Eger].getLocation().getX());
 				Mezo_Y=((int)Mezok[Mezo_Eger].getLocation().getY());
 				Mezok[Mezo_Eger].setSize(55,55);
@@ -295,6 +397,7 @@ public class Mezok extends Alapkep{
 				Mezok[Mezo_Eger].setBorder(BorderFactory.createLineBorder(Color.RED, 3));
 				Mezo_Szamok[Mezo_Eger].setHorizontalTextPosition(JLabel.CENTER);
 				Mezo_Szamok[Mezo_Eger].setVerticalTextPosition(JLabel.CENTER);
+				
 				}
 				
 				
@@ -315,5 +418,49 @@ public class Mezok extends Alapkep{
 		
 	}
 	
+	public static void Kocka_Dobas_Inudl() {
+		Kocka_Dobas.setVisible(false);
+			System.out.println("Kocka gif elindult");
+			TimerTask task=new TimerTask() {
+				int i=1;
+				public void run() {
+					Kocka_gif.setVisible(true);
+					i++;
+					if(i==6) {
+						System.err.println("Elerte a vegsot");
+						kocka_timer.cancel();
+						Kocka_gif.setVisible(false);
+						kocka_timer=new Timer();
+						Kivalasztott_Karakterek.Sorsoltszam=random.nextInt(6)+1;
+						System.out.println("A random generalt dobas: "+Kivalasztott_Karakterek.Sorsoltszam);
+						
+						
+						//Dobással össze kötött text ki írás.
+						JLabel szoveg= new JLabel(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getNev()+" dobott száma: "+Kivalasztott_Karakterek.Sorsoltszam);
+						Kivalasztott_Karakterek.Jatek_Szoveg.add(szoveg);
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, 5, 240, 16);
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setForeground(Color.white);
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setFont(new Font("Arial", 1, 13));
+						Kivalasztott_Karakterek.Action_Text.add(Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1));
+						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()>1) {
+							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1)*23);
+							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
+						}
+						
+						
+						Elindult.Karakter_Nev_Figyeles++;
+						//Utololsó legyen a frissites
+						Kivalasztott_Karakterek.Action_Text.repaint();
+						keret.repaint();
+					}
+				}		
+			};
+			kocka_timer.scheduleAtFixedRate(task, 1000, 1000);
+			
+
+		}
+		
+	}
 	
-}
+	
+

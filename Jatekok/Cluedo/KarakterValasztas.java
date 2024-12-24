@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -25,7 +26,13 @@ import javax.swing.event.MouseInputListener;
 import javax.swing.text.StyleConstants;
 
 public class KarakterValasztas extends Alapkep{
+	public static int Osszesen_Jatszik=0;
+	
 	static boolean Jatekos_Felveheto=true;
+	public static boolean Karakterek_Kivalasztva=false;
+	static boolean Karakter_Valasztas_Aktiv=false;
+		
+		static int Max_Player=6;
 		static int Jatekosok_szama=1;
 		static int Utolso_Jatekos=0;
 		static int Utolso_Magassag;
@@ -37,18 +44,50 @@ public class KarakterValasztas extends Alapkep{
 		static JLabel Karakter_Valaszt_Most= new JLabel("Karaktert választ: (Jelölésre vár)");
 		static JPanel Karakter_Valasztas_Panel= new JPanel();
 		
-		//static JLabel [] Sorszam = new JLabel [Jatekosok_szama];
-		//static JTextField[] Jatekos_nev_megadas = new JTextField[Jatekosok_szama];
-		//static JLabel [] Karakter_Valasztas= new JLabel[Jatekosok_szama];
 		static ArrayList<JLabel> Sorszam=new ArrayList<JLabel>();
 		static ArrayList<JTextField> Jatekos_nev_megadas = new ArrayList<>();
 		static ArrayList<JLabel> Karakter_Valasztas = new ArrayList<>();
+		public static ArrayList<String> Megadott_Nevek=new ArrayList<String>();
 
 		
 		static JButton Uj_Jatekos_Hozzaad= new JButton("Új játkos felvétel");
-		
-		static boolean Karakter_Valasztas_Aktiv=false;
 		static String Karakter_Valasztas_Nev;
+		
+		static JLabel Karakter_Valasztas1= new JLabel();
+		static JLabel Karakter_1=new JLabel();
+
+		
+		static JLabel Karakter_2=new JLabel();
+		static JLabel Karakter_3=new JLabel();
+		static JLabel Karakter_4=new JLabel();
+		static JLabel Karakter_5=new JLabel();
+		static JLabel Karakter_6=new JLabel();
+
+		
+		
+		
+		static Boolean Char_Valaszt_1=false;
+		static Boolean Char_Valaszt_2=false;
+		static Boolean Char_Valaszt_3=false;
+		static Boolean Char_Valaszt_4=false;
+		static Boolean Char_Valaszt_5=false;
+		static Boolean Char_Valaszt_6=false;
+		
+		static int Hanyadikfej2;
+		
+		
+		static boolean Karakter1_Valaszt=false;
+		static boolean Karakter2_Valaszt=false;
+		static boolean Karakter3_Valaszt=false;
+		static boolean Karakter4_Valaszt=false;
+		static boolean Karakter5_Valaszt=false;
+		static boolean Karakter6_Valaszt=false;
+		static boolean Karakter7_Valaszt=false;
+		static boolean Karakter8_Valaszt=false;
+		static boolean Karakter9_Valaszt=false;
+		
+		
+		
 		
 	
 	public static void Karakter_Valaszto() {
@@ -95,7 +134,6 @@ public class KarakterValasztas extends Alapkep{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				System.out.println("Inditas gomb megnyomva");
-				Karakter_Valaszto_Hatter.setVisible(false);
 				Jatekkepernyo();
 				
 			}
@@ -153,7 +191,7 @@ public class KarakterValasztas extends Alapkep{
 		Jatekos_nev_megadas1.setHorizontalAlignment(JTextField.CENTER);
 		Jatekos_nev_megadas1.setFont(new Font("Arial",1,25));
 		
-		JLabel Karakter_Valasztas1= new JLabel();
+		
 		Karakter_Valasztas.add(Karakter_Valasztas1);
 		Jatekos_Nevek.add(Karakter_Valasztas1);
 		
@@ -163,6 +201,7 @@ public class KarakterValasztas extends Alapkep{
 		Karakterfej=(new ImageIcon(Formazott_Kep));
 		
 		Karakter_Valasztas1.setIcon(Karakterfej);
+		Karakter_Valasztas1.setText("1. Karakter");
 		Karakter_Valasztas1.setBounds(400, (int)Jatekos_nev_megadas1.getLocation().getY()-10, 50, 50);
 		
 		Karakter_Valasztas1.addMouseListener(new MouseInputListener() {
@@ -182,11 +221,20 @@ public class KarakterValasztas extends Alapkep{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				Karakter_Valasztas_Aktiv=true;
+				
 				try {				Karakter_Valasztas_Nev=Jatekos_nev_megadas1.getText();
 				System.err.println("Karaktert valaszt: "+Karakter_Valasztas_Nev);
 				if(Karakter_Valasztas_Nev.length()>0) {
 				Karakter_Valaszt_Most.setText("Karaktert választ: "+Karakter_Valasztas_Nev);
+				Megadott_Nevek.add(Karakter_Valasztas_Nev);
+				System.err.println(Karakter_Valasztas1.getText());
+				Char_Valaszt_1=true;
+				Hanyadikfej2=1;
+				
+				
+				System.out.println("Tarolt fej: "+Hanyadikfej2);
 				Karakter_Valaszto_Hatter.repaint();
+				
 				}
 					
 				} catch (Exception e2) {
@@ -231,26 +279,11 @@ public class KarakterValasztas extends Alapkep{
 		    public void mouseReleased(MouseEvent e) {
 		        if (Jatekos_Felveheto) {
 		        	
-		        	
-		        	/*
-		JLabel Sorszam1 = new JLabel();
-		Sorszam.add(Sorszam1);
-		Jatekos_Nevek.add(Sorszam1);
-		Sorszam1.setText("1. Játekos:");
-		Sorszam1.setBounds(30, 100, Sorszam1.getText().length()*11, 40);
-		Sorszam1.setFont(new Font("Arial", 1, 20));
-		Sorszam1.setForeground(Color.white);
-		        	 * 
-		        	 */
-		        	
-		            JLabel sorszamLabel = new JLabel();
-		            JTextField nevTextField = new JTextField();
-		            JLabel karakterLabel = new JLabel();
-		            
+		    		
+		             JLabel sorszamLabel = new JLabel();
+		             JTextField nevTextField = new JTextField();
+		             JLabel karakterLabel = new JLabel();
 		            // Hozzáadás a listákhoz
-
-
-
 		            int yOffset = Sorszam.size() > 0 ? Sorszam.get(Sorszam.size() - 1).getY() + 60 : 100;
 
 		            sorszamLabel.setText((Sorszam.size() + 1) + ". Játékos:");
@@ -268,6 +301,7 @@ public class KarakterValasztas extends Alapkep{
 		            karakterIcon = new ImageIcon(scaledImage);
 
 		            karakterLabel.setIcon(karakterIcon);
+		            karakterLabel.setText((Sorszam.size() + 1) + ". Karakter");
 		            karakterLabel.setBounds(400, yOffset, 50, 50);
 
 		            Sorszam.add(sorszamLabel);
@@ -275,8 +309,10 @@ public class KarakterValasztas extends Alapkep{
 		            Karakter_Valasztas.add(karakterLabel);
 		            System.err.println("Utolso Sorszamos Label Szoveg ki iratas: "+Sorszam.get(Sorszam.size()-1).getText());
 		            //Fejre kattintott gomb cselekvés
+		            
 		            Karakter_Valasztas.get(Karakter_Valasztas.size()-1).addMouseListener(new MouseInputListener() {
 		            	int Hanyadikfej=Karakter_Valasztas.size()-1;
+		            	
 		    			
 		    			@Override
 		    			public void mouseMoved(MouseEvent e) {
@@ -295,8 +331,37 @@ public class KarakterValasztas extends Alapkep{
 		    				Karakter_Valasztas_Aktiv=true;
 		    				try {				Karakter_Valasztas_Nev=Jatekos_nev_megadas.get(Hanyadikfej).getText();
 		    				System.err.println("Karaktert valaszt: "+Karakter_Valasztas_Nev);
+		    				
+		    				//Char_Valaszt_1=true;
+		    				
+		    				
+		    				
 		    				if(Karakter_Valasztas_Nev.length()>0) {
 		    				Karakter_Valaszt_Most.setText("Karaktert választ: "+Karakter_Valasztas_Nev);
+		    				Megadott_Nevek.add(Karakter_Valasztas_Nev);
+		    				System.err.println(Karakter_Valasztas.get(Hanyadikfej).getText());
+		    				Hanyadikfej2=Hanyadikfej+1;
+		    				System.out.println("Tarolt fej: "+Hanyadikfej2);
+		    				if(Hanyadikfej2==2) {
+		    					System.err.println("\tMasodik kar valaszt");
+		    					Char_Valaszt_1=false;
+		    					Char_Valaszt_2=true;
+		    					Char_Valaszt_3=false;
+		    					Char_Valaszt_4=false;
+		    					Char_Valaszt_5=false;
+		    					Char_Valaszt_6=false;
+		    				}
+		    				if(Hanyadikfej2==3) {
+		    					System.err.println("\tHarmadik kar valaszt");
+		    					Char_Valaszt_1=false;
+		    					Char_Valaszt_2=false;
+		    					Char_Valaszt_3=true;
+		    					Char_Valaszt_4=false;
+		    					Char_Valaszt_5=false;
+		    					Char_Valaszt_6=false;
+		    				}
+		    				
+		    				
 		    				Karakter_Valaszto_Hatter.repaint();
 		    				}
 		    				
@@ -343,7 +408,7 @@ public class KarakterValasztas extends Alapkep{
 
 
 		            // Ellenőrzés a maximális játékosszám miatt
-		            if (Sorszam.size() >= 9) {
+		            if (Sorszam.size() >= Max_Player) {
 		                Jatekos_Felveheto = false;
 		                Uj_Jatekos_Hozzaad.setVisible(false);
 		            }
@@ -384,7 +449,7 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_Valaszt_Most.setFont(new Font("Arial", 1, 30));
 		//Karakter_Valaszt_Most.setBorder(BorderFactory.createLineBorder(Color.red,1));
 
-		JLabel Karakter_1=new JLabel();
+		
 		ImageIcon Karakter_1_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Coln_Mustard.jpg"));
 		Image Feldolgozas_1=Karakter_1_icon.getImage();
 		Image Karakter_1_Formazas=Feldolgozas_1.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -393,7 +458,21 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_1.setBounds(32, 30, 165, 170);
 		Karakter_Valasztas_Panel.add(Karakter_1);
 		
-		JLabel Karakter_2=new JLabel();
+		Karakter_1.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_1");	
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter1_Valaszt=true;
+					Image Karakter_1_Formazas=Feldolgozas_1.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_1_icon=new ImageIcon(Karakter_1_Formazas);
+					Karakter_1.setIcon(Karakter_1_icon);
+					Karakter_Kep_Athelyez();
+				}
+			}
+		});
+		
+		
+		
 		ImageIcon Karakter_2_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Miss_Scarlet.jpg"));
 		Image Feldolgozas_2=Karakter_2_icon.getImage();
 		Image Karakter_2_Formazas=Feldolgozas_2.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -402,7 +481,22 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_2.setBounds(224, 30, 160, 170);
 		Karakter_Valasztas_Panel.add(Karakter_2);
 		
-		JLabel Karakter_3=new JLabel();
+		Karakter_2.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_2");
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter2_Valaszt=true;
+					Image Karakter_2_Formazas=Feldolgozas_2.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_2_icon=new ImageIcon(Karakter_2_Formazas);
+					Karakter_2.setIcon(Karakter_2_icon);
+					Karakter_Kep_Athelyez();
+					
+					
+				}
+			}
+		});
+		
+
 		ImageIcon Karakter_3_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Mrs_Peacock.jpg"));
 		Image Feldolgozas_3=Karakter_3_icon.getImage();
 		Image Karakter_3_Formazas=Feldolgozas_3.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -411,7 +505,22 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_3.setBounds(416, 30, 160, 170);
 		Karakter_Valasztas_Panel.add(Karakter_3);
 		
-		JLabel Karakter_4=new JLabel();
+		Karakter_3.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_3");
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter3_Valaszt=true;
+					Image Karakter_3_Formazas=Feldolgozas_3.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_3_icon=new ImageIcon(Karakter_3_Formazas);
+					Karakter_3.setIcon(Karakter_3_icon);
+					Karakter_Kep_Athelyez();
+					
+					
+				}
+			}
+		});
+		
+
 		ImageIcon Karakter_4_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Mrs_White.jpg"));
 		Image Feldolgozas_4=Karakter_4_icon.getImage();
 		Image Karakter_4_Formazas=Feldolgozas_4.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -420,7 +529,22 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_4.setBounds(608, 30, 160, 170);
 		Karakter_Valasztas_Panel.add(Karakter_4);
 		
-		JLabel Karakter_5=new JLabel();
+		Karakter_4.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_4");
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter4_Valaszt=true;
+					Image Karakter_4_Formazas=Feldolgozas_4.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_4_icon=new ImageIcon(Karakter_4_Formazas);
+					Karakter_4.setIcon(Karakter_4_icon);
+					Karakter_Kep_Athelyez();
+					
+					
+				}
+			}
+		});
+		
+
 		ImageIcon Karakter_5_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Mr_Green.jpg"));
 		Image Feldolgozas_5=Karakter_5_icon.getImage();
 		Image Karakter_5_Formazas=Feldolgozas_5.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -429,7 +553,22 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_5.setBounds(32, 222, 160, 170);
 		Karakter_Valasztas_Panel.add(Karakter_5);
 		
-		JLabel Karakter_6=new JLabel();
+		Karakter_5.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_5");
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter5_Valaszt=true;
+					Image Karakter_5_Formazas=Feldolgozas_5.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_5_icon=new ImageIcon(Karakter_5_Formazas);
+					Karakter_5.setIcon(Karakter_5_icon);
+					Karakter_Kep_Athelyez();
+					
+					
+				}
+			}
+		});
+		
+
 		ImageIcon Karakter_6_icon=new ImageIcon(KarakterValasztas.class.getResource("/Cluedo/Kepek/Porf_Plum.jpg"));
 		Image Feldolgozas_6=Karakter_6_icon.getImage();
 		Image Karakter_6_Formazas=Feldolgozas_6.getScaledInstance(160, 160, java.awt.Image.SCALE_SMOOTH);
@@ -437,9 +576,518 @@ public class KarakterValasztas extends Alapkep{
 		Karakter_6.setIcon(Karakter_6_icon);
 		Karakter_6.setBounds(224, 222, 160, 170);
 		Karakter_Valasztas_Panel.add(Karakter_6);
+		System.out.println(Karakter_6.getText());
+		
+		Karakter_6.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Karakter_6");
+				if(Karakter_Valasztas_Aktiv&&Karakter_Valasztas_Nev.length()>0) {
+					Karakter6_Valaszt=true;
+					Image Karakter_6_Formazas=Feldolgozas_6.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+					ImageIcon Karakter_6_icon=new ImageIcon(Karakter_6_Formazas);
+					Karakter_6.setIcon(Karakter_6_icon);
+					Karakter_Kep_Athelyez();
+					
+					
+				}
+			}
+		});
+
+		
+
+
+			
+			
+		
 		
 		
 		
 	}
+	static void Karakter_Kep_Athelyez() {
+		switch (Hanyadikfej2) {
+		
+		case 1: {
+			System.out.println("Karaktert valaszto megtalalva: 1. jatekosnak");
+			
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas1.setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
 
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter1_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+
+
+		
+		case 2:{
+			System.out.println("Karaktert valaszto megtalalva: 2. jatekosnak");
+			
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter2_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 3:{
+			System.out.println("Karaktert valaszto megtalalva: 3. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter3_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 4:{
+			System.out.println("Karaktert valaszto megtalalva: 4. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter4_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 5:{
+			System.out.println("Karaktert valaszto megtalalva: 5. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter5_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 6:{
+			System.out.println("Karaktert valaszto megtalalva: 6. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Karakter_Valasztas_Aktiv=false;
+			Karakter6_Valaszt=false;
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 7:{
+			System.out.println("Karaktert valaszto megtalalva: 7. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 8:{
+			System.out.println("Karaktert valaszto megtalalva: 8. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Osszesen_Jatszik++;
+			break;
+		}
+		case 9:{
+			System.out.println("Karaktert valaszto megtalalva: 9. jatekosnak");
+			if(Karakter_Valasztas_Aktiv) {
+				System.out.println("Valasztas aktiv igy kezdodik a kijeloles figyeles");
+				
+				if(Karakter1_Valaszt) {
+					System.err.println("1. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_1.getIcon());
+					Karakter_1.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter1_Valaszt=false;}
+				
+				if(Karakter2_Valaszt) {
+					System.err.println("2. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_2.getIcon());
+					Karakter_2.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter2_Valaszt=false;}
+				
+				if(Karakter3_Valaszt) {
+					System.err.println("3. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_3.getIcon());
+					Karakter_3.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter3_Valaszt=false;}
+				
+				if(Karakter4_Valaszt) {
+					System.err.println("4. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_4.getIcon());
+					Karakter_4.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter4_Valaszt=false;}
+				
+				if(Karakter5_Valaszt) {
+					System.err.println("5. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_5.getIcon());
+					Karakter_5.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter5_Valaszt=false;}
+				
+				if(Karakter6_Valaszt) {
+					System.err.println("6. jatszahto karakter kivalasztva");
+					Karakter_Valasztas.get(Hanyadikfej2-1).setIcon(Karakter_6.getIcon());
+					Karakter_6.setVisible(false);
+					Karakter_Valaszto_Hatter.repaint();
+					Karakter6_Valaszt=false;}
+
+			}
+			Osszesen_Jatszik++;
+			break;
+		}
+		default:
+			System.out.println("Nem talalhato karakter a switch-case kriteriumban");;
+		}
+		
+	}
+	static void Karakter_Kivalasztott_Kep() {
+		
+	}
 }
