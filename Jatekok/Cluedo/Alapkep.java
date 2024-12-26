@@ -202,6 +202,7 @@ public static void Betoltes() {
 	 
 	 Mezok.Mezo_Betoltes();
 	 Mezok.Mezo_eger();
+	 Mezok.Szoba_eger();
 	 
 	 try {
 		 Kivalasztott_Karakterek.Jatek_Kezdodik();

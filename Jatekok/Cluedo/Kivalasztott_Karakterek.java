@@ -19,6 +19,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 	private boolean Talat_Fegyver=false;
 	private boolean Talat_Gyilkos=false;
 	private boolean Talat_Szoba=false;
+	private int Mezon_all;
 	static int index1=0;
 	public static int Sorsoltszam;
 	
@@ -36,6 +37,12 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 	public static ArrayList<JLabel> Jatek_Szoveg= new ArrayList<JLabel>();
 	public static JPanel Action_Text= new JPanel();
 	
+	public static ImageIcon Gyilkos = new ImageIcon();
+	public static ImageIcon Szoba = new ImageIcon();
+	public static ImageIcon Fegyver = new ImageIcon();
+	
+	public static int Szoveg_magas_tav = 30; // Sorok közötti távolság
+	
 	
 	public static void Jatek_Kezdodik() {
 		System.err.println("\t Osszesen jatszo karakter: "+KarakterValasztas.Osszesen_Jatszik);
@@ -44,7 +51,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		//Jatszo_Karakterek.add(new Kivalasztott_Karakterek("Ádám",100,3,false,false,false,false));
 		for(int i =0;i!=KarakterValasztas.Osszesen_Jatszik;i++) {
 			System.out.println("Feltoltes megindul: "+i);
-			Jatszo_Karakterek.add(new Kivalasztott_Karakterek(KarakterValasztas.Megadott_Nevek.get(i),100,0,false,false,false,false));
+			Jatszo_Karakterek.add(new Kivalasztott_Karakterek(KarakterValasztas.Megadott_Nevek.get(i),100,0,false,false,false,false,100));
 			
 			
 		}
@@ -59,7 +66,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 	}
 	
 
-	public Kivalasztott_Karakterek (String Nev, int Elet, int DobottSzam, boolean Kimarad, boolean Talat_Fegyver,boolean Talat_Gyilkos, boolean Talat_Szoba) {
+	public Kivalasztott_Karakterek (String Nev, int Elet, int DobottSzam, boolean Kimarad, boolean Talat_Fegyver,boolean Talat_Gyilkos, boolean Talat_Szoba, int Mezon_all) {
 		this.Nev=Nev;
 		this.Elet=Elet;
 		this.DobottSzam=DobottSzam;
@@ -67,6 +74,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		this.Talat_Fegyver=Talat_Fegyver;
 		this.Talat_Gyilkos=Talat_Gyilkos;
 		this.Talat_Szoba=Talat_Szoba;
+		this.Mezon_all =Mezon_all;
 		
 	}
 	public String getNev() {
@@ -133,17 +141,17 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		Image Kimarad_Megformaz=Kimarad_Beker.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
 		Kimarad_Kep = new ImageIcon(Kimarad_Megformaz);
 		
-		ImageIcon Fegyver = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Fegyver_Megvan.png"));
+		Fegyver = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Fegyver_Megvan.png"));
 		Image Fegyver_Alakit=Fegyver.getImage();
 		Image Fegyver_Formazott=Fegyver_Alakit.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
 		Fegyver = new ImageIcon(Fegyver_Formazott);
 		
-		ImageIcon Gyilkos = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Gyilkos_Megvan.png"));
+		Gyilkos = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Gyilkos_Megvan.png"));
 		Image Gyilkos_Alakit=Gyilkos.getImage();
 		Image Gyilkos_Formazott=Gyilkos_Alakit.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
 		Gyilkos = new ImageIcon(Gyilkos_Formazott);
 		
-		ImageIcon Szoba = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Gyilkos_Szoba.png"));
+		Szoba = new ImageIcon(Kivalasztott_Karakterek.class.getResource("/Cluedo/Kepek/Gyilkos_Szoba.png"));
 		Image Szoba_Alakit=Szoba.getImage();
 		Image Szoba_Formazott=Szoba_Alakit.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
 		Szoba = new ImageIcon(Szoba_Formazott);
@@ -257,6 +265,33 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		Kivalasztott_Karakterek.Karakterek.get(0).setForeground(Color.green);
 		
 		
+	}
+
+
+	public int getMezon_all() {
+		return Mezon_all;
+	}
+
+
+	public void setMezon_all(int mezon_all) {
+		Mezon_all = mezon_all;
+	}
+	
+	public static void Jatek_Szoveg_Gorget() {
+	    if (Jatek_Szoveg.size() > 3) {
+	        // Alapértelmezett kezdő Y pozíció
+	        int alapY = -20; 
+	        int offset = Szoveg_magas_tav;
+
+	        for (int i = 0; i < Jatek_Szoveg.size(); i++) {
+	            JLabel darab = Jatek_Szoveg.get(i);
+	            int ujY = alapY + i * offset; // Új Y pozíció kiszámítása
+	            darab.setLocation(darab.getX(), ujY);
+	        }
+
+	        // Panel újrarajzolása
+	        Jatek_Szoveg.get(0).getParent().repaint();
+	    }
 	}
 	
 	

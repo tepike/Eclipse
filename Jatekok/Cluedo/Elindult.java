@@ -18,21 +18,53 @@ public class Elindult extends KarakterValasztas{
 			
 			@Override
 			public void run() {
+				
 				if(kovetkezo) {
 					
+
+					
+					//Újra töltésnél az első karakter fehérre szinezése
 					if(Aktiv_Karakter_Id==0) {
 						Kivalasztott_Karakterek.Karakterek.get(Osszesen_Jatszik-1).setForeground(Color.white);
+						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
+							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all());
+							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,50));
+							
+						}
+						else {
+							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,200));
+						}
+						
 					}
+					//Továbblépésnél a karakter vissza szinezése
 					if(Aktiv_Karakter_Id>0) {
 						Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id-1).setForeground(Color.white);
+						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
+							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all());
+							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,50));
+							
+						}
+						else {
+							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,200));
+						}
+						
+						
 					}
+					
+					//Ha elerte az utolsó karaktert akkor kezdi újra az elsővel
 					if(KarakterValasztas.Osszesen_Jatszik==Aktiv_Karakter_Id) {
 						Aktiv_Karakter_Id=0;
 					}
 					System.out.println("Karakter megszinez mert uj lep");
 					Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id).setForeground(Color.green);
+					System.out.println("\tMezo szinezes: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all());
 					kovetkezo=false;
 					Kocka_Dobas.setVisible(true);
+					if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all()<65) {
+						System.out.println("\tMezo szinezes: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all());
+						Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all()].setBackground(new Color(0,255,0,150));
+					}
+						
 					
 
 					
