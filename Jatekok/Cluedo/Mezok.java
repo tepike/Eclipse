@@ -40,6 +40,10 @@ public class Mezok extends Alapkep{
 	public static int Gyilkos_Fegyver_Mezo_index_Megadas;
 	public static int Gyilkos_Szoba_Mezo_index_Megadas;
 	
+	public static String Generalt_Gyilkos;
+	public static String Generalt_Gyilkos_Fegyver;
+	public static String Generalt_Gyilkos_Szoba;
+	
 	static void Mezo_Betoltes() {
 
 		for(int i=0;i<300;i++) {
@@ -377,7 +381,7 @@ public class Mezok extends Alapkep{
 				 
 				 public void mouseReleased(MouseEvent e) {
 						if(lepehet) {
-						System.err.println("Mezo megnyomva");
+						//System.err.println("Mezo megnyomva");
 						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()<65&&Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
 							Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,50));
 						}
@@ -572,7 +576,7 @@ public class Mezok extends Alapkep{
 	
 	public static void Kocka_Dobas_Inudl() {
 		Kocka_Dobas.setVisible(false);
-			System.out.println("Kocka gif elindult");
+			//System.out.println("Kocka gif elindult");
 			TimerTask task=new TimerTask() {
 				int i=1;
 				public void run() {
@@ -580,12 +584,12 @@ public class Mezok extends Alapkep{
 					i++;
 					if(i==6) {
 						
-						System.err.println("Elerte a vegsot");
+						//System.err.println("Elerte a vegsot");
 						kocka_timer.cancel();
 						Kocka_gif.setVisible(false);
 						kocka_timer=new Timer();
 						Kivalasztott_Karakterek.Sorsoltszam=random.nextInt(6)+1;
-						System.out.println("A random generalt dobas: "+Kivalasztott_Karakterek.Sorsoltszam);
+						//System.out.println("A random generalt dobas: "+Kivalasztott_Karakterek.Sorsoltszam);
 						lepehet=true;
 						
 						
@@ -751,6 +755,8 @@ public class Mezok extends Alapkep{
 		case 1: {
 			Gyilkos_Szoba_Tarolas.set(0, Boolean.TRUE);
 			Gyilkos_Szoba_Mezo_index_Megadas=54;
+			//Ezt fogja ki írni a végén amikor valaki mindent megtalál
+			Generalt_Gyilkos_Szoba="Megadott Gyilkos Szoba";
 			break;
 		}
 		case 2: {
@@ -806,6 +812,49 @@ public class Mezok extends Alapkep{
 		default:
 			break;
 		}
+		
+		System.out.println("Gyilkosok megnevezése");
+		int Random_Gyilkos_Fegyver=random.nextInt(11)+1;
+		int Random_Gyilkos=random.nextInt(6)+1;
+		
+		switch (Random_Gyilkos) {
+		case 1: {
+			Generalt_Gyilkos="Szecskóné Rimán Eszter";
+			break;
+		}
+		case 2: {
+			Generalt_Gyilkos="Szecskó Ádám";
+			break;
+		}
+		case 3: {
+			Generalt_Gyilkos="Bakos Barbara";
+			break;
+		}
+		case 4: {
+			Generalt_Gyilkos="Sulyok Vivien";
+			break;
+		}
+		case 5: {
+			Generalt_Gyilkos="Tepliczi Ádám";
+			break;
+		}
+		case 6: {
+			Generalt_Gyilkos="Visegrádi Mónika";
+			break;
+		}
+		default:
+			break;
+		}
+		
+		switch (Random_Gyilkos_Fegyver) {
+		case 1: {
+			Generalt_Gyilkos_Fegyver="";
+			break;
+		}
+		default:
+			break;
+		}
+
 
 		
 		

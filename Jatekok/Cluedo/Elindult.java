@@ -10,6 +10,7 @@ public class Elindult extends KarakterValasztas{
 	public static int Karakter_Nev_Figyeles=0;
 	public static int Aktiv_Karakter_Id=1;
 	public static boolean kovetkezo=false;
+	public static int Jelenlegi_kor=1;
 	
 	public static void Elindit() {
 		
@@ -25,6 +26,7 @@ public class Elindult extends KarakterValasztas{
 					
 					//Újra töltésnél az első karakter fehérre szinezése
 					if(Aktiv_Karakter_Id==0) {
+						
 						Kivalasztott_Karakterek.Karakterek.get(Osszesen_Jatszik-1).setForeground(Color.white);
 						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
 							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all());
@@ -54,8 +56,10 @@ public class Elindult extends KarakterValasztas{
 					//Ha elerte az utolsó karaktert akkor kezdi újra az elsővel
 					if(KarakterValasztas.Osszesen_Jatszik==Aktiv_Karakter_Id) {
 						Aktiv_Karakter_Id=0;
+						Jelenlegi_kor++;
+						System.err.println(Jelenlegi_kor);
 					}
-					System.out.println("Karakter megszinez mert uj lep");
+					//System.out.println("Karakter megszinez mert uj lep");
 					Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id).setForeground(Color.green);
 					System.out.println("\tMezo szinezes: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all());
 					kovetkezo=false;
