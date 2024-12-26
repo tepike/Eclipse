@@ -422,11 +422,11 @@ public class Mezok extends Alapkep{
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setForeground(Color.white);
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setFont(new Font("Arial", 1, 13));
 						Kivalasztott_Karakterek.Action_Text.add(Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1));
-						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()>1) {
-							Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
-							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+30);
-							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
-						}
+						
+						Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-2).getY()+20, 240, 16);
+						
+
 						if(!Gyilkos_Gif) {
 							System.out.println("Gyilkos gif betoltese");
 							Gyilkos_indul();
@@ -446,11 +446,11 @@ public class Mezok extends Alapkep{
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setForeground(Color.white);
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setFont(new Font("Arial", 1, 13));
 						Kivalasztott_Karakterek.Action_Text.add(Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1));
-						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()>1) {
-							Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
-							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+Kivalasztott_Karakterek.Szoveg_magas_tav);
-							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
-						}
+						
+						Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-2).getY()+20, 240, 16);
+						
+
 						if(!Gyilkos_Fegyver_Gif) {
 							System.out.println("Gyilkos_Fegyver gif betoltese");
 							Gyilkos_Fegyver_indul();
@@ -470,11 +470,11 @@ public class Mezok extends Alapkep{
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setForeground(Color.white);
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setFont(new Font("Arial", 1, 13));
 						Kivalasztott_Karakterek.Action_Text.add(Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1));
-						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()>1) {
-							Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
-							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1)*23);
-							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
-						}
+						
+						Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
+						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-2).getY()+20, 240, 16);
+						
+
 						if(!Gyilkos_Szoba_Gif) {
 							System.out.println("Gyilkos_Szoba gif betoltese");
 							Gyilkos_Szoba_indul();
@@ -611,7 +611,7 @@ public class Mezok extends Alapkep{
 				public void run() {
 					Kocka_gif.setVisible(true);
 					i++;
-					if(i==6) {
+					if(i==2) {
 						
 						//System.err.println("Elerte a vegsot");
 						kocka_timer.cancel();
@@ -625,15 +625,20 @@ public class Mezok extends Alapkep{
 						//Dobással össze kötött text ki írás.
 						JLabel szoveg= new JLabel(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getNev()+" dobott száma: "+Kivalasztott_Karakterek.Sorsoltszam);
 						Kivalasztott_Karakterek.Jatek_Szoveg.add(szoveg);
-						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, 5, 240, 16);
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setForeground(Color.white);
 						Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setFont(new Font("Arial", 1, 13));
 						Kivalasztott_Karakterek.Action_Text.add(Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1));
-						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()>1) {
-							Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
-							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1)*23);
-							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
+						System.err.println("Szöveg darabszám: "+Kivalasztott_Karakterek.Jatek_Szoveg.size());
+						
+						if(Kivalasztott_Karakterek.Jatek_Szoveg.size()==1) {
+							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, 5, 240, 16);
 						}
+						else {
+							Kivalasztott_Karakterek.Jatek_Szoveg_Gorget();
+							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-2).getY()+20, 240, 16);
+							
+						}
+						
 						
 						
 						Elindult.Karakter_Nev_Figyeles++;
@@ -730,8 +735,8 @@ public class Mezok extends Alapkep{
 		
 		System.out.println("Jatek vege betoltes");
 		JPanel Szoveg_Doboz= new JPanel();
-		Szoveg_Doboz.setBounds(Jatek_Alap_Hatterkep.getWidth()/2-1000, Jatek_Alap_Hatterkep.getHeight()/2-300, 1900, 40);
-		Szoveg_Doboz.setBackground(new Color(0,0,0,250));
+		Szoveg_Doboz.setBounds(Jatek_Alap_Hatterkep.getWidth()/2-1000, Jatek_Alap_Hatterkep.getHeight()/2-300, 1900, 50);
+		Szoveg_Doboz.setBackground(new Color(0,0,0,150));
 		Szoveg_Doboz.setLayout(null);
 		
 		JLabel Game_Over= new JLabel();
@@ -744,10 +749,11 @@ public class Mezok extends Alapkep{
 		Jatek_Hatterkep.setVisible(false);
 		Alapkep.Karakter_Jelzo.setVisible(false);
 		Kivalasztott_Karakterek.Action_Text.setVisible(false);
-		Vege_Szoveg.setBounds(0, 0, 1900, 30);
+		Vege_Szoveg.setBounds(10, 5, 1900, 30);
 		Vege_Szoveg.setFont(new Font("Arial", 0, 25));
 		Vege_Szoveg.setForeground(Color.white);
 		Szoveg_Doboz.add(Vege_Szoveg);
+		Szoveg_Doboz.setSize(Vege_Szoveg.getText().length()*12,50);
 		Jatek_Alap_Hatterkep.repaint();
 		Jatek_Vege_Boolean=true;
 		

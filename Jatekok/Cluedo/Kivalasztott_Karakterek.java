@@ -51,7 +51,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		//Jatszo_Karakterek.add(new Kivalasztott_Karakterek("Ádám",100,3,false,false,false,false));
 		for(int i =0;i!=KarakterValasztas.Osszesen_Jatszik;i++) {
 			System.out.println("Feltoltes megindul: "+i);
-			Jatszo_Karakterek.add(new Kivalasztott_Karakterek(KarakterValasztas.Megadott_Nevek.get(i),100,0,false,true,true,false,100));
+			Jatszo_Karakterek.add(new Kivalasztott_Karakterek(KarakterValasztas.Megadott_Nevek.get(i),100,0,false,false,false,false,100));
 			
 			
 		}
@@ -278,15 +278,14 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 	}
 	
 	public static void Jatek_Szoveg_Gorget() {
-	    if (Jatek_Szoveg.size() > 3) {
+		System.err.println("Szöveg korrektor lefut");
+	    if (Jatek_Szoveg.size() > 24) {
 	        // Alapértelmezett kezdő Y pozíció
-	        int alapY = -20; 
-	        int offset = Szoveg_magas_tav;
+
 
 	        for (int i = 0; i < Jatek_Szoveg.size(); i++) {
 	            JLabel darab = Jatek_Szoveg.get(i);
-	            int ujY = alapY + i * offset; // Új Y pozíció kiszámítása
-	            darab.setLocation(darab.getX(), ujY);
+	            darab.setLocation(darab.getX(), darab.getY()-20);
 	        }
 
 	        // Panel újrarajzolása
@@ -315,7 +314,7 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 		
 		if(fegyver&&szoba&&gyilkos) {
 			System.out.println("\t A jatek vegetert mert meglett az osszes bizonyitek");
-			Mezok.Vege_Szoveg.setText("Eredmeny: "+Mezok.Generalt_Gyilkos+" megolte "+Mezok.Generalt_Halott+" "+Mezok.Generalt_Gyilkos_Szoba+". A gyilkosságot pedig  "+Mezok.Generalt_Gyilkos_Fegyver+" követte el.");
+			Mezok.Vege_Szoveg.setText("Eredmény: "+Mezok.Generalt_Gyilkos+" megölte "+Mezok.Generalt_Halott+" "+Mezok.Generalt_Gyilkos_Szoba+". A gyilkosságot pedig  "+Mezok.Generalt_Gyilkos_Fegyver+" követte el.");
 			Mezok.Jatek_Vege();
 
 			
