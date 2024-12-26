@@ -294,7 +294,35 @@ public class Kivalasztott_Karakterek extends KarakterValasztas{
 	    }
 	}
 	
-	
+	public static void Bizonyitek_Check() {
+		System.out.println("\nMegtalalt bizonyitekok atvizsgalasa");
+		boolean fegyver=false;
+		boolean szoba=false;
+		boolean gyilkos=false;
+		
+		if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).isTalat_Fegyver()) {
+			System.err.println("Fegyver csekkolás sikeresen lefutott es talat");
+			fegyver=true;
+		};
+		if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).isTalat_Szoba()) {
+			System.err.println("Szoba csekkolás sikeresen lefutott es talat");
+			szoba=true;
+		};
+		if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).isTalat_Gyilkos()) {
+			System.err.println("Gyilkos csekkolás sikeresen lefutott es talat");
+			gyilkos=true;
+		};
+		
+		if(fegyver&&szoba&&gyilkos) {
+			System.out.println("\t A jatek vegetert mert meglett az osszes bizonyitek");
+			System.err.println("Eredmeny: "+Mezok.Generalt_Gyilkos+" megolte "+Mezok.Generalt_Halott+" "+Mezok.Generalt_Gyilkos_Szoba+". A gyilkosságot pedig  "+Mezok.Generalt_Gyilkos_Fegyver+" követte el.");
+		}else {
+			gyilkos=false;
+			fegyver=false;
+			szoba=false;
+		}
+		
+	}
 	
 
 	

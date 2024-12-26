@@ -28,8 +28,8 @@ public class Elindult extends KarakterValasztas{
 					if(Aktiv_Karakter_Id==0) {
 						
 						Kivalasztott_Karakterek.Karakterek.get(Osszesen_Jatszik-1).setForeground(Color.white);
-						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
-							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all());
+						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()>52) {
+							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all());
 							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,50));
 							
 						}
@@ -42,7 +42,7 @@ public class Elindult extends KarakterValasztas{
 					if(Aktiv_Karakter_Id>0) {
 						Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id-1).setForeground(Color.white);
 						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()>52) {
-							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all());
+							System.out.println("Ezen allt ez modosit: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all());
 							Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id-1).getMezon_all()].setBackground(new Color(255,255,255,50));
 							
 						}
@@ -67,6 +67,13 @@ public class Elindult extends KarakterValasztas{
 					if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all()<65) {
 						System.out.println("\tMezo szinezes: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all());
 						Mezok.Mezok[Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all()].setBackground(new Color(0,255,0,150));
+					}
+					if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).isKimarad()) {
+						System.out.println("\t\t Az adott karakter kimarad ezért a következő lép.");
+						kovetkezo=true;
+						Mezok.lepehet=false;
+						Mezok.Eger_belepett=false;
+						Mezok.Eger_kilepett=true;
 					}
 						
 					

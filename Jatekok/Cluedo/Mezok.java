@@ -43,6 +43,7 @@ public class Mezok extends Alapkep{
 	public static String Generalt_Gyilkos;
 	public static String Generalt_Gyilkos_Fegyver;
 	public static String Generalt_Gyilkos_Szoba;
+	public static String Generalt_Halott;;
 	
 	static void Mezo_Betoltes() {
 
@@ -395,8 +396,9 @@ public class Mezok extends Alapkep{
 						Eger_belepett=false;
 						Eger_kilepett=true;
 						Mezok[Mezo_Eger].setBorder(BorderFactory.createEmptyBorder());
+						Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).setMezon_all(Integer.parseInt(Mezo_Szamok[Mezo_Eger].getText())-1);
 						
-						//Aktuális karakter lépésének befejezése ellenrőzi, hogy az adott lépésre megtalált-e valamilyen bizonyítékot
+						
 							//Gyilkos megtalálás
 						if(Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).getMezon_all()==Gyilkos_Mezo_index_Megadas) {
 						System.err.println("Gyilkos megtalalva");
@@ -458,13 +460,15 @@ public class Mezok extends Alapkep{
 						
 
 						}
-						Kivalasztott_Karakterek.Jatszo_Karakterek.get(Elindult.Aktiv_Karakter_Id-1).setMezon_all(Integer.parseInt(Mezo_Szamok[Mezo_Eger].getText())-1);
+						
+						Kivalasztott_Karakterek.Bizonyitek_Check();
 						keret.repaint();
 						Karakter_Jelzo.repaint();
 						Jatek_Hatterkep.repaint();
 						Jatek_Alap_Hatterkep.repaint();
-						
+						System.out.println("Gyilkos fegyver: "+(Gyilkos_Fegyver_Mezo_index_Megadas+1)+" Gyilkos: "+(Gyilkos_Mezo_index_Megadas+1)+" Gyilkos szoba: "+(Gyilkos_Szoba_Mezo_index_Megadas+1));
 						}
+						
 					}
 			});
 			 
@@ -619,6 +623,11 @@ public class Mezok extends Alapkep{
 
 		}
 	static void Gyilkos_Dolgok_Betoltese() {
+		System.out.println("Gyilkosok megnevezése");
+		int Random_Gyilkos_Fegyver=random.nextInt(12)+1;
+		int Random_Gyilkos=random.nextInt(6)+1;
+		int Random_Halott=random.nextInt(10)+1;
+		
 		System.out.println("Gyilkos targyak betoltese");
 		int Gyilkos_Fegyver=random.nextInt(11)+1;
 		int Gyilkos=random.nextInt(11)+1;
@@ -630,62 +639,61 @@ public class Mezok extends Alapkep{
 		while(Gyilkos_Szoba==Gyilkos||Gyilkos_Szoba==Gyilkos_Fegyver) {
 			Gyilkos_Szoba=random.nextInt(11)+1;
 		}
-		System.out.println("Gyilkos fegyver: "+Gyilkos_Fegyver+" Gyilkos: "+Gyilkos+" Gyilkos szoba: "+Gyilkos_Szoba);
 		
 		switch (Gyilkos_Fegyver) {
 		case 1: {
 			Gyilkos_Fegyver_Tarolas.set(0, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=54;
+			Gyilkos_Fegyver_Mezo_index_Megadas=53;
 			break;
 		}
 		case 2: {
 			Gyilkos_Fegyver_Tarolas.set(1, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=55;
+			Gyilkos_Fegyver_Mezo_index_Megadas=54;
 			break;
 		}
 		case 3: {
 			Gyilkos_Fegyver_Tarolas.set(2, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=56;
+			Gyilkos_Fegyver_Mezo_index_Megadas=55;
 			break;
 		}
 		case 4: {
 			Gyilkos_Fegyver_Tarolas.set(3, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=57;
+			Gyilkos_Fegyver_Mezo_index_Megadas=56;
 			break;
 		}
 		case 5: {
 			Gyilkos_Fegyver_Tarolas.set(4, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=58;
+			Gyilkos_Fegyver_Mezo_index_Megadas=57;
 			break;
 		}
 		case 6: {
 			Gyilkos_Fegyver_Tarolas.set(5, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=59;
+			Gyilkos_Fegyver_Mezo_index_Megadas=58;
 			break;
 		}
 		case 7: {
 			Gyilkos_Fegyver_Tarolas.set(6, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=60;
+			Gyilkos_Fegyver_Mezo_index_Megadas=59;
 			break;
 		}
 		case 8: {
 			Gyilkos_Fegyver_Tarolas.set(7, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=61;
+			Gyilkos_Fegyver_Mezo_index_Megadas=60;
 			break;
 		}
 		case 9: {
 			Gyilkos_Fegyver_Tarolas.set(8, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=62;
+			Gyilkos_Fegyver_Mezo_index_Megadas=61;
 			break;
 		}
 		case 10: {
 			Gyilkos_Fegyver_Tarolas.set(9, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=63;
+			Gyilkos_Fegyver_Mezo_index_Megadas=62;
 			break;
 		}
 		case 11: {
 			Gyilkos_Fegyver_Tarolas.set(10, Boolean.TRUE);
-			Gyilkos_Fegyver_Mezo_index_Megadas=64;
+			Gyilkos_Fegyver_Mezo_index_Megadas=63;
 			break;
 		}
 		default:
@@ -695,57 +703,57 @@ public class Mezok extends Alapkep{
 		switch (Gyilkos) {
 		case 1: {
 			Gyilkos_Tarolas.set(0, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=54;
+			Gyilkos_Mezo_index_Megadas=53;
 			break;
 		}
 		case 2: {
 			Gyilkos_Tarolas.set(1, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=55;
+			Gyilkos_Mezo_index_Megadas=54;
 			break;
 		}
 		case 3: {
 			Gyilkos_Tarolas.set(2, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=56;
+			Gyilkos_Mezo_index_Megadas=55;
 			break;
 		}
 		case 4: {
 			Gyilkos_Tarolas.set(3, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=57;
+			Gyilkos_Mezo_index_Megadas=56;
 			break;
 		}
 		case 5: {
 			Gyilkos_Tarolas.set(4, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=58;
+			Gyilkos_Mezo_index_Megadas=57;
 			break;
 		}
 		case 6: {
 			Gyilkos_Tarolas.set(5, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=59;
+			Gyilkos_Mezo_index_Megadas=58;
 			break;
 		}
 		case 7: {
 			Gyilkos_Tarolas.set(6, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=60;
+			Gyilkos_Mezo_index_Megadas=59;
 			break;
 		}
 		case 8: {
 			Gyilkos_Tarolas.set(7, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=61;
+			Gyilkos_Mezo_index_Megadas=60;
 			break;
 		}
 		case 9: {
 			Gyilkos_Tarolas.set(8, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=62;
+			Gyilkos_Mezo_index_Megadas=61;
 			break;
 		}
 		case 10: {
 			Gyilkos_Tarolas.set(9, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=63;
+			Gyilkos_Mezo_index_Megadas=62;
 			break;
 		}
 		case 11: {
 			Gyilkos_Tarolas.set(10, Boolean.TRUE);
-			Gyilkos_Mezo_index_Megadas=64;
+			Gyilkos_Mezo_index_Megadas=63;
 			break;
 		}
 		default:
@@ -754,68 +762,76 @@ public class Mezok extends Alapkep{
 		switch (Gyilkos_Szoba) {
 		case 1: {
 			Gyilkos_Szoba_Tarolas.set(0, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=54;
+			Gyilkos_Szoba_Mezo_index_Megadas=53;
 			//Ezt fogja ki írni a végén amikor valaki mindent megtalál
-			Generalt_Gyilkos_Szoba="Megadott Gyilkos Szoba";
+			Generalt_Gyilkos_Szoba="Dolgozó szobában";
 			break;
 		}
 		case 2: {
 			Gyilkos_Szoba_Tarolas.set(1, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=55;
+			Gyilkos_Szoba_Mezo_index_Megadas=54;
+			Generalt_Gyilkos_Szoba="a Vendég szobában";
 			break;
 		}
 		case 3: {
 			Gyilkos_Szoba_Tarolas.set(2, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=56;
+			Gyilkos_Szoba_Mezo_index_Megadas=55;
+			Generalt_Gyilkos_Szoba="a Mosókonyhában";
 			break;
 		}
 		case 4: {
 			Gyilkos_Szoba_Tarolas.set(3, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=57;
+			Gyilkos_Szoba_Mezo_index_Megadas=56;
+			Generalt_Gyilkos_Szoba="a Spájzban";
 			break;
 		}
 		case 5: {
 			Gyilkos_Szoba_Tarolas.set(4, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=58;
+			Gyilkos_Szoba_Mezo_index_Megadas=57;
+			Generalt_Gyilkos_Szoba="a Fürdőszobában";
 			break;
 		}
 		case 6: {
 			Gyilkos_Szoba_Tarolas.set(5, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=59;
+			Gyilkos_Szoba_Mezo_index_Megadas=58;
+			Generalt_Gyilkos_Szoba="a Gyerekszobában";
 			break;
 		}
 		case 7: {
 			Gyilkos_Szoba_Tarolas.set(6, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=60;
+			Gyilkos_Szoba_Mezo_index_Megadas=59;
+			Generalt_Gyilkos_Szoba="a Takarítószertárban";
 			break;
 		}
 		case 8: {
 			Gyilkos_Szoba_Tarolas.set(7, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=61;
+			Gyilkos_Szoba_Mezo_index_Megadas=60;
+			Generalt_Gyilkos_Szoba="a Hálószobában";
 			break;
 		}
 		case 9: {
 			Gyilkos_Szoba_Tarolas.set(8, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=62;
+			Gyilkos_Szoba_Mezo_index_Megadas=61;
+			Generalt_Gyilkos_Szoba="a Konyhában";
 			break;
 		}
 		case 10: {
 			Gyilkos_Szoba_Tarolas.set(9, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=63;
+			Gyilkos_Szoba_Mezo_index_Megadas=62;
+			Generalt_Gyilkos_Szoba="a Társalgóban";
 			break;
 		}
 		case 11: {
 			Gyilkos_Szoba_Tarolas.set(10, Boolean.TRUE);
-			Gyilkos_Szoba_Mezo_index_Megadas=64;
+			Gyilkos_Szoba_Mezo_index_Megadas=63;
+			Generalt_Gyilkos_Szoba="a Pincében";
 			break;
 		}
 		default:
 			break;
 		}
 		
-		System.out.println("Gyilkosok megnevezése");
-		int Random_Gyilkos_Fegyver=random.nextInt(11)+1;
-		int Random_Gyilkos=random.nextInt(6)+1;
+
 		
 		switch (Random_Gyilkos) {
 		case 1: {
@@ -848,15 +864,119 @@ public class Mezok extends Alapkep{
 		
 		switch (Random_Gyilkos_Fegyver) {
 		case 1: {
-			Generalt_Gyilkos_Fegyver="";
+			Generalt_Gyilkos_Fegyver="egy Voodoo babával";
 			break;
 		}
+		
+		case 2: {
+			Generalt_Gyilkos_Fegyver="egy Rózsaszín vibrátorral";
+			break;
+		}
+		
+		case 3: {
+			Generalt_Gyilkos_Fegyver="egy Lézerkarddal";
+			break;
+		}
+		
+		case 4: {
+			Generalt_Gyilkos_Fegyver="egy Főbenjáró átokkal";
+			break;
+		}
+		
+		case 5: {
+			Generalt_Gyilkos_Fegyver="sok Agresszív Csincsillákkal";
+			break;
+		}
+		
+		case 6: {
+			Generalt_Gyilkos_Fegyver="egy Tavalyi bejglivel";
+			break;
+		}
+		
+		case 7: {
+			Generalt_Gyilkos_Fegyver="George Clooney-val";
+			break;
+		}
+		
+		case 8: {
+			Generalt_Gyilkos_Fegyver="egy átkozott pakli Tarott kártyával";
+			break;
+		}
+		
+		case 9: {
+			Generalt_Gyilkos_Fegyver="egy Proton ágyúval";
+			break;
+		}
+		
+		case 10: {
+			Generalt_Gyilkos_Fegyver="Rasengannal";
+			break;
+		}
+		
+		case 11: {
+			Generalt_Gyilkos_Fegyver="a Vajákkal";
+			break;
+		}
+		
+		case 12: {
+			Generalt_Gyilkos_Fegyver="a Hatalom Gyűrűivel";
+			break;
+		}
+		
+		
+		default:
+			break;
+		}
+		
+		
+		switch (Random_Halott) {
+		case 1: {
+			Generalt_Halott="Frederick-et";
+			break;
+		}
+		case 2: {
+			Generalt_Halott="A Télapót";
+			break;
+		}
+		case 3: {
+			Generalt_Halott="Hamupipőkét";
+			break;
+		}
+		case 4: {
+			Generalt_Halott="Törpapát";
+			break;
+		}
+		case 5: {
+			Generalt_Halott="Frodót";
+			break;
+		}
+		case 6: {
+			Generalt_Halott="Dolores Umbridge ot";
+			break;
+		}
+		case 7: {
+			Generalt_Halott="Super Mariot";
+			break;
+		}
+		case 8: {
+			Generalt_Halott="Samut";
+			break;
+		}
+		case 9: {
+			Generalt_Halott="Taylor Swiftet";
+			break;
+		}
+		case 10: {
+			Generalt_Halott="Willy Wonkát";
+			break;
+		}
+		
 		default:
 			break;
 		}
 
 
-		
+		System.out.println("Gyilkos fegyver: "+(Gyilkos_Fegyver_Mezo_index_Megadas+1)+" Gyilkos: "+(Gyilkos_Mezo_index_Megadas+1)+" Gyilkos szoba: "+(Gyilkos_Szoba_Mezo_index_Megadas+1));
 		
 	}
 		
