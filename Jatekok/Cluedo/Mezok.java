@@ -611,7 +611,7 @@ public class Mezok extends Alapkep{
 				public void run() {
 					Kocka_gif.setVisible(true);
 					i++;
-					if(i==2) {
+					if(i==6) {
 						
 						//System.err.println("Elerte a vegsot");
 						kocka_timer.cancel();
