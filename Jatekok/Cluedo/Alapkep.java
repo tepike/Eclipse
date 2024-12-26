@@ -49,7 +49,8 @@ public class Alapkep extends Futtatas {
 	static boolean Kocka_Boolean=false;
 	static ImageIcon Nagy_Kocka= new ImageIcon((Alapkep.class.getResource("/Cluedo/Kepek/Kocka.png")));
 	static ImageIcon Kicsi_kocka= new ImageIcon((Alapkep.class.getResource("/Cluedo/Kepek/Kocka.png")));
-	
+	public static JLabel Jatek_Vege= new JLabel();
+	public static boolean Jatek_Vege_Boolean=false;
 	
 
 
@@ -174,6 +175,9 @@ public static void Betoltes() {
 	 Kocka_Dobas.addMouseListener(new MouseAdapter() {
 		 	public void mouseReleased(MouseEvent e) {
 		 		Mezok.Kocka_Dobas_Inudl();
+		 		if(Jatek_Vege_Boolean) {
+		 			System.exit(0);
+		 		}
 		 	}
 		 
 			public void mouseEntered(MouseEvent e) {

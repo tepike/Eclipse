@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Label;
 import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -14,13 +15,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 
 public class Mezok extends Alapkep{
-	static boolean Mezo_Szam_Lathato=true;
+	static boolean Mezo_Szam_Lathato=false;
 	static int Mezo_X;
 	static int Mezo_Y;
 	static boolean Eger_belepett=false;
@@ -44,6 +46,15 @@ public class Mezok extends Alapkep{
 	public static String Generalt_Gyilkos_Fegyver;
 	public static String Generalt_Gyilkos_Szoba;
 	public static String Generalt_Halott;;
+	
+	public static boolean Gyilkos_Fegyver_Gif=false;
+	public static boolean Gyilkos_Szoba_Gif=false;
+	public static boolean Gyilkos_Gif=false;
+	
+	public static JLabel Gyilkos_Fegyver_GIF= new JLabel();
+	public static JLabel Gyilkos_GIF= new JLabel();
+	public static JLabel GyilkosSzoba_GIF= new JLabel();
+	public static JLabel Vege_Szoveg= new JLabel();
 	
 	static void Mezo_Betoltes() {
 
@@ -265,7 +276,7 @@ public class Mezok extends Alapkep{
 		Mezok[53].add(Mezo_Szamok[53]);
 		Jatek_Hatterkep.add(Mezok[53]);
 		Mezok[53].setVisible(true);
-		Mezo_Szamok[53].setVisible(true);
+		Mezo_Szamok[53].setVisible(Mezo_Szam_Lathato);
 
 		
 		Mezok[54].setBounds(400, 80, 250, 180);
@@ -273,70 +284,70 @@ public class Mezok extends Alapkep{
 		Mezok[54].add(Mezo_Szamok[54]);
 		Jatek_Hatterkep.add(Mezok[54]);
 		Mezok[54].setVisible(true);
-		Mezo_Szamok[54].setVisible(true);
+		Mezo_Szamok[54].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[55].setBounds(670, 80, 190, 180);
 		Mezok[55].setBackground(new Color(255,255,255,50));
 		Mezok[55].add(Mezo_Szamok[55]);
 		Jatek_Hatterkep.add(Mezok[55]);
 		Mezok[55].setVisible(true);
-		Mezo_Szamok[55].setVisible(true);
+		Mezo_Szamok[55].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[56].setBounds(890, 80, 100, 180);
 		Mezok[56].setBackground(new Color(255,255,255,50));
 		Mezok[56].add(Mezo_Szamok[56]);
 		Jatek_Hatterkep.add(Mezok[56]);
 		Mezok[56].setVisible(true);
-		Mezo_Szamok[56].setVisible(true);
+		Mezo_Szamok[56].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[57].setBounds(1020, 80, 230, 180);
 		Mezok[57].setBackground(new Color(255,255,255,50));
 		Mezok[57].add(Mezo_Szamok[57]);
 		Jatek_Hatterkep.add(Mezok[57]);
 		Mezok[57].setVisible(true);
-		Mezo_Szamok[57].setVisible(true);
+		Mezo_Szamok[57].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[58].setBounds(1020, 280, 230, 160);
 		Mezok[58].setBackground(new Color(255,255,255,50));
 		Mezok[58].add(Mezo_Szamok[58]);
 		Jatek_Hatterkep.add(Mezok[58]);
 		Mezok[58].setVisible(true);
-		Mezo_Szamok[58].setVisible(true);
+		Mezo_Szamok[58].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[59].setBounds(1040, 460, 210, 210);
 		Mezok[59].setBackground(new Color(255,255,255,50));
 		Mezok[59].add(Mezo_Szamok[59]);
 		Jatek_Hatterkep.add(Mezok[59]);
 		Mezok[59].setVisible(true);
-		Mezo_Szamok[59].setVisible(true);
+		Mezo_Szamok[59].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[60].setBounds(1020, 690, 210, 300);
 		Mezok[60].setBackground(new Color(255,255,255,50));
 		Mezok[60].add(Mezo_Szamok[60]);
 		Jatek_Hatterkep.add(Mezok[60]);
 		Mezok[60].setVisible(true);
-		Mezo_Szamok[60].setVisible(true);
+		Mezo_Szamok[60].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[61].setBounds(570, 750, 250, 240);
 		Mezok[61].setBackground(new Color(255,255,255,50));
 		Mezok[61].add(Mezo_Szamok[61]);
 		Jatek_Hatterkep.add(Mezok[61]);
 		Mezok[61].setVisible(true);
-		Mezo_Szamok[61].setVisible(true);
+		Mezo_Szamok[61].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[62].setBounds(90, 750, 290, 240);
 		Mezok[62].setBackground(new Color(255,255,255,50));
 		Mezok[62].add(Mezo_Szamok[62]);
 		Jatek_Hatterkep.add(Mezok[62]);
 		Mezok[62].setVisible(true);
-		Mezo_Szamok[62].setVisible(true);
+		Mezo_Szamok[62].setVisible(Mezo_Szam_Lathato);
 		
 		Mezok[63].setBounds(50, 525, 110, 200);
 		Mezok[63].setBackground(new Color(255,255,255,50));
 		Mezok[63].add(Mezo_Szamok[63]);
 		Jatek_Hatterkep.add(Mezok[63]);
 		Mezok[63].setVisible(true);
-		Mezo_Szamok[63].setVisible(true);
+		Mezo_Szamok[63].setVisible(Mezo_Szam_Lathato);
 		
 		for(int i =1;i<12;i++) {
 			Gyilkos_Szoba_Tarolas.add(false);
@@ -416,7 +427,11 @@ public class Mezok extends Alapkep{
 							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+30);
 							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
 						}
-						
+						if(!Gyilkos_Gif) {
+							System.out.println("Gyilkos gif betoltese");
+							Gyilkos_indul();
+						}
+						Gyilkos_Gif=true;
 						
 						}
 							//Gyilkos Fegyver megtalálás
@@ -436,7 +451,11 @@ public class Mezok extends Alapkep{
 							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+Kivalasztott_Karakterek.Szoveg_magas_tav);
 							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
 						}
-						
+						if(!Gyilkos_Fegyver_Gif) {
+							System.out.println("Gyilkos_Fegyver gif betoltese");
+							Gyilkos_Fegyver_indul();
+						}
+						Gyilkos_Fegyver_Gif=true;
 						
 						}
 							//Gyilkos szoba megtalálás
@@ -456,6 +475,12 @@ public class Mezok extends Alapkep{
 							int magas=((int)Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).getLocation().getY()+(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1)*23);
 							Kivalasztott_Karakterek.Jatek_Szoveg.get(Kivalasztott_Karakterek.Jatek_Szoveg.size()-1).setBounds(5, magas, 240, 16);
 						}
+						if(!Gyilkos_Szoba_Gif) {
+							System.out.println("Gyilkos_Szoba gif betoltese");
+							Gyilkos_Szoba_indul();
+						}
+						Gyilkos_Szoba_Gif=true;
+						
 						
 						
 
@@ -622,6 +647,115 @@ public class Mezok extends Alapkep{
 			
 
 		}
+	
+	public static void Gyilkos_Fegyver_indul() {
+			System.out.println("Gyilkos_Fegyver gif elindult");
+			Jatek_Hatterkep.add(Gyilkos_Fegyver_GIF);
+			Gyilkos_Fegyver_GIF.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Gyilkos_fegyver.gif")));
+			
+			Gyilkos_Fegyver_GIF.setBounds(Jatek_Hatterkep.getWidth()/2-150, Jatek_Hatterkep.getHeight()/2-250, 500, 300);
+			Jatek_Hatterkep.setComponentZOrder(Gyilkos_Fegyver_GIF, 0);
+			TimerTask task=new TimerTask() {
+				int i=1;
+				public void run() {
+					Gyilkos_Fegyver_GIF.setVisible(true);
+					
+
+					i++;
+					if(i==6) {
+						Gyilkos_Fegyver_GIF.setVisible(false);
+						//System.err.println("Elerte a vegsot");
+						kocka_timer.cancel();
+						kocka_timer=new Timer();
+						keret.repaint();
+					}
+				}		
+			};
+			kocka_timer.scheduleAtFixedRate(task, 1000, 1000);
+		}
+	
+	public static void Gyilkos_Szoba_indul() {
+		System.out.println("Gyilkos_Szoba gif elindult");
+		Jatek_Hatterkep.add(GyilkosSzoba_GIF);
+		GyilkosSzoba_GIF.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Gyilkos_room.gif")));
+		
+		GyilkosSzoba_GIF.setBounds(Jatek_Hatterkep.getWidth()/2-320, Jatek_Hatterkep.getHeight()/2-180, 640, 360);
+		Jatek_Hatterkep.setComponentZOrder(GyilkosSzoba_GIF, 0);
+		TimerTask task=new TimerTask() {
+			int i=1;
+			public void run() {
+				GyilkosSzoba_GIF.setVisible(true);
+				
+
+				i++;
+				if(i==6) {
+					GyilkosSzoba_GIF.setVisible(false);
+					//System.err.println("Elerte a vegsot");
+					kocka_timer.cancel();
+					kocka_timer=new Timer();
+					keret.repaint();
+				}
+			}		
+		};
+		kocka_timer.scheduleAtFixedRate(task, 1000, 1000);
+	}
+	
+	public static void Gyilkos_indul() {
+		System.out.println("Gyilkos gif elindult");
+		Jatek_Hatterkep.add(Gyilkos_GIF);
+		Gyilkos_GIF.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/Gyilkos_megtalalas.gif")));
+		
+		Gyilkos_GIF.setBounds(Jatek_Hatterkep.getWidth()/2-320, Jatek_Hatterkep.getHeight()/2-170, 640, 340);
+		Jatek_Hatterkep.setComponentZOrder(Gyilkos_GIF, 0);
+		TimerTask task=new TimerTask() {
+			int i=1;
+			public void run() {
+				Gyilkos_GIF.setVisible(true);
+				
+
+				i++;
+				if(i==6) {
+					Gyilkos_GIF.setVisible(false);
+					//System.err.println("Elerte a vegsot");
+					kocka_timer.cancel();
+					kocka_timer=new Timer();
+					keret.repaint();
+				}
+			}		
+		};
+		kocka_timer.scheduleAtFixedRate(task, 1000, 1000);
+	}
+	
+	public static void Jatek_Vege() {
+		
+		System.out.println("Jatek vege betoltes");
+		JPanel Szoveg_Doboz= new JPanel();
+		Szoveg_Doboz.setBounds(Jatek_Alap_Hatterkep.getWidth()/2-1000, Jatek_Alap_Hatterkep.getHeight()/2-300, 1900, 40);
+		Szoveg_Doboz.setBackground(new Color(0,0,0,250));
+		Szoveg_Doboz.setLayout(null);
+		
+		JLabel Game_Over= new JLabel();
+		Game_Over.setIcon(new ImageIcon(Alapkep.class.getResource("/Cluedo/Kepek/tuzijatek.gif")));
+		Game_Over.setBounds(Jatek_Alap_Hatterkep.getWidth()/2-240, Jatek_Alap_Hatterkep.getHeight()/2-130, 480, 260);
+		Kocka_Dobas.setVisible(false);
+		Kocka_gif.setVisible(false);
+		Jatek_Alap_Hatterkep.add(Szoveg_Doboz);
+		Jatek_Alap_Hatterkep.add(Game_Over);
+		Jatek_Hatterkep.setVisible(false);
+		Alapkep.Karakter_Jelzo.setVisible(false);
+		Kivalasztott_Karakterek.Action_Text.setVisible(false);
+		Vege_Szoveg.setBounds(0, 0, 1900, 30);
+		Vege_Szoveg.setFont(new Font("Arial", 0, 25));
+		Vege_Szoveg.setForeground(Color.white);
+		Szoveg_Doboz.add(Vege_Szoveg);
+		Jatek_Alap_Hatterkep.repaint();
+		Jatek_Vege_Boolean=true;
+		
+
+	}
+	
+	
+	
 	static void Gyilkos_Dolgok_Betoltese() {
 		System.out.println("Gyilkosok megnevezése");
 		int Random_Gyilkos_Fegyver=random.nextInt(12)+1;
