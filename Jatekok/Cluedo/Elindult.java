@@ -1,9 +1,13 @@
 package Cluedo;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.swing.JLabel;
+import javax.swing.plaf.FontUIResource;
 
 public class Elindult extends KarakterValasztas{
 	public static Timer ELindult_A_Jatek= new Timer();
@@ -11,6 +15,7 @@ public class Elindult extends KarakterValasztas{
 	public static int Aktiv_Karakter_Id=1;
 	public static boolean kovetkezo=false;
 	public static int Jelenlegi_kor=1;
+	public static JLabel Kovetkezo= new JLabel();
 	
 	public static void Elindit() {
 		
@@ -61,6 +66,14 @@ public class Elindult extends KarakterValasztas{
 					}
 					//System.out.println("Karakter megszinez mert uj lep");
 					Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id).setForeground(Color.green);
+					
+					Kovetkezo.setText(Kivalasztott_Karakterek.Karakterek.get(Aktiv_Karakter_Id).getText()+" következik");
+					Kovetkezo.setBounds(Jatek_Alap_Hatterkep.getWidth()/2+150, Jatek_Alap_Hatterkep.getHeight()/2+200, Kovetkezo.getText().length()*40, 70);
+					Kovetkezo.setFont(new Font("Arial", 1, 60));
+					Kovetkezo.setForeground(Color.red);
+					Jatek_Alap_Hatterkep.add(Kovetkezo);
+					Jatek_Alap_Hatterkep.setComponentZOrder(Kovetkezo, 0);
+					Kovetkezo.setVisible(true);
 					System.out.println("\tMezo szinezes: "+Kivalasztott_Karakterek.Jatszo_Karakterek.get(Aktiv_Karakter_Id).getMezon_all());
 					kovetkezo=false;
 					Kocka_Dobas.setVisible(true);

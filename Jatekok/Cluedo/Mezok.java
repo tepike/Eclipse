@@ -605,6 +605,7 @@ public class Mezok extends Alapkep{
 	
 	public static void Kocka_Dobas_Inudl() {
 		Kocka_Dobas.setVisible(false);
+		Elindult.Kovetkezo.setVisible(false);
 			//System.out.println("Kocka gif elindult");
 			TimerTask task=new TimerTask() {
 				int i=1;

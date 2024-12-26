@@ -25,7 +25,7 @@ import javax.swing.event.MouseInputListener;
 
 import Bloods.Keret;
 
-public class Alapkep extends Futtatas {
+public class Alapkep extends Cluedo_Futtat {
 	static JFrame keret= new JFrame("Cluedo");
 	static JPanel Fokepernyo = new JPanel();
 	public static int Szeles=1920;
