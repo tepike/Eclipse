@@ -8,6 +8,7 @@
 	<classpathentry kind="src" path="AutoClicker"/>
 	<classpathentry kind="src" path="Fivem_Programs"/>
 	<classpathentry kind="src" path="Jatekok"/>
+	<classpathentry kind="src" path="Macro"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
 		<attributes>
 			<attribute name="module" value="true"/>

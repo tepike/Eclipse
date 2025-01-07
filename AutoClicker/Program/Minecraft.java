@@ -7,6 +7,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Timer;
@@ -151,10 +152,12 @@ public class Minecraft implements NativeKeyListener{
 								e.printStackTrace();
 							}
 	    	            	System.out.println("Kattint");
-	    	            	robot.mousePress(InputEvent.BUTTON3_MASK);
+	    	            	//robot.mousePress(InputEvent.BUTTON3_MASK);
+	    	            	robot.keyPress(KeyEvent.VK_0);
 	    	            	try {
 								Thread.sleep(10);
-								robot.mouseRelease(InputEvent.BUTTON3_MASK);
+								//robot.mouseRelease(InputEvent.BUTTON3_MASK);
+								robot.keyPress(KeyEvent.VK_0);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
