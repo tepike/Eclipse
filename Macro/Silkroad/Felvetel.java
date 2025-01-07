@@ -17,6 +17,7 @@ public class Felvetel  {
 	private static double ido=0; //Ezzé alakul a TimerTask alapján
 	static int ido_szamlalo =0; //Ez fut a TimerTaskban
 	private static Integer Gomb=0;
+	static double Utolso_Ido;
 	
 	public static Timer Ido=new Timer();;
 	static Timer Ido_Figyeles = new Timer();
@@ -225,38 +226,42 @@ public class Felvetel  {
 	
 	public static void Felvetel_leallit() {
 		
-		
+		Utolso_Ido=ido;
 		System.out.println("Billentyu figyeles leallit");
-		Main.felvetel_megy=false;
-		Main.Felvetel_Label.setForeground(Color.black);
-		Elso_Lenyomva=false;
-    	ido=0;
-    	ido_szamlalo=0;
-
-		//Main.Felvett_macro_Skill_megjelenit.clear();
-		//Main.Felvett_macro_Ido_megjelenit.clear();
-		Figyeles_Elinditva=false;
-		GombNyomva=false;
-		Gombnyomas_int=1;
-		
-		Ido.cancel();
-		Ido = new Timer();
-		Ido_Boolean=true;
-		Main.felvetel_megy=false;
-		
-		
-		ido=0;
-		Macro_indithato=true;
-		System.err.println("Ki iras: ");
+		System.err.println("Utolsonak beallitando ido: "+ido);
+		System.err.println("\nKi iras: ");
 		//System.out.println(Main.Felvett_macro_Skill_megjelenit.size());
 		for (JLabel label : Main.Felvett_macro_Skill_megjelenit) {
 			String gomb= label.getText();
-			System.out.println("Felvett label ki irasa");
+			//System.out.println("Felvett label ki irasa");
 		    //System.out.println(label.getText());
 			Main.Rogzites.add(new Felvetel(Integer.parseInt(gomb), Double.parseDouble(Main.Felvett_macro_Ido_megjelenit.get(felvetel_index).getText())));
 			System.err.println("\tFelvett adatok a Rogzitesben Gomb: "+Main.Rogzites.get(Main.Rogzites.size()-1).getGomb()+" Ido: "+Main.Rogzites.get(Main.Rogzites.size()-1).getIdo());
 			felvetel_index++;
 		}
+		System.err.println("Utolsonak beallitando ido: "+ido);
+		Main.Rogzites.get(Main.Rogzites.size()-1).setIdo(Utolso_Ido);
+		Main.Felvett_macro_Ido_megjelenit.get(Main.Felvett_macro_Ido_megjelenit.size()-1).setText(Double.toString(Utolso_Ido));
+    	Felvett_Gombok.repaint();
+    	Main.frame.repaint(); 
+    	System.err.println("Utolsonak beallitando ido: "+ido);
+		Main.felvetel_megy=false;
+		Main.Felvetel_Label.setForeground(Color.black);
+		Elso_Lenyomva=false;
+
+		Figyeles_Elinditva=false;
+		GombNyomva=false;
+		Gombnyomas_int=1;
+		
+		Main.felvetel_megy=false;
+		
+		Macro_indithato=true;
+		Ido.cancel();
+		Ido = new Timer();
+		Ido_Boolean=true;
+    	ido=0;
+    	ido_szamlalo=0;
+
 
 		
 		Kiir();
