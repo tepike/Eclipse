@@ -1,17 +1,22 @@
 package Silkroad;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import Cluedo.Alapkep;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
@@ -31,10 +36,12 @@ public class Main extends JFrame {
 	public static ArrayList<JLabel> Felvett_macro_Skill_megjelenit = new ArrayList<JLabel>();
 	public static ArrayList<JLabel> Felvett_macro_Ido_megjelenit = new ArrayList<JLabel>();
 	public static boolean fut=false;
+	public static boolean Gyorsgomb_Valthato=false;
 	
 	private JLabel Lathato_Label;
 	public static boolean kicsinyit=false;
 	public static boolean felvetel_megy=false;
+	static boolean Segitseg_Lathatho=true;
 
 	
 
@@ -106,18 +113,25 @@ public class Main extends JFrame {
 		Inditas_Label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				if(Main.Rogzites.size()>0) {
 				Felvetel.Macro_indithato=true;
 				Lejatszas.Lejatszas_Indit();
 				if(fut) {
+					System.err.println("Lejatszas megallit");
+					Main.Felvett_macro_Skill_megjelenit.get(Lejatszas.Index).setForeground(Color.red);
+					Inditas_Label.setForeground(Color.black);
+					Lejatszas.Index=0;
 					fut=false;
 				}else {
+					System.err.println("Lejatszas inditas");
 					fut=true;
 				}
 				
 			}
+			}
 		});
 		Inditas_Label.setFont(new Font("Tahoma", Font.BOLD, 16));
-		Inditas_Label.setBounds(22, 4, 60, 30);
+		Inditas_Label.setBounds(32, 4, 60, 30);
 		contentPane.add(Inditas_Label);
 		
 		Felvetel_Label = new JLabel("Felvétel");
@@ -152,6 +166,8 @@ public class Main extends JFrame {
 				Felvetel_Label.setForeground(Color.red);
 				felvetel_megy=true;
 				Felvetel.Felvetel_indit();
+				Felvetel.scrollPane.setVisible(false);
+				
 				
 				}
 				
@@ -160,7 +176,7 @@ public class Main extends JFrame {
 			}
 		});
 		Felvetel_Label.setFont(new Font("Tahoma", Font.BOLD, 16));
-		Felvetel_Label.setBounds(135, 4, 65, 30);
+		Felvetel_Label.setBounds(223, 5, 65, 30);
 		contentPane.add(Felvetel_Label);
 		
 		JLabel Betoltes_Label = new JLabel("Betöltés");
@@ -191,9 +207,20 @@ public class Main extends JFrame {
 		contentPane.add(Mentes_Label);
 		
 		Gyorsgomb_Label = new JLabel("(Home)");
+		Gyorsgomb_Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(!Gyorsgomb_Valthato) {
+					Gyorsgomb_Valthato=true;
+					System.out.println("Gyorsgomb csere: "+Gyorsgomb_Valthato);
+					Gyorsgomb_Label.setText("Nyomj gombot");
+					Gyorsgomb_Label.setForeground(Color.yellow);
+				}
+			}
+		});
 		Gyorsgomb_Label.setHorizontalAlignment(SwingConstants.CENTER);
 		Gyorsgomb_Label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		Gyorsgomb_Label.setBounds(2, 33, 100, 20);
+		Gyorsgomb_Label.setBounds(2, 33, 120, 20);
 		contentPane.add(Gyorsgomb_Label);
 		setBackground(new Color(200,200,200,100));
 		
@@ -245,6 +272,27 @@ public class Main extends JFrame {
 		 imageIcon = new ImageIcon(newimg);  // transform it back
 		Lathato_Label.setIcon(imageIcon);
 		contentPane.add(Lathato_Label);
+		
+		JLabel Felvetel_Befejez_Label = new JLabel("Felvétel befejezése: Enter");
+		Felvetel_Befejez_Label.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Felvetel_Befejez_Label.setBounds(180, 29, 185, 30);
+		contentPane.add(Felvetel_Befejez_Label);
 		Felvetel.Billentyu_Figyeles();
+		
+		Felvetel.Segitseg.setLayout(new BorderLayout());
+
+
+		Felvetel.Segitseg.setBounds(10, 15, 530, 400);
+		Felvetel.Segitseg.setText(""
+				+ "1. Addig nem indítható a program amíg nincs felvéve/betöltve\nadat!"
+				+ "\n\n2. Felvétel gomb után csak akkor indul el a tényleges\nfelvétel amikor az első gombot lenyomjuk.\nHa elértünk az utolsó skill gombhoz amit hozzá akarunk adni\nakkor várjuk meg amíg a skill végig megy,\nmajd nyomjunk Entert a befjezéshez!"
+				+ "\n\n3. Az indítás alatti (home)-gomb az amivel eltudjuk indítani\na makrót. Fontos, hogy nem rá kattintva indul el hanem\nténylegesen a gomb lenyomásával.\nHa mégis rányomunk a (home) gomb-ra akkor magát\na gyorsindító gombot tudjuk megváltoztatni amit\njelezni is fog a rendszer.");
+		Felvetel.Segitseg.setFont(new Font("Arial", 0, 20));
+		Felvetel.Segitseg.setForeground(Color.red);
+		Felvetel.Segitseg.setEditable(false);
+		Felvetel.scrollPane = new JScrollPane(Felvetel.Segitseg);
+		Felvetel.scrollPane.setBounds(5,15,540,400);
+
+		Felvetel.Felvett_Gombok.add(Felvetel.scrollPane);
 	}
 }

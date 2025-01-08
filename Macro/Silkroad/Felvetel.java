@@ -6,6 +6,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
@@ -34,6 +38,13 @@ public class Felvetel  {
 	static int felvetel_index=0;
 	
 	public static boolean Macro_indithato=false;
+	static boolean Lejatszas_fut=false;
+	
+	static String Lejatszas_Gomb="Home";
+	
+	static JTextArea Segitseg=new JTextArea();
+	public static JScrollPane scrollPane= new JScrollPane();
+
 
 	
 	
@@ -73,6 +84,45 @@ public class Felvetel  {
 			
 			GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
 		        public void nativeKeyReleased(NativeKeyEvent e) {
+	        		if(Main.Gyorsgomb_Valthato) {
+	        			Lejatszas_Gomb=NativeKeyEvent.getKeyText(e.getKeyCode());
+	        			if(Lejatszas_Gomb.equals("Enter")) {
+	        				Lejatszas_Gomb="Home";
+	        			}
+	        			System.out.println("Megvaltozott a gyorsgomb: "+Lejatszas_Gomb);
+	        			Main.Gyorsgomb_Label.setText("("+Lejatszas_Gomb+")");
+	        			Main.Gyorsgomb_Label.setForeground(Color.black);
+	        	    	Main.frame.repaint();
+	        			Main.Gyorsgomb_Valthato=false;
+	        			
+	        		}
+
+		        	if(Main.Rogzites.size()>0) {
+		        		String Gyorsgomb=NativeKeyEvent.getKeyText(e.getKeyCode());
+		        		
+		        		if(Gyorsgomb.equals(Lejatszas_Gomb)) {
+		        			System.out.println("Gyorsgomb egyezik");
+		        			
+		    				if(Lejatszas_fut) {
+		    					System.err.println("Lejatszas megallit");
+		    					Main.Felvett_macro_Skill_megjelenit.get(Lejatszas.Index).setForeground(Color.red);
+		    					Main.Inditas_Label.setForeground(Color.black);
+		    					Lejatszas.Index=0;
+		    					Lejatszas_fut=false;
+		    					Main.fut=false;
+		    	    	    	Felvetel.Felvett_Gombok.repaint();
+		    	    	    	Main.frame.repaint(); 
+		    				}else {
+		    					Felvetel.Macro_indithato=true;
+		    					System.err.println("Lejatszas inditas");
+		    					Lejatszas_fut=true;
+		    					Lejatszas.Lejatszas_Indit();
+		    					Main.fut=true;
+		    				}
+		        		};
+
+
+		        	}
 		        	if(Main.felvetel_megy) {
 		        		if(Ido_Boolean) {
 		        			System.out.println("\n\nFelteltel helyes \n\n");
@@ -87,7 +137,11 @@ public class Felvetel  {
 		        		keyText=NativeKeyEvent.getKeyText(e.getKeyCode());
 		        		GombNyomva=true;
 		        		System.out.println("Lenyomott gomb: "+keyText);
-		        		Key_Text_Felvetele_Panelra();
+		        		if(!keyText.equals("Enter")) {
+		        			Key_Text_Felvetele_Panelra();
+		        		}else {
+		        			Felvetel_leallit();
+		        		}
 
 		        		
 
@@ -100,7 +154,12 @@ public class Felvetel  {
 		        			Elozo_Gomb=NativeKeyEvent.getKeyText(e.getKeyCode());
 		        			GombNyomva=true;
 		        		System.out.println("Lenyomott hasonlito gomb: "+Elozo_Gomb);
+		        		if(!Elozo_Gomb.equals("Enter")) {
 		        		Key_Text2_Felvetele_Panelra();
+		        		}else {
+		        			Felvetel_leallit();
+		        		}
+
 
 
 		        		
@@ -225,7 +284,7 @@ public class Felvetel  {
 	}
 	
 	public static void Felvetel_leallit() {
-		
+		Main.Inditas_Label.setForeground(Color.black);
 		Utolso_Ido=ido;
 		System.out.println("Billentyu figyeles leallit");
 		System.err.println("Utolsonak beallitando ido: "+ido);
@@ -261,6 +320,7 @@ public class Felvetel  {
 		Ido_Boolean=true;
     	ido=0;
     	ido_szamlalo=0;
+    	felvetel_index=0;
 
 
 		
