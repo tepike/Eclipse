@@ -33,11 +33,11 @@ public class xmladatok {
 			c.appendChild(Gyoker);
 			
 			Element bolt1=c.createElement("Tanulo");
-			Gyoker.appendChild(bolt1);	
+			Gyoker.appendChild(bolt1);
 
 			Element kategoria1=c.createElement("Diak");
-			
 			bolt1.appendChild(kategoria1);
+			
 			Element Termek1=c.createElement("Osztaly");
 			Termek1.appendChild(c.createTextNode("Adidas"));
 			kategoria1.appendChild(Termek1);
