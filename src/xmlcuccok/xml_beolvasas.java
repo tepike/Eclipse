@@ -13,7 +13,7 @@ import java.io.File;
 import javax.xml.parsers.*;
 
 
-public class xml {
+public class xml_beolvasas {
 	public static void main(String[] args) {
 		try {
 			

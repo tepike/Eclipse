@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Makró>
+    <Tárolt_adat>
+        <Skill_gomb>8</Skill_gomb>
+        <Várakozási_idő>0.1</Várakozási_idő>
+    </Tárolt_adat>
+    <Tárolt_adat>
+        <Skill_gomb>4</Skill_gomb>
+        <Várakozási_idő>0.2</Várakozási_idő>
+    </Tárolt_adat>
+    <Tárolt_adat>
+        <Skill_gomb>5</Skill_gomb>
+        <Várakozási_idő>0.3</Várakozási_idő>
+    </Tárolt_adat>
+</Makró>

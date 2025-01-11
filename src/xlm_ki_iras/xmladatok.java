@@ -41,6 +41,7 @@ public class xmladatok {
 			Element Termek1=c.createElement("Osztaly");
 			Termek1.appendChild(c.createTextNode("Adidas"));
 			kategoria1.appendChild(Termek1);
+			
 			Element Termek2=c.createElement("Tagozat");
 			Termek2.appendChild(c.createTextNode("Nike"));
 			kategoria1.appendChild(Termek2);

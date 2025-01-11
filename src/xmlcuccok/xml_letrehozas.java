@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-public class xmladatok {
+public class xml_letrehozas {
 
 	public static void main(String[] args) {
 

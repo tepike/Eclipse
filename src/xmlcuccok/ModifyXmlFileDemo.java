@@ -37,7 +37,7 @@ public class ModifyXmlFileDemo {
 
          // loop the supercar child node
          NodeList list = Versenyzo.getChildNodes();
-         
+         System.out.println("For ciklus indul");
          for (int temp = 0; temp < list.getLength(); temp++) {
             Node node = list.item(temp);
             //System.out.print(node);
@@ -45,6 +45,7 @@ public class ModifyXmlFileDemo {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                Element eElement = (Element) node;
                if ("Nev".equals(eElement.getNodeName())) {
+            	   System.out.println("Talalt 'Nev' alapu gyereket ");
                   if(beker_nev.equals(eElement.getTextContent())) {
                      //eElement.getTextContent("");                	  //System.out.println("Versenyzo neve:"+eElement.getElementsByTagName("Nev").item(0).getTextContent());
                 	  System.out.print(list.item(3).getTextContent());

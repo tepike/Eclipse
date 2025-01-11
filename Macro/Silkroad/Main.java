@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import Cluedo.Alapkep;
 
@@ -20,6 +22,9 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -49,6 +54,7 @@ public class Main extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,6 +73,21 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 600, 600);
 		setLocationRelativeTo(null);
@@ -186,6 +207,7 @@ public class Main extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				if(nyomhato) {
 				System.out.println("Betoltes gomb megnyomva");
+				Betoltes.Betoltes_Letrehozasa();
 				}
 				
 			}
@@ -202,6 +224,28 @@ public class Main extends JFrame {
 		contentPane.add(Betoltes_Label);
 		
 		JLabel Mentes_Label = new JLabel("Mentés");
+		Mentes_Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(Rogzites.size()>0) {
+					System.out.println("Mentes elindul, mert talalt elerheto adatot");
+					try {
+						Mentes.Mentes_Letrehozas();
+					} catch (ParserConfigurationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (TransformerException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else {
+					System.err.println("Nincs mit menteni");
+				}
+			}
+		});
 		Mentes_Label.setFont(new Font("Tahoma", Font.BOLD, 16));
 		Mentes_Label.setBounds(419, 559, 65, 30);
 		contentPane.add(Mentes_Label);
@@ -225,7 +269,7 @@ public class Main extends JFrame {
 		setBackground(new Color(200,200,200,100));
 		
 		Felvetel.Felvett_Gombok.setLayout(null);
-		Felvetel.Felvett_Gombok.setBounds(20, 80, 550, 460);
+		Felvetel.Felvett_Gombok.setBounds(20, 80, 560, 460);
 		Felvetel.Felvett_Gombok.setBackground(new Color(0,0,0,150));
 		Felvetel.Felvett_Gombok.setVisible(true);
 		contentPane.add(Felvetel.Felvett_Gombok);
@@ -282,7 +326,7 @@ public class Main extends JFrame {
 		Felvetel.Segitseg.setLayout(new BorderLayout());
 
 
-		Felvetel.Segitseg.setBounds(10, 15, 530, 400);
+		Felvetel.Segitseg.setBounds(10, 15, 540, 400);
 		Felvetel.Segitseg.setText(""
 				+ "1. Addig nem indítható a program amíg nincs felvéve/betöltve\nadat!"
 				+ "\n\n2. Felvétel gomb után csak akkor indul el a tényleges\nfelvétel amikor az első gombot lenyomjuk.\nHa elértünk az utolsó skill gombhoz amit hozzá akarunk adni\nakkor várjuk meg amíg a skill végig megy,\nmajd nyomjunk Entert a befjezéshez!"
@@ -291,7 +335,7 @@ public class Main extends JFrame {
 		Felvetel.Segitseg.setForeground(Color.red);
 		Felvetel.Segitseg.setEditable(false);
 		Felvetel.scrollPane = new JScrollPane(Felvetel.Segitseg);
-		Felvetel.scrollPane.setBounds(5,15,540,400);
+		Felvetel.scrollPane.setBounds(2,15,555,400);
 
 		Felvetel.Felvett_Gombok.add(Felvetel.scrollPane);
 	}
