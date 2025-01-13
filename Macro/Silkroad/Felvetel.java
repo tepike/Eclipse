@@ -20,11 +20,11 @@ public class Felvetel  {
 	
 	private static double ido=0; //Ezzé alakul a TimerTask alapján
 	static int ido_szamlalo =0; //Ez fut a TimerTaskban
-	private static Integer Gomb=0;
+	private static String Gomb="0";
 	static double Utolso_Ido;
-	
-	public static Timer Ido=new Timer();;
-	static Timer Ido_Figyeles = new Timer();
+	private static Timer Ido; // Globális szinten definiáld
+
+	static boolean Ido_Figyelve=false;
 	
 	static String keyText;
 	static String Elozo_Gomb;
@@ -48,11 +48,11 @@ public class Felvetel  {
 
 	
 	
-	public int getGomb() {
+	public String getGomb() {
 		return Gomb;
 	}
 
-	public void setGomb(int gomb) {
+	public void setGomb(String gomb) {
 		Gomb = gomb;
 	}
 	
@@ -64,7 +64,7 @@ public class Felvetel  {
 		ido = ido;
 	}
 
-	public Felvetel(int Gomb,double ido) {
+	public Felvetel(String Gomb,double ido) {
 		this.ido=ido;
 		this.Gomb=Gomb;;
 		
@@ -136,11 +136,13 @@ public class Felvetel  {
 		        		if(Gombnyomas_int==1) {
 		        		keyText=NativeKeyEvent.getKeyText(e.getKeyCode());
 		        		GombNyomva=true;
-		        		System.out.println("Lenyomott gomb: "+keyText);
+		        		//System.out.println("Lenyomott gomb: "+keyText);
 		        		if(!keyText.equals("Enter")) {
 		        			Key_Text_Felvetele_Panelra();
 		        		}else {
+		        			System.err.println("\t\t\tIdo: "+ido);
 		        			Felvetel_leallit();
+		        			Main.felvetel_megy=false;
 		        		}
 
 		        		
@@ -152,12 +154,14 @@ public class Felvetel  {
 		        		//Ez a rész nézi az össze hasonlító gombot
 		        		if(Gombnyomas_int==2) {
 		        			Elozo_Gomb=NativeKeyEvent.getKeyText(e.getKeyCode());
+		        			//System.err.println("Lenoymott gomb kodja: "+Elozo_Gomb);
 		        			GombNyomva=true;
-		        		System.out.println("Lenyomott hasonlito gomb: "+Elozo_Gomb);
 		        		if(!Elozo_Gomb.equals("Enter")) {
 		        		Key_Text2_Felvetele_Panelra();
 		        		}else {
+		        			System.err.println("\t\t\tIdo: "+ido);
 		        			Felvetel_leallit();
+		        			Main.felvetel_megy=false;
 		        		}
 
 
@@ -184,6 +188,7 @@ public class Felvetel  {
 
 	
 	public static void Key_Text_Felvetele_Panelra() {
+		ido = ido_szamlalo / 1000.0;
 		System.out.println("\t\t\t\t Elso gomb nezes");
 		// Ott kell használni ahol már megkapta a Elozo_Gomb-őt
     	JLabel Skill= new JLabel();
@@ -216,6 +221,7 @@ public class Felvetel  {
 	}
 	
 	public static void Key_Text2_Felvetele_Panelra() {
+		ido = ido_szamlalo / 1000.0;
 		System.out.println("\t\t\t\t Masodik gomb nezes");
 		
 		// Ott kell használni ahol már megkapta a Elozo_Gomb-őt
@@ -250,33 +256,47 @@ public class Felvetel  {
 	}
 	
 	public static void Felvetel_indit() {
+		ido = 0;
+		ido_szamlalo = 0;
+		Ido_Figyelve = false;
+		Ido_Boolean = true;
 		
 		System.out.println("Felvetel elindul / Tarolt adatok torlese: "+Main.Felvett_macro_Skill_megjelenit.size());
 		Main.Felvett_macro_Skill_megjelenit.clear();
 		Main.Felvett_macro_Ido_megjelenit.clear();
 		System.out.println("Torles ellenorzes: "+Main.Felvett_macro_Skill_megjelenit.size());
 		Felvett_Gombok.removeAll();
+		Felvett_Gombok.revalidate();
+		Felvett_Gombok.repaint();
 		Main.frame.repaint();
 		Macro_indithato=false;
 
 	}
 	
 	static void Ido_Figyeles_Indul() {
-		System.err.println("Idonek indulni kellene!!!!!!!!!!!!!!!");
-		Ido.cancel();
-		Ido = new Timer();
+		if (Ido != null) {
+			Ido.cancel(); // Az előző időzítést leállítjuk
+			Ido.purge();  // Az összes beütemezett feladatot töröljük
+		}
+		Ido_Figyelve=true;
+		Ido=new Timer();
 	    Ido.scheduleAtFixedRate(new TimerTask() {
 	        @Override
 	        public void run() {
-	        	System.out.println("Idoszamlalo: "+ido_szamlalo);
+
+	        	System.out.println("Idoszamlalo: "+ido_szamlalo+ " Ido: "+ido);
 	            ido_szamlalo += 100; // Növeld az időt milliszekundumban
 	            ido = ido_szamlalo / 1000.0; // Konvertáld másodpercbe
 	            //System.out.printf("Ido: %.1f%n", ido); // Pontos, 1 tizedesjegyű formátum
 	        	if(GombNyomva) {
 	        		System.err.println("TimerTask ido egyezik");
 	        		GombNyomva=false;
+	        		Utolso_Ido=ido;
 	        		ido_szamlalo=0;
 	        		System.out.println("Ido: "+ido);
+	        	}
+	        	if(!Ido_Figyelve) {
+	        		 Ido.cancel();
 	        	}
 	        }
 	    }, 0, 100);
@@ -284,26 +304,29 @@ public class Felvetel  {
 	}
 	
 	public static void Felvetel_leallit() {
-		Main.Inditas_Label.setForeground(Color.black);
 		Utolso_Ido=ido;
-		System.out.println("Billentyu figyeles leallit");
-		System.err.println("Utolsonak beallitando ido: "+ido);
-		System.err.println("\nKi iras: ");
+		Main.Inditas_Label.setForeground(Color.black);
+		if(Main.Felvett_macro_Ido_megjelenit.size()!=0) {
 		//System.out.println(Main.Felvett_macro_Skill_megjelenit.size());
 		for (JLabel label : Main.Felvett_macro_Skill_megjelenit) {
 			String gomb= label.getText();
 			//System.out.println("Felvett label ki irasa");
-		    //System.out.println(label.getText());
-			Main.Rogzites.add(new Felvetel(Integer.parseInt(gomb), Double.parseDouble(Main.Felvett_macro_Ido_megjelenit.get(felvetel_index).getText())));
+
+			// public Felvetel(int Gomb,double ido);
+
+			Main.Rogzites.add(new Felvetel(gomb, Double.parseDouble(Main.Felvett_macro_Ido_megjelenit.get(felvetel_index).getText())));
 			System.err.println("\tFelvett adatok a Rogzitesben Gomb: "+Main.Rogzites.get(Main.Rogzites.size()-1).getGomb()+" Ido: "+Main.Rogzites.get(Main.Rogzites.size()-1).getIdo());
 			felvetel_index++;
 		}
-		System.err.println("Utolsonak beallitando ido: "+ido);
+		System.err.println("Utolsonak beallitando ido: "+Utolso_Ido);
 		Main.Rogzites.get(Main.Rogzites.size()-1).setIdo(Utolso_Ido);
+		//Itt allitodik az utolso gomb ertekenek az ideje 
 		Main.Felvett_macro_Ido_megjelenit.get(Main.Felvett_macro_Ido_megjelenit.size()-1).setText(Double.toString(Utolso_Ido));
+		}
     	Felvett_Gombok.repaint();
     	Main.frame.repaint(); 
-    	System.err.println("Utolsonak beallitando ido: "+ido);
+
+    	
 		Main.felvetel_megy=false;
 		Main.Felvetel_Label.setForeground(Color.black);
 		Elso_Lenyomva=false;
@@ -315,15 +338,19 @@ public class Felvetel  {
 		Main.felvetel_megy=false;
 		
 		Macro_indithato=true;
-		Ido.cancel();
-		Ido = new Timer();
 		Ido_Boolean=true;
     	ido=0;
     	ido_szamlalo=0;
     	felvetel_index=0;
 
+    	if (Ido != null) {
+    		Ido.cancel();
+    		Ido.purge();
+    		Ido = null; // Biztosítsd, hogy a Timer nullázódik
+    	}
 
-		
+
+    	Ido_Figyelve=false;
 		Kiir();
 		
 	}
