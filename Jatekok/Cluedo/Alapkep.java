@@ -74,7 +74,7 @@ public static void Betoltes() {
 	 Fo_Hatterkep.setVisible(true);
 	 Fo_Hatterkep.add(Start_Gomb);
 	 Start_Gomb.setBounds(keret.getWidth()/2-50,keret.getHeight()/4,100,50);
-	 Start_Gomb.addMouseListener(new MouseListener() {
+	 Start_Gomb.addMouseListener(new MouseAdapter() {
 		
 		@Override
 		public void mouseReleased(MouseEvent e) {
@@ -86,29 +86,7 @@ public static void Betoltes() {
 			KarakterValasztas.Karakter_Valaszto();
 		}
 		
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+
 	});
 	 Fo_Hatterkep.add(Kiadas);
 	 

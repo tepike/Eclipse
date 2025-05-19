@@ -9,7 +9,9 @@
 	<classpathentry kind="src" path="Fivem_Programs"/>
 	<classpathentry kind="src" path="Jatekok"/>
 	<classpathentry kind="src" path="Macro"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+	<classpathentry kind="src" path="Schedule"/>
+	<classpathentry kind="src" path="SeeMta"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-22">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -20,11 +22,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="mysql-connector-j-8.2.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Ádám/Downloads/jna-5.15.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
