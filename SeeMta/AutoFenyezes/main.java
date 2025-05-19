@@ -34,6 +34,7 @@ public class main  {
 	final static JLabel Munkaterulet_Attetszoseg= new JLabel("Áttetszőség");
 	static JLabel MainScreen_Wallpaper;
 
+	
 	public static void main(String[] args) {
 //Keret létrehozása
 		keret.setTitle("Fenyezes");
